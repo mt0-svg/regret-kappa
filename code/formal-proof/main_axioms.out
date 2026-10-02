@@ -8,3 +8,7 @@
 'RegretKappa.LowerSharp.lowerSharpAdv' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RegretKappa.LowerSharp.lowerSharpBound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RegretKappa.LowerSharp.lowerSharpSimplified' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RegretKappa.UnknownBT.theoremB' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RegretKappa.UnknownBT.optimality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RegretKappa.UnknownBT.UB.scaleFreeBound_twelve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RegretKappa.UnknownBT.UB.answer' depends on axioms: [propext, Classical.choice, Quot.sound]

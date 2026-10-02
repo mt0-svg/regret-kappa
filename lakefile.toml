@@ -1,13 +1,13 @@
 name = "regret-kappa"
-version = "1.1.0"
-description = "Online linear regression in dimension one with features revealed on the fly: the minimax regret is (3 + o(1)) B^2 log T, with an explicit learner and an explicit adversary and their constants, proved in Lean 4"
+version = "1.2.0"
+description = "Online linear regression in dimension one with features revealed on the fly: the minimax regret is (3 + o(1)) B^2 log T, with an explicit learner and an explicit adversary and their constants, and a learner that knows neither B nor T attains it, proved in Lean 4"
 keywords = ["math", "online learning", "online linear regression", "minimax regret", "formal verification"]
 license = "Apache-2.0"
 licenseFiles = ["LICENSE", "NOTICE"]
 preferReleaseBuild = true
 releaseRepo = "https://github.com/mt0-svg/regret-kappa"
 defaultTargets = ["Statement", "Upper", "Lower", "UpperSharp", "Corollaries", "CorollariesIndep", "CorollariesCheck",
-  "LowerSharp", "Main", "Challenge", "Solution"]
+  "LowerSharp", "Main", "UnknownBT", "Challenge", "Solution"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -65,6 +65,12 @@ globs = ["RegretKappa.LowerSharp.+"]
 [[lean_lib]]
 name = "Main"
 roots = ["RegretKappa.MainStatement", "RegretKappa.Main"]
+
+# The learner that knows neither B nor T (Section 6 and Appendix C): its statement, Theorem 6.1, Proposition 6.4 and
+# Corollary 6.2 with their lemmas.
+[[lean_lib]]
+name = "UnknownBT"
+globs = ["RegretKappa.UnknownBT.+"]
 
 # The statements with `sorry`, which nothing imports, and the module that proves them: the pair Comparator checks
 # (config.json).

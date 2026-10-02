@@ -5,7 +5,9 @@
     "RegretKappa.mainBoundedFeaturesChain", "RegretKappa.randLowerBound",
     "RegretKappa.UpperSharp.theoremU", "RegretKappa.UpperSharp.theoremULog",
     "RegretKappa.LowerSharp.lowerSharpAdv", "RegretKappa.LowerSharp.lowerSharpBound",
-    "RegretKappa.LowerSharp.lowerSharpSimplified"],
+    "RegretKappa.LowerSharp.lowerSharpSimplified",
+    "RegretKappa.UnknownBT.theoremB", "RegretKappa.UnknownBT.optimality",
+    "RegretKappa.UnknownBT.UB.scaleFreeBound_twelve", "RegretKappa.UnknownBT.UB.answer"],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true,
   "lean_kernel": false

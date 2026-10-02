@@ -1,27 +1,33 @@
-# Comparator before the release, finished 2026-10-02T17:11:33Z, on the sources of clean_build.out (sources sha256 7b8dd470e885c2518c14c07f5b55ec1cedc3f5f8a60214d89b4ff4251cde9119): lake env comparator config.json
+# Comparator before the release, finished 2026-10-02T20:17:06Z, on the sources of clean_build.out (sources sha256 29f0a7752a39637a309a72a28d3fdfd4fd3b70f40d399b9a1413ea49dae13abf): lake env comparator config.json
 # with nanoda alone (lean_kernel false), in a systemd service limited to 8 GiB and 2 CPUs; the last line gives the wall time and memory peak.
 Building RegretKappa.Challenge
-⚠ [8925/8928] Replayed RegretKappa.Challenge.LowerSharp
+✔ [8924/8929] Built RegretKappa.Challenge.Statement (5.9s)
+⚠ [8925/8929] Built RegretKappa.Challenge.UpperSharp (9.6s)
+warning: RegretKappa/Challenge/UpperSharp.lean:42:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/UpperSharp.lean:44:8: declaration uses `sorry`
+⚠ [8926/8929] Built RegretKappa.Challenge.LowerSharp (9.6s)
 warning: RegretKappa/Challenge/LowerSharp.lean:45:8: declaration uses `sorry`
 warning: RegretKappa/Challenge/LowerSharp.lean:47:8: declaration uses `sorry`
 warning: RegretKappa/Challenge/LowerSharp.lean:49:8: declaration uses `sorry`
-⚠ [8927/8928] Replayed RegretKappa.Challenge.UpperSharp
-warning: RegretKappa/Challenge/UpperSharp.lean:42:8: declaration uses `sorry`
-warning: RegretKappa/Challenge/UpperSharp.lean:44:8: declaration uses `sorry`
-⚠ [8928/8928] Replayed RegretKappa.Challenge
-warning: RegretKappa/Challenge.lean:57:8: declaration uses `sorry`
-warning: RegretKappa/Challenge.lean:59:8: declaration uses `sorry`
-warning: RegretKappa/Challenge.lean:61:8: declaration uses `sorry`
-warning: RegretKappa/Challenge.lean:63:8: declaration uses `sorry`
-warning: RegretKappa/Challenge.lean:65:8: declaration uses `sorry`
-Build completed successfully (8928 jobs).
-Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, RegretKappa.main, RegretKappa.mainChain, RegretKappa.mainBoundedFeatures, RegretKappa.mainBoundedFeaturesChain, RegretKappa.randLowerBound, RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.lowerSharpSimplified, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from RegretKappa.Challenge
+✔ [8927/8929] Built RegretKappa.Challenge.Corollaries (9.6s)
+⚠ [8928/8929] Built RegretKappa.Challenge.UnknownBT (5.6s)
+warning: RegretKappa/Challenge/UnknownBT.lean:86:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/UnknownBT.lean:88:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/UnknownBT.lean:90:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/UnknownBT.lean:92:8: declaration uses `sorry`
+⚠ [8929/8929] Built RegretKappa.Challenge (5.4s)
+warning: RegretKappa/Challenge.lean:58:8: declaration uses `sorry`
+warning: RegretKappa/Challenge.lean:60:8: declaration uses `sorry`
+warning: RegretKappa/Challenge.lean:62:8: declaration uses `sorry`
+warning: RegretKappa/Challenge.lean:64:8: declaration uses `sorry`
+warning: RegretKappa/Challenge.lean:66:8: declaration uses `sorry`
+Build completed successfully (8929 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, RegretKappa.main, RegretKappa.mainChain, RegretKappa.mainBoundedFeatures, RegretKappa.mainBoundedFeaturesChain, RegretKappa.randLowerBound, RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.lowerSharpSimplified, RegretKappa.UnknownBT.theoremB, RegretKappa.UnknownBT.optimality, RegretKappa.UnknownBT.UB.scaleFreeBound_twelve, RegretKappa.UnknownBT.UB.answer, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from RegretKappa.Challenge
 Building RegretKappa.Solution
-Build completed successfully (8971 jobs).
-Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, RegretKappa.main, RegretKappa.mainChain, RegretKappa.mainBoundedFeatures, RegretKappa.mainBoundedFeaturesChain, RegretKappa.randLowerBound, RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.lowerSharpSimplified, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from RegretKappa.Solution
+Build completed successfully (8988 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, RegretKappa.main, RegretKappa.mainChain, RegretKappa.mainBoundedFeatures, RegretKappa.mainBoundedFeaturesChain, RegretKappa.randLowerBound, RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.lowerSharpSimplified, RegretKappa.UnknownBT.theoremB, RegretKappa.UnknownBT.optimality, RegretKappa.UnknownBT.UB.scaleFreeBound_twelve, RegretKappa.UnknownBT.UB.answer, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from RegretKappa.Solution
 Running nanoda kernel on solution
 nanoda kernel accepts the solution
 Your solution is okay!
-memory.peak 4994318336
-COMPARATOR PASS (nanoda): 143 s wall, memory peak 4762 MiB
-exit 0
+memory.peak 5030793216
+COMPARATOR PASS (nanoda): 202 s wall, memory peak 4797 MiB

@@ -13,3 +13,7 @@ import RegretKappa.Solution
 #print axioms RegretKappa.LowerSharp.lowerSharpAdv
 #print axioms RegretKappa.LowerSharp.lowerSharpBound
 #print axioms RegretKappa.LowerSharp.lowerSharpSimplified
+#print axioms RegretKappa.UnknownBT.theoremB
+#print axioms RegretKappa.UnknownBT.optimality
+#print axioms RegretKappa.UnknownBT.UB.scaleFreeBound_twelve
+#print axioms RegretKappa.UnknownBT.UB.answer

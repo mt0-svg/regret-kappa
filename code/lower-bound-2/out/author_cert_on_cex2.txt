@@ -1,0 +1,74 @@
+table s_j (j = 0..27), cell [j/10, (j+1)/10):
+[3121/5000, 309/500, 3029/5000, 5879/10000, 353/625, 5373/10000, 253/500, 2359/5000, 871/2000, 199/500, 3601/10000, 1613/5000, 2861/10000, 2513/10000, 273/1250, 47/250, 801/5000, 169/1250, 1129/10000, 467/5000, 191/2500, 31/500, 497/10000, 79/2000, 311/10000, 121/5000, 187/10000, 1/200]
+cell  0 [0.00,0.10)  s = 3121/5000  subintervals 1
+cell  1 [0.10,0.20)  s = 309/500  subintervals 1
+cell  2 [0.20,0.30)  s = 3029/5000  subintervals 1
+cell  3 [0.30,0.40)  s = 5879/10000  subintervals 1
+cell  4 [0.40,0.50)  s = 353/625  subintervals 1
+cell  5 [0.50,0.60)  s = 5373/10000  subintervals 1
+cell  6 [0.60,0.70)  s = 253/500  subintervals 1
+cell  7 [0.70,0.80)  s = 2359/5000  subintervals 1
+cell  8 [0.80,0.90)  s = 871/2000  subintervals 2
+cell  9 [0.90,1.00)  s = 199/500  subintervals 2
+cell 10 [1.00,1.10)  s = 3601/10000  subintervals 4
+cell 11 [1.10,1.20)  s = 1613/5000  subintervals 7
+cell 12 [1.20,1.30)  s = 2861/10000  subintervals 11
+cell 13 [1.30,1.40)  s = 2513/10000  subintervals 18
+cell 14 [1.40,1.50)  s = 273/1250  subintervals 32
+cell 15 [1.50,1.60)  s = 47/250  subintervals 51
+cell 16 [1.60,1.70)  s = 801/5000  subintervals 65
+cell 17 [1.70,1.80)  s = 169/1250  subintervals 67
+cell 18 [1.80,1.90)  s = 1129/10000  subintervals 64
+cell 19 [1.90,2.00)  s = 467/5000  subintervals 64
+cell 20 [2.00,2.10)  s = 191/2500  subintervals 64
+cell 21 [2.10,2.20)  s = 31/500  subintervals 64
+cell 22 [2.20,2.30)  s = 497/10000  subintervals 64
+cell 23 [2.30,2.40)  s = 79/2000  subintervals 64
+cell 24 [2.40,2.50)  s = 311/10000  subintervals 93
+cell 25 [2.50,2.60)  s = 121/5000  subintervals 128
+cell 26 [2.60,2.70)  s = 187/10000  subintervals 128
+  ***   [...] at: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                         ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...te failed near ",lo*1.));check(lo,(lo+hi)/2,s,
+  ***                                                  ^---------------------
+  ***   in function check: ...);return(1));if(depth>30,error("certificate fa
+  ***                                                  ^---------------------
+  ***   user error: certificate failed near 2.7000000000000000000000000000000000000
+... skipping file '/tmp/tmp.qUOdvYsW3V/author_cex2.gp'
+sanity table rule on [0,2.8): min of drift - 1 = -0.294691 at r = 2.7000
+sanity continuous rule on [2.8,12]: min of drift - 1 = 0.959638 at r = 2.8000
+phi(2.8) = 0.382663 (analytic lemma needs phi <= 12/25 = 0.48 on [2.8, oo))
+max of x -> exp(-x/2)(x/2 + x^2/4) at x = 1 + sqrt(5): 0.839962; 2.8^2 = 7.84 > 1 + sqrt(5)
+elapsed: 3 s

@@ -1,0 +1,3 @@
+PASS true claim
+FAIL false claim
+RESULT: ALL 2 CHECKS PASSED

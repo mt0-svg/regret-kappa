@@ -1,0 +1,172 @@
+== known-answer tests of the ball arithmetic and of the drift evaluator
+CHECK Arb exp(1) within 1e-49 of 2.71828182845904523536028747135266249775724709369995 PASS
+CHECK Arb cosh(1) within 1e-36 of 1.5430806348152437784779056207570616826 PASS
+CHECK a wrong 30th digit of e is detected                        PASS
+CHECK drift at rho = 0 equals K(exp(s/2) - 1) - 1                PASS
+CHECK identity average = K h_s(rho) at 200 random points         PASS
+CHECK factored form = definition at 200 random points of [2.8, 12] PASS
+CHECK evaluator rejects s = 1/1000 at rho = 17/10 (D certainly < 0) PASS
+== the move table: s_j = (5/8) exp(-m^2/2) at m = j/10 + 1/20, rounded to 4 decimals
+  s_0  = 3121/5000 = 6242/10000, (5/8) exp(-m^2/2) = 0.62421924
+  s_1  = 309/500 = 6180/10000, (5/8) exp(-m^2/2) = 0.61800815
+  s_2  = 3029/5000 = 6058/10000, (5/8) exp(-m^2/2) = 0.60577077
+  s_3  = 5879/10000 = 5879/10000, (5/8) exp(-m^2/2) = 0.58786754
+  s_4  = 353/625 = 5648/10000, (5/8) exp(-m^2/2) = 0.56481692
+  s_5  = 5373/10000 = 5373/10000, (5/8) exp(-m^2/2) = 0.53727048
+  s_6  = 253/500 = 5060/10000, (5/8) exp(-m^2/2) = 0.50598228
+  s_7  = 2359/5000 = 4718/10000, (5/8) exp(-m^2/2) = 0.47177475
+  s_8  = 871/2000 = 4355/10000, (5/8) exp(-m^2/2) = 0.43550298
+  s_9  = 199/500 = 3980/10000, (5/8) exp(-m^2/2) = 0.39801976
+  s_10 = 3601/10000 = 3601/10000, (5/8) exp(-m^2/2) = 0.36014317
+  s_11 = 1613/5000 = 3226/10000, (5/8) exp(-m^2/2) = 0.32262855
+  s_12 = 2861/10000 = 2861/10000, (5/8) exp(-m^2/2) = 0.28614585
+  s_13 = 2513/10000 = 2513/10000, (5/8) exp(-m^2/2) = 0.25126336
+  s_14 = 273/1250 = 2184/10000, (5/8) exp(-m^2/2) = 0.21843788
+  s_15 = 47/250 = 1880/10000, (5/8) exp(-m^2/2) = 0.18801122
+  s_16 = 801/5000 = 1602/10000, (5/8) exp(-m^2/2) = 0.16021259
+  s_17 = 169/1250 = 1352/10000, (5/8) exp(-m^2/2) = 0.13516573
+  s_18 = 1129/10000 = 1129/10000, (5/8) exp(-m^2/2) = 0.11289991
+  s_19 = 467/5000 = 934/10000, (5/8) exp(-m^2/2) = 0.093363610
+  s_20 = 191/2500 = 764/10000, (5/8) exp(-m^2/2) = 0.076439658
+  s_21 = 31/500 = 620/10000, (5/8) exp(-m^2/2) = 0.061960783
+  s_22 = 497/10000 = 497/10000, (5/8) exp(-m^2/2) = 0.049724693
+  s_23 = 79/2000 = 395/10000, (5/8) exp(-m^2/2) = 0.039507939
+  s_24 = 311/10000 = 311/10000, (5/8) exp(-m^2/2) = 0.031078046
+  s_25 = 121/5000 = 242/10000, (5/8) exp(-m^2/2) = 0.024203606
+  s_26 = 187/10000 = 187/10000, (5/8) exp(-m^2/2) = 0.018662229
+  s_27 = 71/5000 = 142/10000, (5/8) exp(-m^2/2) = 0.014246363
+CHECK table equals the 4-decimal rounding of (5/8) exp(-m^2/2)   PASS
+CHECK every s_j lies in (0, 1)                                   PASS
+== known-answer tests of the derivative D' used by the mean value form
+CHECK D' equals the symbolic derivative at 4 points (s = 0.1352) PASS
+CHECK D' equals the central difference (h = 1e-30) at 3 points   PASS
+CHECK negative control: D' without the factor sqrt(1-s) differs from the symbolic derivative PASS
+== (b) certification of D > 0 on [0, 2.8): mean value form, trisection
+cell  0 [0, 1/10] s = 3121/5000: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.88807
+cell  1 [1/10, 1/5] s = 309/500: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.83369
+cell  2 [1/5, 3/10] s = 3029/5000: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.73574
+cell  3 [3/10, 2/5] s = 5879/10000: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.6008
+cell  4 [2/5, 1/2] s = 353/625: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.43762
+cell  5 [1/2, 3/5] s = 5373/10000: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.25626
+cell  6 [3/5, 7/10] s = 253/500: certified, 1 subintervals, trisection depth <= 0, least lower bound 1.06509
+cell  7 [7/10, 4/5] s = 2359/5000: certified, 1 subintervals, trisection depth <= 0, least lower bound 0.872178
+cell  8 [4/5, 9/10] s = 871/2000: certified, 1 subintervals, trisection depth <= 0, least lower bound 0.683516
+cell  9 [9/10, 1] s = 199/500: certified, 1 subintervals, trisection depth <= 0, least lower bound 0.50351
+cell 10 [1, 11/10] s = 3601/10000: certified, 1 subintervals, trisection depth <= 0, least lower bound 0.334794
+cell 11 [11/10, 6/5] s = 1613/5000: certified, 1 subintervals, trisection depth <= 0, least lower bound 0.178452
+cell 12 [6/5, 13/10] s = 2861/10000: certified, 1 subintervals, trisection depth <= 0, least lower bound 0.0339863
+cell 13 [13/10, 7/5] s = 2513/10000: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.138288
+cell 14 [7/5, 3/2] s = 273/1250: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0774099
+cell 15 [3/2, 8/5] s = 47/250: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0384289
+cell 16 [8/5, 17/10] s = 801/5000: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0204223
+cell 17 [17/10, 9/5] s = 169/1250: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0212181
+cell 18 [9/5, 19/10] s = 1129/10000: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.035617
+cell 19 [19/10, 2] s = 467/5000: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.038155
+cell 20 [2, 21/10] s = 191/2500: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0418075
+cell 21 [21/10, 11/5] s = 31/500: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0418114
+cell 22 [11/5, 23/10] s = 497/10000: certified, 3 subintervals, trisection depth <= 1, least lower bound 0.0280466
+cell 23 [23/10, 12/5] s = 79/2000: certified, 5 subintervals, trisection depth <= 2, least lower bound 0.0213171
+cell 24 [12/5, 5/2] s = 311/10000: certified, 9 subintervals, trisection depth <= 2, least lower bound 0.423843
+cell 25 [5/2, 13/5] s = 121/5000: certified, 9 subintervals, trisection depth <= 2, least lower bound 0.474997
+cell 26 [13/5, 27/10] s = 187/10000: certified, 9 subintervals, trisection depth <= 2, least lower bound 0.517818
+cell 27 [27/10, 14/5] s = 71/5000: certified, 9 subintervals, trisection depth <= 2, least lower bound 0.534665
+total subintervals 84, max trisection depth 2, least lower bound 0.0204223, time 0.0 s
+CHECK D > 0 on all 28 closed cells (mean value form, trisection) PASS  84 subintervals
+== (b') the same with direct ball evaluation and bisection
+   (the ball of a monotone expression on [a, b] is its endpoint bracket, so this run
+   reproduces the bracket and the bisection tree of the rational certificate)
+cell  0 [0, 1/10) s = 3121/5000: certified, 1 subintervals, depth <= 0, least lower bound 1.63161
+cell  1 [1/10, 1/5) s = 309/500: certified, 1 subintervals, depth <= 0, least lower bound 1.54024
+cell  2 [1/5, 3/10) s = 3029/5000: certified, 1 subintervals, depth <= 0, least lower bound 1.39991
+cell  3 [3/10, 2/5) s = 5879/10000: certified, 1 subintervals, depth <= 0, least lower bound 1.21525
+cell  4 [2/5, 1/2) s = 353/625: certified, 1 subintervals, depth <= 0, least lower bound 0.992795
+cell  5 [1/2, 3/5) s = 5373/10000: certified, 1 subintervals, depth <= 0, least lower bound 0.740065
+cell  6 [3/5, 7/10) s = 253/500: certified, 1 subintervals, depth <= 0, least lower bound 0.462317
+cell  7 [7/10, 4/5) s = 2359/5000: certified, 1 subintervals, depth <= 0, least lower bound 0.163905
+cell  8 [4/5, 9/10) s = 871/2000: certified, 2 subintervals, depth <= 1, least lower bound 0.295884
+cell  9 [9/10, 1) s = 199/500: certified, 2 subintervals, depth <= 1, least lower bound 0.0231284
+cell 10 [1, 11/10) s = 3601/10000: certified, 4 subintervals, depth <= 2, least lower bound 0.0986725
+cell 11 [11/10, 6/5) s = 1613/5000: certified, 7 subintervals, depth <= 3, least lower bound 0.0111917
+cell 12 [6/5, 13/10) s = 2861/10000: certified, 11 subintervals, depth <= 4, least lower bound 0.0137859
+cell 13 [13/10, 7/5) s = 2513/10000: certified, 18 subintervals, depth <= 5, least lower bound 0.00667798
+cell 14 [7/5, 3/2) s = 273/1250: certified, 32 subintervals, depth <= 5, least lower bound 0.00569826
+cell 15 [3/2, 8/5) s = 47/250: certified, 51 subintervals, depth <= 6, least lower bound 0.00169178
+cell 16 [8/5, 17/10) s = 801/5000: certified, 65 subintervals, depth <= 7, least lower bound 0.00109814
+cell 17 [17/10, 9/5) s = 169/1250: certified, 67 subintervals, depth <= 7, least lower bound 0.000702068
+cell 18 [9/5, 19/10) s = 1129/10000: certified, 64 subintervals, depth <= 6, least lower bound 0.012239
+cell 19 [19/10, 2) s = 467/5000: certified, 64 subintervals, depth <= 6, least lower bound 0.0242366
+cell 20 [2, 21/10) s = 191/2500: certified, 64 subintervals, depth <= 6, least lower bound 0.0299989
+cell 21 [21/10, 11/5) s = 31/500: certified, 64 subintervals, depth <= 6, least lower bound 0.0343153
+cell 22 [11/5, 23/10) s = 497/10000: certified, 64 subintervals, depth <= 6, least lower bound 0.0283612
+cell 23 [23/10, 12/5) s = 79/2000: certified, 64 subintervals, depth <= 6, least lower bound 0.0040223
+cell 24 [12/5, 5/2) s = 311/10000: certified, 93 subintervals, depth <= 7, least lower bound 0.00155371
+cell 25 [5/2, 13/5) s = 121/5000: certified, 128 subintervals, depth <= 7, least lower bound 0.202443
+cell 26 [13/5, 27/10) s = 187/10000: certified, 128 subintervals, depth <= 7, least lower bound 0.155297
+cell 27 [27/10, 14/5) s = 71/5000: certified, 128 subintervals, depth <= 7, least lower bound 0.0484295
+total subintervals 1128, max depth 7, time 0.0 s
+CHECK D > 0 on all 28 cells of [0, 2.8) (ball bisection)         PASS  1128 subintervals
+== infimum of D on each closed cell [j/10, (j+1)/10] (branch and bound, tol 1e-7)
+  cell  0: inf D in [1.92363416, 1.92363425], attained near rho = 0.100000
+  cell  1: inf D in [1.87033964, 1.87033973], attained near rho = 0.200000
+  cell  2: inf D in [1.77452135, 1.77452145], attained near rho = 0.300000
+  cell  3: inf D in [1.64291394, 1.64291404], attained near rho = 0.400000
+  cell  4: inf D in [1.48448437, 1.48448447], attained near rho = 0.500000
+  cell  5: inf D in [1.30961460, 1.30961469], attained near rho = 0.600000
+  cell  6: inf D in [1.12712604, 1.12712614], attained near rho = 0.700000
+  cell  7: inf D in [0.94569444, 0.94569454], attained near rho = 0.800000
+  cell  8: inf D in [0.77210931, 0.77210940], attained near rho = 0.900000
+  cell  9: inf D in [0.61191000, 0.61191010], attained near rho = 1.000000
+  cell 10: inf D in [0.46909927, 0.46909937], attained near rho = 1.100000
+  cell 11: inf D in [0.34660963, 0.34660972], attained near rho = 1.200000
+  cell 12: inf D in [0.24644271, 0.24644280], attained near rho = 1.300000
+  cell 13: inf D in [0.16990674, 0.16990684], attained near rho = 1.400000
+  cell 14: inf D in [0.11808990, 0.11809000], attained near rho = 1.500000
+  cell 15: inf D in [0.09109291, 0.09109301], attained near rho = 1.600000
+  cell 16: inf D in [0.08900553, 0.08900563], attained near rho = 1.700000
+  cell 17: inf D in [0.11104084, 0.11104094], attained near rho = 1.800000
+  cell 18: inf D in [0.13614633, 0.13614643], attained near rho = 1.800000
+  cell 19: inf D in [0.16893790, 0.16893800], attained near rho = 1.900000
+  cell 20: inf D in [0.21512126, 0.21512136], attained near rho = 2.000000
+  cell 21: inf D in [0.27293216, 0.27293226], attained near rho = 2.100000
+  cell 22: inf D in [0.33831815, 0.33831825], attained near rho = 2.200000
+  cell 23: inf D in [0.40985526, 0.40985536], attained near rho = 2.300000
+  cell 24: inf D in [0.48475964, 0.48475974], attained near rho = 2.400000
+  cell 25: inf D in [0.55849901, 0.55849911], attained near rho = 2.500000
+  cell 26: inf D in [0.63316697, 0.63316707], attained near rho = 2.600000
+  cell 27: inf D in [0.69527645, 0.69527655], attained near rho = 2.700000
+smallest margin on [0, 2.8): inf D in [0.08900553, 0.08900563] in cell 16, near rho = 1.7000000 (time 1.9 s)
+CHECK inf of D on [0, 2.8] is positive (rigorous lower bound)    PASS  0.08900553
+CHECK smallest margin lies in [0.088, 0.090] (note: drift >= 1.089) PASS
+== (a) rho >= 2.8, s = (5/8) exp(-rho^2/2): the analytic argument
+CHECK expansion of (rho sqrt(1-s) + sqrt(s))^2                   PASS
+CHECK expansion of (rho sqrt(1-s) - sqrt(s))^2                   PASS
+CHECK exponent (rho^2(1-s)+s)/2 = rho^2/2 - z                    PASS
+CHECK (1-z)(1+c) - 1 = c - z - zc                                PASS
+CHECK c - z = s/2 - rho^2 s^2/2                                  PASS
+CHECK zc = s^2 rho^2 (rho^2 - 1)(1 - s)/4                        PASS
+CHECK s^2 rho^4/4 - zc = s^2 rho^2 (1 - s + s rho^2)/4 (nonnegative for 0<s<1) PASS
+CHECK 8 e^{rho^2/2} s (1/2 - s(rho^2/2 + rho^4/4)) = 5/2 - (25/8) phi at s = (5/8)e^{-rho^2/2} PASS
+CHECK d/dv e^{-v/2}(v/2 + v^2/4) = e^{-v/2}(1/2 + v/4 - v^2/8)   PASS
+CHECK 2.8^2 = 196/25 > 1 + sqrt(5)                               PASS
+CHECK v^2 - 2v - 4 = (v - 1 - sqrt(5))(v - 1 + sqrt(5))          PASS
+phi(2.8) = [0.382663289677823096657602923983448120903874615852647726456085580021201827524 +/- 2.67e-76]
+CHECK phi(2.8) < 12/25                                           PASS  phi(2.8) = 0.382663
+CHECK part (a) conditions at split 2.8, constant 12/25 (phi decreasing, phi(2.8) < 12/25, 5/2 - (25/8)(12/25) >= 1) PASS
+CHECK phi(2.8) rounds to 0.3827                                  PASS
+analytic lower bound of D on [2.8, oo): 5/2 - (25/8) phi(2.8) - 1 = [0.304177219756802822944990862551724622175391825460475854824732562433744288987 +/- 3.36e-76]
+CHECK analytic lower bound of D on [2.8, oo) is positive         PASS
+== redundant rigorous cover of [2.8, 12] by the factored form
+[2.8, 12]: 12900 subintervals, time 0.3 s
+CHECK D > 0 on [2.8, 12] (ball bisection, factored form)         PASS  12900 subintervals
+inf D on [2.8, 12] in [0.9596374, 0.9596383], near rho = 2.80000
+CHECK inf D on [2.8, 12] > 0.959                                 PASS  0.959637
+NOTE: the note states drift - 1 >= 0.96 on [2.8, 12]; the infimum is 0.95964, at rho = 2.8 (a rounding up in the note, not load-bearing: part (a) needs only D >= 0)
+== grid scan as in the note (step 1/4000, ball point values)
+grid [0, 2.8): min drift = 1.089149 at rho = 6799/4000;  grid [2.8, 12]: min drift = 1.959638 at rho = 14/5
+CHECK grid min of the drift on [0, 2.8) >= 1.089                 PASS
+CHECK grid min of the drift on [2.8, 12] > 1.959                 PASS
+== remark (exploration, floating point): smallest K with the best move at each rho
+max over rho in [0, 2.8] of 1/max_s gain = 7.1597 at rho = 1.65 (note: 7.16 near 1.65)
+time 11.6 s
+SUMMARY drift_arb: 35 checks, 0 failed, expected 35 checks
+RESULT drift_arb PASS

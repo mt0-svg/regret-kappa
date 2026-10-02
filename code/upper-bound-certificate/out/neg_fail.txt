@@ -1,0 +1,4 @@
+PASS true claim
+FAIL false claim 2 < 1
+elapsed 0.00 s
+RESULT: 1 OF 2 CHECKS FAILED

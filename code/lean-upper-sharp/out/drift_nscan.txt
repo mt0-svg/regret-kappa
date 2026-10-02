@@ -1,0 +1,20 @@
+the paper's table
+  failure: error("user error: certificate failed near 2.4986775212455540895462036132812500000")
+N = 8: certified 0, leaves 780, smallest margin 6.7028 e-4 in cell 17
+N = 10: certified 1, leaves 1561, smallest margin 9.9286 e-5 in cell 26
+N = 12: certified 1, leaves 1129, smallest margin 7.2377 e-4 in cell 17
+N = 14: certified 1, leaves 1128, smallest margin 7.2400 e-4 in cell 17
+N = 16: certified 1, leaves 1128, smallest margin 7.2400 e-4 in cell 17
+N = 20: certified 1, leaves 1128, smallest margin 7.2400 e-4 in cell 17
+N = 30: certified 1, leaves 1128, smallest margin 7.2400 e-4 in cell 17
+N = 40: certified 1, leaves 1128, smallest margin 7.2400 e-4 in cell 17
+corrupted s_16 = 0.1852
+  failure: error("user error: certificate failed near 1.6945365529973059892654418945312500000")
+N = 14: certified 0, leaves 135, smallest margin 1.7459 e-3 in cell 15
+  failure: error("user error: certificate failed near 1.6945365531835705041885375976562500000")
+N = 40: certified 0, leaves 135, smallest margin 1.7459 e-3 in cell 15
+corrupted s_27 = 0.0050
+  failure: error("user error: certificate failed near 2.7000000000000000000000000000000000000")
+N = 14: certified 0, leaves 1000, smallest margin 7.2400 e-4 in cell 17
+  failure: error("user error: certificate failed near 2.7000000000000000000000000000000000000")
+N = 40: certified 0, leaves 1000, smallest margin 7.2400 e-4 in cell 17

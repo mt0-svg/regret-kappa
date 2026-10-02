@@ -1,0 +1,59 @@
+t0_tools: known-answer tests (KAT) and negative controls (NEG) of lib.sage, 256 bits
+PASS KAT ball: 1 < 2 is certified
+PASS KAT ball: pi lies in its 50-digit decimal
+PASS NEG ball: pi < 314159/100000 is not certified
+PASS NEG ball: pi > 314159/100000 is certified (refutes the false claim)
+PASS NEG ball: overlapping balls compare neither way
+PASS NEG ball: a nan ball (sqrt of a negative ball) passes no comparison
+PASS KAT exp_series(1) overlaps the 50-digit decimal of e [2.718281828459045235360, 2.718281828459045235361]
+PASS KAT exp_series(-1/2) overlaps Arb exp(-1/2) [0.606530659712633423603799534991, 0.606530659712633423603799534992]
+PASS KAT e^{-1/2} overlaps 0.60653065971263342360379953499118045344
+PASS KAT exp_series(-1/2) radius < 1e-70
+PASS NEG e^{-1/2} is disjoint from the decimal altered in the 40th place
+PASS KAT E1_series(1) overlaps 0.2193839343955202736771637754601216490310 [0.219383934395520273677163775460, 0.219383934395520273677163775461]
+PASS KAT E1_series(1) overlaps Arb exp_integral_e(1, 1)
+PASS KAT E1_series(1/2) overlaps Arb exp_integral_e(1, 1/2) [0.559773594776160811746795939315, 0.559773594776160811746795939316]
+PASS KAT E1(1/2) = 2 int_1^oo e^{-u^2/2}/u du (quadrature) [0.559773594776160811746795939315, 0.559773594776160811746795939316]
+PASS KAT E1(1/2) enclosure radius < 1e-70
+PASS NEG series without the Euler constant is disjoint from Arb's E1(1/2)
+PASS KAT quad: int_0^1 e^x = e - 1 [1.718281828459045235360, 1.718281828459045235361]
+PASS KAT int_1_inf: int_1^oo t e^{-t^2/2} = e^{-1/2} [0.6065306597126334236037, 0.6065306597126334236038]
+PASS KAT int_1_inf: int_1^oo t^3 e^{-t^2/2} = 3 e^{-1/2} [1.819591979137900270811, 1.819591979137900270812]
+PASS NEG int_1^oo t^3 e^{-t^2/2} is certified different from 2 e^{-1/2}
+PASS KAT int_0^oo e^{-t^2/2} = sqrt(pi/2) [1.253314137315500251207, 1.253314137315500251208]
+PASS KAT N(1) = 1/2 + int_0^1 phi = 0.8413447460685429485852325456320379 [0.8413447460685429485852, 0.8413447460685429485853]
+PASS KAT tail_bound >= exact tail int_2^oo t e^{-t^2/2} = e^{-R^2/2} bound 0.446261 exact 0.135335
+PASS KAT tail_bound >= exact tail int_3^oo t e^{-t^2/2} = e^{-R^2/2} bound 0.0684363 exact 0.0111089
+PASS KAT tail_bound >= exact tail int_5^oo t e^{-t^2/2} = e^{-R^2/2} bound 0.000169637 exact 3.72665e-6
+PASS KAT tail_bound(k=3, r=1, a=1, R=8) >= int_R^oo t^3 e^{t - t^2/2} (quadrature) bound 4.83218e-9 tail 2.85251e-9
+PASS KAT tail_bound(k=3, r=1, a=1, R=10) >= int_R^oo t^3 e^{t - t^2/2} (quadrature) bound 1.03512e-14 tail 4.81930e-16
+PASS NEG tail_bound refuses R < 8 r / a
+PASS NEG tail_bound refuses R^2 < 4 k / a
+PASS NEG formula outside its hypotheses (k=40, R=3) undercuts the true tail formula 2.77342e17 true 4.00848e23
+PASS KAT K_m / e^{-1/2} = 1, 3, 13, 79 for m = 1..4
+PASS KAT K_1 closed form = quadrature [0.6065306597126334236037, 0.6065306597126334236038]
+PASS KAT K_2 closed form = quadrature [1.819591979137900270811, 1.819591979137900270812]
+PASS KAT K_3 closed form = quadrature [7.884898576264234506849, 7.884898576264234506850]
+PASS KAT K_4 closed form = quadrature [47.91592211729804046470, 47.91592211729804046471]
+PASS KAT K_m = 2^{m-1} Gamma(m, 1/2) (Arb gamma_inc), m = 1..4
+PASS KAT Gamma(1/2): series = quadrature series [1.520945232399251295590636, 1.520945232399251295590637] quad [1.520945232399251295590636, 1.520945232399251295590637]
+PASS KAT Gamma(1): series = quadrature series [2.667542004365772129710341, 2.667542004365772129710342] quad [2.667542004365772129710341, 2.667542004365772129710342]
+PASS KAT Gamma(17/10): series = quadrature series [7.754468492917201389284992, 7.754468492917201389284993] quad [7.754468492917201389284992, 7.754468492917201389284993]
+PASS KAT Gamma(5/2): series = quadrature series [35.37560209561015806582862, 35.37560209561015806582863] quad [35.37560209561015806582862, 35.37560209561015806582863]
+PASS KAT Gamma(4): series = quadrature series [2399.404011226631158543578, 2399.404011226631158543579] quad [2399.404011226631158543578, 2399.404011226631158543579]
+PASS NEG series with Gamma_2 = 9 e^{-1/2} is disjoint from the quadrature of Gamma(1)
+PASS KAT g'(1/2): series = quadrature [1.444699753310174625783448, 1.444699753310174625783449]
+PASS KAT g'(1/2) <= truncated series N=30 plus tail bound N=30 bound 1.4446997533101746258
+PASS KAT g'(1): series = quadrature [1.781863320241505366885573, 1.781863320241505366885574]
+PASS KAT g'(1) <= truncated series N=30 plus tail bound N=30 bound 1.7818633202415053669
+PASS KAT g'(2): series = quadrature [2.687894858108694353243703, 2.687894858108694353243704]
+PASS KAT g'(2) <= truncated series N=30 plus tail bound N=30 bound 2.6878948581086943533
+PASS KAT g'(37/10): series = quadrature [5.347947743314380328029046, 5.347947743314380328029047]
+PASS KAT g'(37/10) <= truncated series N=30 plus tail bound N=30 bound 5.3479477433143803587
+PASS NEG g' series without the factor n is disjoint from the quadrature
+PASS KAT bisect_root(t^3 - 2) encloses 2^(1/3) width 2^-200
+PASS NEG bisect_root refuses an interval without sign change
+PASS KAT symbolic: (sqrt T + 1)^2 - (T + 2 sqrt T + 1) simplifies to 0
+PASS NEG symbolic: (sqrt T + 1)^2 - (T + 1) does not simplify to 0
+elapsed 0.95 s
+RESULT: ALL 56 CHECKS PASSED

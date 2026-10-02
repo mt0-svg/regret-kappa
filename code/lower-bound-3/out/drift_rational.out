@@ -1,0 +1,44 @@
+== known-answer tests of the series bounds (against Arb at 2000 bits)
+CHECK P_40(q) <= e^q <= E_40(q) at 7 points of [0, 20]           PASS
+CHECK P_5(q) < e^q <= E_5(q) (low order, tail term active)       PASS
+CHECK C_40(y) <= cosh(sqrt(y)) at 4 points                       PASS
+CHECK C_3(4) = 1 + 4/2 + 16/24 + 64/720                          PASS
+CHECK E_5(1) = P_5(1) + 7/(720*6)                                PASS
+CHECK negative control: the tail bound without geometric factor fails at q = 3.92, N = 5 PASS
+CHECK rational bound <= drift at the left end, 100 random pieces PASS
+== certificate on [0, 2.8), N = 40, g = 8 exp(rho^2/2)
+cell  0: s = 3121/5000, certified,   1 subintervals, depth <= 0, least margin 1.890230e+00 on [0, 1/10]
+cell  1: s = 309/500, certified,   1 subintervals, depth <= 0, least margin 1.768610e+00 on [1/10, 1/5]
+cell  2: s = 3029/5000, certified,   1 subintervals, depth <= 0, least margin 1.599910e+00 on [1/5, 3/10]
+cell  3: s = 5879/10000, certified,   1 subintervals, depth <= 0, least margin 1.387777e+00 on [3/10, 2/5]
+cell  4: s = 353/625, certified,   1 subintervals, depth <= 0, least margin 1.137952e+00 on [2/5, 1/2]
+cell  5: s = 5373/10000, certified,   1 subintervals, depth <= 0, least margin 8.573712e-01 on [1/2, 3/5]
+cell  6: s = 253/500, certified,   1 subintervals, depth <= 0, least margin 5.507021e-01 on [3/5, 7/10]
+cell  7: s = 2359/5000, certified,   1 subintervals, depth <= 0, least margin 2.216667e-01 on [7/10, 4/5]
+cell  8: s = 871/2000, certified,   2 subintervals, depth <= 1, least margin 3.009506e-01 on [17/20, 9/10]
+cell  9: s = 199/500, certified,   2 subintervals, depth <= 1, least margin 2.847705e-02 on [19/20, 1]
+cell 10: s = 3601/10000, certified,   4 subintervals, depth <= 2, least margin 1.002472e-01 on [43/40, 11/10]
+cell 11: s = 1613/5000, certified,   7 subintervals, depth <= 3, least margin 1.289327e-02 on [11/10, 9/8]
+cell 12: s = 2861/10000, certified,  11 subintervals, depth <= 4, least margin 1.430930e-02 on [5/4, 101/80]
+cell 13: s = 2513/10000, certified,  18 subintervals, depth <= 5, least margin 6.838632e-03 on [221/160, 111/80]
+cell 14: s = 273/1250, certified,  32 subintervals, depth <= 5, least margin 5.747348e-03 on [479/320, 3/2]
+cell 15: s = 47/250, certified,  51 subintervals, depth <= 6, least margin 1.745857e-03 on [123/80, 493/320]
+cell 16: s = 801/5000, certified,  65 subintervals, depth <= 7, least margin 1.116226e-03 on [543/320, 1087/640]
+cell 17: s = 169/1250, certified,  67 subintervals, depth <= 7, least margin 7.239988e-04 on [287/160, 1149/640]
+cell 18: s = 1129/10000, certified,  64 subintervals, depth <= 6, least margin 1.226622e-02 on [243/128, 19/10]
+cell 19: s = 467/5000, certified,  64 subintervals, depth <= 6, least margin 2.426457e-02 on [19/10, 1217/640]
+cell 20: s = 191/2500, certified,  64 subintervals, depth <= 6, least margin 3.003363e-02 on [2, 1281/640]
+cell 21: s = 31/500, certified,  64 subintervals, depth <= 6, least margin 3.435823e-02 on [21/10, 269/128]
+cell 22: s = 497/10000, certified,  64 subintervals, depth <= 6, least margin 2.841476e-02 on [11/5, 1409/640]
+cell 23: s = 79/2000, certified,  64 subintervals, depth <= 6, least margin 4.089856e-03 on [23/10, 1473/640]
+cell 24: s = 311/10000, certified,  93 subintervals, depth <= 7, least margin 1.650130e-03 on [313/128, 783/320]
+cell 25: s = 121/5000, certified, 128 subintervals, depth <= 7, least margin 2.024726e-01 on [5/2, 3201/1280]
+cell 26: s = 187/10000, certified, 128 subintervals, depth <= 7, least margin 1.553351e-01 on [13/5, 3329/1280]
+cell 27: s = 71/5000, certified, 128 subintervals, depth <= 7, least margin 4.847927e-02 on [27/10, 3457/1280]
+total 1128 subintervals, at most 7 bisections, smallest margin 7.239988e-04 = 0.00072399... on [287/160, 1149/640], time 0.8 s
+CHECK every cell certified with exact rationals                  PASS
+CHECK 1128 subintervals (note: 1128)                             PASS  1128
+CHECK at most 7 bisections (note: 7)                             PASS  7
+CHECK smallest margin rounds to 7.2e-4 (note: 7.2e-4)            PASS  7.239988e-04
+SUMMARY drift_rational: 11 checks, 0 failed, expected 11 checks
+RESULT drift_rational PASS

@@ -1,0 +1,5 @@
+The constant of doubly uniform regret in one-dimensional online linear regression is three
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Built on Mathlib, Copyright (c) the respective Mathlib authors, Apache License 2.0. No code of
+another project is included; README.md, section Built on, lists what the work uses.

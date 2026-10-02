@@ -1,0 +1,69 @@
+layout rerun, pass 1, 2026-10-02T00:26:53Z, commit HEAD
+pari: [2, 17, 4]; 10.9
+
+rerun (bash rerun.sh in rerun/): exit 0, 518 s
+  rerun.sh: 28 of 28 runs SAME as committed; passes agree: 1
+
+upper-bound-certificate run (bash run.sh in upper-bound-certificate/): exit 0, 27 s
+  upper-bound-certificate/out/t0_tools.txt: SAME as recorded
+  upper-bound-certificate/out/c1_gamma.txt: SAME as recorded
+  upper-bound-certificate/out/c2_lemma52.txt: SAME as recorded
+  upper-bound-certificate/out/c3_lemma61.txt: SAME as recorded
+  upper-bound-certificate/out/c4_lemma71.txt: SAME as recorded
+  upper-bound-certificate/out/c5_final.txt: SAME as recorded
+  upper-bound-certificate/out/neg_fail.txt: SAME as recorded
+  upper-bound-certificate/out/neg_raise.txt: SAME as recorded
+  upper-bound-certificate/out/neg_fake.txt: SAME as recorded
+
+upper-bound-certificate compare (bash compare.sh in upper-bound-certificate/): exit 0, 15 s
+  upper-bound-certificate/out/compare.txt: SAME as recorded
+
+upper-bound-2 run (sh run.sh in upper-bound-2/): exit 0, 98 s
+  upper-bound-2/out/constants.txt: SAME as recorded
+  upper-bound-2/out/onestep.txt: SAME as recorded
+  upper-bound-2/out/pointwise.txt: SAME as recorded
+  upper-bound-2/out/game.txt: SAME as recorded
+  upper-bound-2/out/extras.txt: SAME as recorded
+
+upper-bound lemma_check (gp -q -f gp/lemma_check.gp in upper-bound/): exit 0, 98 s
+  upper-bound/out/lemma_check_gp.txt: SAME as recorded
+
+lower-bound-3 run (sh run.sh in lower-bound-3/): exit 0, 206 s
+  lower-bound-3/out/drift_rational.out: SAME as recorded
+  lower-bound-3/out/drift_arb.out: SAME as recorded
+  lower-bound-3/out/phase1_constants.out: SAME as recorded
+  lower-bound-3/out/phase2.out: SAME as recorded
+  lower-bound-3/out/total_bound.out: SAME as recorded
+  lower-bound-3/out/identities.out: SAME as recorded
+  lower-bound-3/out/negative_controls.out: SAME as recorded
+
+lower-bound-3 compare (sh compare.sh in lower-bound-3/): exit 0, 243 s
+  lower-bound-3/out/others_extracted.txt: SAME as recorded
+  lower-bound-3/out/compare.out: SAME as recorded
+
+lower-bound-2 run (sh run.sh in lower-bound-2/): exit 0, 190 s
+  lower-bound-2/out/drift.txt: SAME as recorded
+  lower-bound-2/out/cex1.txt: SAME as recorded
+  lower-bound-2/out/cex2.txt: SAME as recorded
+  lower-bound-2/out/constants.txt: SAME as recorded
+  lower-bound-2/out/phase2.txt: SAME as recorded
+  lower-bound-2/out/identities.txt: SAME as recorded
+  lower-bound-2/out/kstar.txt: SAME as recorded
+  lower-bound-2/out/mc_phase1.txt: SAME as recorded
+  lower-bound-2/out/author_cert_on_cex1.txt: SAME as recorded
+  lower-bound-2/out/author_cert_on_cex2.txt: SAME as recorded
+  lower-bound-2/out/author_rerun.txt: SAME as recorded
+
+lean-upper-sharp margins (gp -q lsharp_margins.gp in lean-upper-sharp/): exit 0, 0 s
+  lean-upper-sharp/out/lsharp_margins.txt: SAME as recorded
+
+lean-upper-sharp drift table (gp -q drift_lean.gp in lean-upper-sharp/): exit 0, 0 s
+  lean-upper-sharp/out/drift_codes.txt: SAME as recorded
+
+lean-upper-sharp order scan (gp -q drift_nscan.gp in lean-upper-sharp/): exit 0, 15 s
+  lean-upper-sharp/out/drift_nscan.txt: SAME as recorded
+
+lean-upper-sharp drift module (gp -q drift_cells.gp in lean-upper-sharp/): exit 0, 0 s
+  lean-upper-sharp/../../RegretKappa/LowerSharp/DriftCells.lean: SAME as recorded
+
+overall: every script exits 0 and every output is the recorded one

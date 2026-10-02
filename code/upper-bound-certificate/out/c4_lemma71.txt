@@ -1,0 +1,43 @@
+c4_lemma71: Lemma 7.1, 256-bit balls
+phi(1) = e^{-1/2}/sqrt(2 pi) = [0.241970724519143349797830192935, 0.241970724519143349797830192936]
+N(1) (Arb erf)                = [0.841344746068542948585232545632, 0.841344746068542948585232545633]
+N(1) (1/2 + quadrature)       = [0.841344746068542948585232545632, 0.841344746068542948585232545633]
+PASS N(1): erf form = quadrature form
+2 phi(1)/N(1)   = [0.575199941878356722457340254770, 0.575199941878356722457340254771]
+phi(1)/N(1)^2   = [0.341833680287519229193619849278, 0.341833680287519229193619849279]
+sum             = [0.917033622165875951650960104049, 0.917033622165875951650960104050]
+PASS 2 phi(1)/N(1) + phi(1)/N(1)^2 < 1 (Lemma 7.1) margin 1 - sum >= 0.08296637783
+PASS the displayed values 0.5752, 0.3418, 0.9170 are the 4-digit roundings
+PASS NEG the sum < 0.91 is refuted
+
+Analytic steps (method: analytic), with certified spot checks:
+  Mills: Nbar(x) = int_x^oo phi(t) dt <= int_x^oo (t/x) phi(t) dt = phi(x)/x for x > 0
+PASS   Mills spot checks Nbar(x) < phi(x)/x at x = 1/2, 1, 2, 3, 5, 10
+  rho/(rho - 1) <= 2 for rho >= 2; phi decreasing and N increasing on [1, oo): analytic
+PASS   phi(x)/N(x) and phi(x)/N(x)^2 decrease at x = 1, 3/2, 2, 3, 5 (spot checks)
+PASS   rho = 2: Z = sqrt(2pi) N(rho-1), int theta gamma = rho Z + e^{-(rho-1)^2/2}; I >= int gamma/theta >= Z^2/(...) I = [1.78031010403, 1.78031010404]
+PASS   rho = 2: sqrt(2pi)/I <= rho/N(x) + phi(x)/N(x)^2 <= rho + 2 phi(1)/N(1) + phi(1)/N(1)^2 < rho + 1 sqrt(2pi)/I - rho = [-0.5920271593, -0.5920271592], bound - rho = [0.7189805149, 0.7189805150]
+PASS   rho = 5/2: Z = sqrt(2pi) N(rho-1), int theta gamma = rho Z + e^{-(rho-1)^2/2}; I >= int gamma/theta >= Z^2/(...) I = [1.55429548116, 1.55429548117]
+PASS   rho = 5/2: sqrt(2pi)/I <= rho/N(x) + phi(x)/N(x)^2 <= rho + 2 phi(1)/N(1) + phi(1)/N(1)^2 < rho + 1 sqrt(2pi)/I - rho = [-0.8872897368, -0.8872897367], bound - rho = [0.3277005073, 0.3277005074]
+PASS   rho = 3: Z = sqrt(2pi) N(rho-1), int theta gamma = rho Z + e^{-(rho-1)^2/2}; I >= int gamma/theta >= Z^2/(...) I = [1.25930058050, 1.25930058051]
+PASS   rho = 3: sqrt(2pi)/I <= rho/N(x) + phi(x)/N(x)^2 <= rho + 2 phi(1)/N(1) + phi(1)/N(1)^2 < rho + 1 sqrt(2pi)/I - rho = [-1.009507569, -1.009507568], bound - rho = [0.1263732670, 0.1263732671]
+PASS   rho = 5: Z = sqrt(2pi) N(rho-1), int theta gamma = rho Z + e^{-(rho-1)^2/2}; I >= int gamma/theta >= Z^2/(...) I = [0.578983908645, 0.578983908646]
+PASS   rho = 5: sqrt(2pi)/I <= rho/N(x) + phi(x)/N(x)^2 <= rho + 2 phi(1)/N(1) + phi(1)/N(1)^2 < rho + 1 sqrt(2pi)/I - rho = [-0.6706425910, -0.6706425909], bound - rho = [0.0002921999279, 0.0002921999280]
+PASS   rho = 8: Z = sqrt(2pi) N(rho-1), int theta gamma = rho Z + e^{-(rho-1)^2/2}; I >= int gamma/theta >= Z^2/(...) I = [0.329310252716, 0.329310252717]
+PASS   rho = 8: sqrt(2pi)/I <= rho/N(x) + phi(x)/N(x)^2 <= rho + 2 phi(1)/N(1) + phi(1)/N(1)^2 < rho + 1 sqrt(2pi)/I - rho = [-0.3882470894, -0.3882470893], bound - rho = [1.937322075e-11, 1.937322076e-11]
+
+Values of sqrt(2 pi)/I(rho) - rho, I(rho) = e^{-rho^2/2} Gamma(rho) (Gamma by quadrature):
+  rho =  0: [2.06636567706124, 2.06636567706125]
+  rho =  1: [0.549265708790621, 0.549265708790622]
+  rho =  2: [-0.592027159233187, -0.592027159233186]
+  rho =  3: [-1.00950756837423, -1.00950756837422]
+  rho = 10: [-0.306467328320732, -0.306467328320731]
+PASS Gamma(3): series = quadrature (cross-check of the values above)
+PASS NEG at rho = 0 the inequality sqrt(2pi) e^{rho^2/2} <= (rho+1) Gamma(rho) is false (refuted)
+
+(rho+1) Gamma(rho) - sqrt(2pi) e^{rho^2/2} changes sign on [0, 2] at rho in [0.719057766963963, 0.719057766963964] (evidence)
+PASS sqrt(2pi) e^{rho^2/2} < (rho+1) Gamma(rho) on [2, 6] (4000 pieces, certified; a cross-check of Lemma 7.1) smallest piece ratio 1.2734149 at rho = 5999/1000
+Consequence for |rho| <= 2: C lambda_0 = e^2 >= e^{rho^2/2} since rho^2/2 <= 2 (analytic, no computation);
+for 2 <= |rho| <= sqrt T: C >= (|rho| + 1)/sqrt(2 pi) (analytic).
+elapsed 0.80 s
+RESULT: ALL 19 CHECKS PASSED

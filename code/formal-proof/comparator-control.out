@@ -1,0 +1,28 @@
+# Negative control of .github/comparator-controls.tsv before the release, finished 2026-10-02T00:25:56Z, on the same sources: in RegretKappa/Challenge/LowerSharp.lean the
+# term - 1 / k0 T of bT changed to - 2 / k0 T, then the same Comparator run, which must reject it at the comparison of bT.
+Building RegretKappa.Challenge
+⚠ [8924/8928] Built RegretKappa.Challenge.Statement (4.5s)
+warning: RegretKappa/Challenge/Statement.lean:43:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/Statement.lean:45:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/Statement.lean:47:8: declaration uses `sorry`
+⚠ [8925/8928] Built RegretKappa.Challenge.LowerSharp (7.5s)
+warning: RegretKappa/Challenge/LowerSharp.lean:45:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/LowerSharp.lean:47:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/LowerSharp.lean:49:8: declaration uses `sorry`
+⚠ [8926/8928] Built RegretKappa.Challenge.UpperSharp (7.7s)
+warning: RegretKappa/Challenge/UpperSharp.lean:42:8: declaration uses `sorry`
+warning: RegretKappa/Challenge/UpperSharp.lean:44:8: declaration uses `sorry`
+⚠ [8927/8928] Built RegretKappa.Challenge.Corollaries (7.8s)
+warning: RegretKappa/Challenge/Corollaries.lean:90:8: declaration uses `sorry`
+⚠ [8928/8928] Built RegretKappa.Challenge (4.7s)
+warning: RegretKappa/Challenge.lean:39:8: declaration uses `sorry`
+warning: RegretKappa/Challenge.lean:41:8: declaration uses `sorry`
+Build completed successfully (8928 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, RegretKappa.main, RegretKappa.mainBoundedFeatures, RegretKappa.Corollaries.randLowerBound, RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.lowerSharpSimplified, RegretKappa.kappaEqThree, RegretKappa.Upper.upperBound, RegretKappa.Lower.lowerBound, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from RegretKappa.Challenge
+Building RegretKappa.Solution
+Build completed successfully (8979 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, RegretKappa.main, RegretKappa.mainBoundedFeatures, RegretKappa.Corollaries.randLowerBound, RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.lowerSharpSimplified, RegretKappa.kappaEqThree, RegretKappa.Upper.upperBound, RegretKappa.Lower.lowerBound, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from RegretKappa.Solution
+uncaught exception: Const does not match between challenge and target 'RegretKappa.LowerSharp.bT'
+memory.peak 2831798272
+COMPARATOR FAIL (nanoda): 95 s wall, memory peak 2700 MiB
+exit 1

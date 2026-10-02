@@ -1,0 +1,20 @@
+constants: c0 = 3.812224, c1 = 3.318633, E Z^2 = 0.522764, log(1.1) = 0.095310
+eps_L at L = 14.5: 0.080446 (<= log 1.1 = 0.095310: 1); eps_L decreasing for L >= 2
+T0 = 355713 (smallest T with 2 log T - 2 log(20 e) - 2 log(log(3 log T) + 1) >= 14.5)
+at T0: j0 = 4, L = 14.799706, Llow = 14.500005, C1 1, C2 1, C3 1
+C3 margin function T/2 - pi^2 e^2 (sqrt(2 log T) + 2.03)^2 at T0: 174194.667; sqrt(5/8) exp(-14.5/4) = 0.02107
+scan T in [T0, 1e30], 50 points per decade: conditions all hold; min of B(T) - Bsimple(T) = 1.137607 at T = 2.959 e21
+jump points of j0 checked (j = 4..6, T up to 1e58)
+at T0: log log T0 = 2.548029, v - 2 log(v + 2.1) = -0.524858 (>= -0.6: 1), 6 log log T0 = 15.288171 (>= 15.2: 1)
+T	j0	L	B(T)	Bsimple(T)	W_T(0) (DP)	W - B	conditions
+1000	4	3.0515	3.2370	1.4018	12.9911	9.7541	T < T0 (bound not claimed)
+10000	4	7.6566	9.5525	7.8840	19.4917	9.9392	T < T0 (bound not claimed)
+100000	4	12.2618	16.0532	14.4679	26.2439	10.1907	T < T0 (bound not claimed)
+316228	4	14.5644	19.3347	17.7850	29.6625	10.3278	T < T0 (bound not claimed)
+1000000	4	16.8670	22.6296	21.1147	33.0952	10.4656	T >= T0
+1. e7	4	21.4721	29.2484	27.8041	-	-	-
+1. e8	5	25.6310	35.8868	34.5243	-	-	-
+1. e10	5	34.8414	49.3860	48.0296	-	-	-
+1. e15	5	57.8672	83.3041	82.0137	-	-	-
+1. e20	5	80.8931	117.3423	116.1654	-	-	-
+B(T)/log T at T = 1e6, 1e10, 1e20, 1e50, 1e100: 1.6380 2.1448 2.5481 2.8086 2.9010

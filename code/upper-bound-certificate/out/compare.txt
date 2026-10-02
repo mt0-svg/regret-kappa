@@ -1,0 +1,232 @@
+compared: code/upper-bound/out/{constants_gp,lemma_check_gp}.txt, sha256 of the text extracted through diff:
+4522b97aed77c35e38acb2281703a6450f1baf9a12c1d325bf01292cb3f73916  constants_gp.txt
+03941d3cf6dbcc02cc4be505d96020feda9841da157f7555ec37044840d37502  lemma_check_gp.txt
+this implementation (sha256):
+0c4d669d9d098b7d49dea3704e36fac9dd10f51b8e8f94902873755bd761f1b1  lib.sage
+acf85d41b9dbe0a28b988abf8717ecb2b89b426ac9c1ab7d9820f6783c07b585  compare.sage
+compare: this implementation (Arb balls, 256 bits) against code/upper-bound/out/{constants_gp,lemma_check_gp}.txt
+
+A. constants_gp.txt
+MATCH    e^{-1/2}: theirs 0.606530659712633, here [0.6065306597126334236037995, 0.6065306597126334236037996], distance 0.424 units of the last digit
+MATCH    E_1(1/2): theirs 0.559773594776161, here [0.5597735947761608117467959, 0.5597735947761608117467960], distance 0.189 units of the last digit
+MATCH    J_0: theirs 0.163321931162277, here [0.1633219311622765088652007, 0.1633219311622765088652008], distance 0.492 units of the last digit
+MATCH    J_1: theirs 0.279886797388080, here [0.2798867973880804058733979, 0.2798867973880804058733980], distance 0.406 units of the last digit
+MATCH    J_2: theirs 0.606530659712633, here [0.6065306597126334236037995, 0.6065306597126334236037996], distance 0.424 units of the last digit
+MATCH    J_3: theirs 1.819591979137900, here [1.819591979137900270811398, 1.819591979137900270811399], distance 0.271 units of the last digit
+MATCH    J_4: theirs 7.884898576264235, here [7.884898576264234506849393, 7.884898576264234506849394], distance 0.494 units of the last digit
+MATCH    Gamma_0: theirs 1.21306131942526684720759906998236090688383627097437391136578, here [1.213061319425266847207599, 1.213061319425266847207600], distance 0.432 units of the last digit
+MATCH    Gamma_1: theirs 2.33260850897758847070119094861253137733753005160708094186237, here [2.332608508977588470701190, 2.332608508977588470701191], distance 0.0756 units of the last digit
+MATCH    Gamma_2: theirs 6.06530659712633423603799534991180453441918135487186955682892, here [6.065306597126334236037995, 6.065306597126334236037996], distance 0.159 units of the last digit
+MATCH    Gamma_3: theirs 23.0481650690800700969443823296648572307928891485131043159499, here [23.04816506908007009694438, 23.04816506908007009694439], distance 0.0204 units of the last digit
+MATCH    Gamma_4: theirs 127.371438539653018956797902348147895222802808452309260693407, here [127.3714385396530189567979, 127.3714385396530189567980], distance 0.354 units of the last digit
+MATCH    Gamma_5: theirs 959.531503665386076141210864356047477345114490340729763890335, here [959.5315036653860761412108, 959.5315036653860761412109], distance 0.396 units of the last digit
+MATCH    Gamma_6: theirs 9215.62684367375223823613013465599580959650415059231860464586, here [9215.626843673752238236130, 9215.626843673752238236131], distance 0.346 units of the last digit
+MATCH    Gamma(0): theirs 1.213061319425267, here [1.213061319425266847207599, 1.213061319425266847207600], distance 0.153 units of the last digit
+MATCH    2 e^{-1/2}: theirs 1.213061319425267, here [1.213061319425266847207599, 1.213061319425266847207600], distance 0.153 units of the last digit
+MATCH    Gamma(1/2) series: theirs 1.520945232399251, here [1.520945232399251295590636, 1.520945232399251295590637], distance 0.296 units of the last digit
+MATCH    Gamma(1/2) quadrature: theirs 1.520945232399251, here [1.520945232399251295590636, 1.520945232399251295590637], distance 0.296 units of the last digit
+MATCH    Gamma(1) series: theirs 2.667542004365772, here [2.667542004365772129710341, 2.667542004365772129710342], distance 0.130 units of the last digit
+MATCH    Gamma(1) quadrature: theirs 2.667542004365772, here [2.667542004365772129710341, 2.667542004365772129710342], distance 0.130 units of the last digit
+MATCH    Gamma(17/10) series: theirs 7.754468492917201, here [7.754468492917201389284992, 7.754468492917201389284993], distance 0.390 units of the last digit
+MATCH    Gamma(17/10) quadrature: theirs 7.754468492917201, here [7.754468492917201389284992, 7.754468492917201389284993], distance 0.390 units of the last digit
+MATCH    Gamma(5/2) series: theirs 35.375602095610158, here [35.37560209561015806582862, 35.37560209561015806582863], distance 0.0659 units of the last digit
+MATCH    Gamma(5/2) quadrature: theirs 35.375602095610158, here [35.37560209561015806582862, 35.37560209561015806582863], distance 0.0659 units of the last digit
+MATCH    Gamma(1) - Gamma(0): theirs 1.454480684940505, here [1.454480684940505282502742, 1.454480684940505282502743], distance 0.283 units of the last digit
+MATCH    Lemma A s0=0.5000 L0: theirs 1.3862943611, here [1.386294361119890618834464, 1.386294361119890618834465], distance 0.199 units of the last digit
+MATCH    Lemma A s0=0.5000 a_0: theirs 1.98396097550134743805696098349674091961684894238030353104864, here [1.983960975501347438056960, 1.983960975501347438056961], distance 0.147 units of the last digit
+MATCH    Lemma A s0=0.5000 a_1: theirs 1.16864353697221366358439778607834962416617571043479036478531, here [1.168643536972213663584397, 1.168643536972213663584398], distance 0.133 units of the last digit
+MATCH    Lemma A s0=0.5000 a_2: theirs -0.606530659712633423603799534991180453441918135487186955682892, here [-0.6065306597126334236037996, -0.6065306597126334236037995], distance 0.159 units of the last digit
+MATCH    Lemma A s0=0.5000 a_3: theirs -5.45877593741370081243419581492062408097726321938468260114603, here [-5.458775937413700812434196, -5.458775937413700812434195], distance 0.0572 units of the last digit
+MATCH    Lemma A s0=0.5000 a_4: theirs -29.7200023259190377565861772145678422186539886388721608284617, here [-29.72000232591903775658618, -29.72000232591903775658617], distance 0.158 units of the last digit
+MATCH    Lemma A s0=0.5000 argmax x: theirs 3.507468, here [3.507468328221887234077504, 3.507468328221887234077505], distance 0.329 units of the last digit
+MATCH    Lemma A s0=0.5000 max f: theirs 3.2838386148, here [3.283838614841366194099334, 3.283838614841366194099335], distance 0.414 units of the last digit
+MATCH    Lemma A s0=0.5000 s0 max f: theirs 1.6419193074, here [1.641919307420683097049667, 1.641919307420683097049668], distance 0.207 units of the last digit
+MATCH    Lemma A s0=0.6000 L0: theirs 1.5271512198, here [1.527151219790258441972545, 1.527151219790258441972546], distance 0.0975 units of the last digit
+MATCH    Lemma A s0=0.6000 a_0: theirs 2.23449944974969456872916030148907097985501945613649136473798, here [2.234499449749694568729160, 2.234499449749694568729161], distance 0.304 units of the last digit
+MATCH    Lemma A s0=0.6000 a_1: theirs 1.33951154380098839352975086587751887807827433323367840655268, here [1.339511543800988393529750, 1.339511543800988393529751], distance 0.118 units of the last digit
+MATCH    Lemma A s0=0.6000 a_2: theirs -0.606530659712633423603799534991180453441918135487186955682892, here [-0.6065306597126334236037996, -0.6065306597126334236037995], distance 0.159 units of the last digit
+MATCH    Lemma A s0=0.6000 a_3: theirs -5.45877593741370081243419581492062408097726321938468260114603, here [-5.458775937413700812434196, -5.458775937413700812434195], distance 0.0572 units of the last digit
+MATCH    Lemma A s0=0.6000 a_4: theirs -29.7200023259190377565861772145678422186539886388721608284617, here [-29.72000232591903775658618, -29.72000232591903775658617], distance 0.158 units of the last digit
+MATCH    Lemma A s0=0.6000 argmax x: theirs 3.764098, here [3.764097576415694404712223, 3.764097576415694404712224], distance 0.424 units of the last digit
+MATCH    Lemma A s0=0.6000 max f: theirs 3.8451512406, here [3.845151240580339134274390, 3.845151240580339134274391], distance 0.197 units of the last digit
+MATCH    Lemma A s0=0.6000 s0 max f: theirs 2.3070907443, here [2.307090744348203480564634, 2.307090744348203480564635], distance 0.483 units of the last digit
+MATCH    Lemma A s0=0.6667 L0: theirs 1.6479184330, here [1.647918433002164537092867, 1.647918433002164537092868], distance 0.0217 units of the last digit
+MATCH    Lemma A s0=0.6667 a_0: theirs 2.43460856277883219502883841954918404157838768716127309061597, here [2.434608562778832195028838, 2.434608562778832195028839], distance 0.165 units of the last digit
+MATCH    Lemma A s0=0.6667 a_1: theirs 1.48600957880313571978922395346830711937146614919297073659906, here [1.486009578803135719789223, 1.486009578803135719789224], distance 0.396 units of the last digit
+MATCH    Lemma A s0=0.6667 a_2: theirs -0.606530659712633423603799534991180453441918135487186955682892, here [-0.6065306597126334236037996, -0.6065306597126334236037995], distance 0.159 units of the last digit
+MATCH    Lemma A s0=0.6667 a_3: theirs -5.45877593741370081243419581492062408097726321938468260114603, here [-5.458775937413700812434196, -5.458775937413700812434195], distance 0.0572 units of the last digit
+MATCH    Lemma A s0=0.6667 a_4: theirs -29.7200023259190377565861772145678422186539886388721608284617, here [-29.72000232591903775658618, -29.72000232591903775658617], distance 0.158 units of the last digit
+MATCH    Lemma A s0=0.6667 argmax x: theirs 3.968325, here [3.968325453813079942645044, 3.968325453813079942645045], distance 0.454 units of the last digit
+MATCH    Lemma A s0=0.6667 max f: theirs 4.3285373892, here [4.328537389244686712098918, 4.328537389244686712098919], distance 0.447 units of the last digit
+MATCH    Lemma A s0=0.6667 s0 max f: theirs 2.8856915928, here [2.885691592829791141399279, 2.885691592829791141399280], distance 0.298 units of the last digit
+MATCH    positive root x_0 of f: theirs 7.94626142035318050114125261423968499883115200060202943843682, here [7.946261420353180501141252, 7.946261420353180501141253], distance 0.104 units of the last digit
+MATCH    sqrt(x_0): theirs 2.81891138923400366276758032922528334543654727614939388328164, here [2.818911389234003662767580, 2.818911389234003662767581], distance 0.268 units of the last digit
+  (sup psi: the value here is psi at the maximizer, a certified lower bound of the supremum; the
+   certified upper bounds are in out/c3_lemma61.txt, at most 1e-6 above)
+MISMATCH Lemma B s0=0.5000 sup psi: theirs 3.4841349120, here [3.484134918041058109600582, 3.484134918041058109600583], distance 60.5 units of the last digit; |theirs - here| in [6.04e-9, 6.05e-9], agreement to 8 decimals
+MATCH    Lemma B s0=0.5000 argmax rho: theirs 1.8445, here [1.844463893823855452826736, 1.844463893823855452826737], distance 0.362 units of the last digit
+MATCH    Lemma B s0=0.5000 rho_z: theirs 2.4142135624, here [2.414213562373095048801688, 2.414213562373095048801689], distance 0.270 units of the last digit
+MISMATCH Lemma B s0=0.6000 sup psi: theirs 2.4916758558, here [2.491675856009390220210717, 2.491675856009390220210718], distance 2.10 units of the last digit; |theirs - here| in [2.09e-10, 2.10e-10], agreement to 9 decimals
+MATCH    Lemma B s0=0.6000 argmax rho: theirs 1.4558, here [1.455808000528942223439499, 1.455808000528942223439500], distance 0.0801 units of the last digit
+MATCH    Lemma B s0=0.6000 rho_z: theirs 2.1074910297, here [2.107491029663531661125516, 2.107491029663531661125517], distance 0.365 units of the last digit
+MISMATCH Lemma B s0=0.6667 sup psi: theirs 2.1384949275, here [2.138494927726632967362496, 2.138494927726632967362497], distance 2.27 units of the last digit; |theirs - here| in [2.26e-10, 2.27e-10], agreement to 9 decimals
+MATCH    Lemma B s0=0.6667 argmax rho: theirs 1.2304, here [1.230388777980941587784646, 1.230388777980941587784647], distance 0.113 units of the last digit
+MATCH    Lemma B s0=0.6667 rho_z: theirs 1.9318516526, here [1.931851652578136573499486, 1.931851652578136573499487], distance 0.219 units of the last digit
+MATCH    piece  1 rho_{i-1}: theirs 0.0000, here [0.000000000000000000000000, -0.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  1 rho_i: theirs 0.0966, here [0.09659258262890682867497431, 0.09659258262890682867497432], distance 0.0742 units of the last digit
+MATCH    piece  1 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  1 g'(m(rho_i)^2): theirs 1.788793, here [1.788792595994159059032441, 1.788792595994159059032442], distance 0.405 units of the last digit
+MATCH    piece  1 bound: theirs 1.788793, here [1.788792595994159059032441, 1.788792595994159059032442], distance 0.405 units of the last digit
+MATCH    piece  2 rho_{i-1}: theirs 0.0966, here [0.09659258262890682867497431, 0.09659258262890682867497432], distance 0.0742 units of the last digit
+MATCH    piece  2 rho_i: theirs 0.1932, here [0.1931851652578136573499486, 0.1931851652578136573499487], distance 0.149 units of the last digit
+MATCH    piece  2 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  2 g'(m(rho_i)^2): theirs 1.809731, here [1.809730925529793656340951, 1.809730925529793656340952], distance 0.0745 units of the last digit
+MATCH    piece  2 bound: theirs 1.809731, here [1.809730925529793656340951, 1.809730925529793656340952], distance 0.0745 units of the last digit
+MATCH    piece  3 rho_{i-1}: theirs 0.1932, here [0.1931851652578136573499486, 0.1931851652578136573499487], distance 0.149 units of the last digit
+MATCH    piece  3 rho_i: theirs 0.2898, here [0.2897777478867204860249229, 0.2897777478867204860249230], distance 0.223 units of the last digit
+MATCH    piece  3 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  3 g'(m(rho_i)^2): theirs 1.845136, here [1.845135530027733964603838, 1.845135530027733964603839], distance 0.470 units of the last digit
+MATCH    piece  3 bound: theirs 1.845136, here [1.845135530027733964603838, 1.845135530027733964603839], distance 0.470 units of the last digit
+MATCH    piece  4 rho_{i-1}: theirs 0.2898, here [0.2897777478867204860249229, 0.2897777478867204860249230], distance 0.223 units of the last digit
+MATCH    piece  4 rho_i: theirs 0.3864, here [0.3863703305156273146998972, 0.3863703305156273146998973], distance 0.297 units of the last digit
+MATCH    piece  4 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  4 g'(m(rho_i)^2): theirs 1.895788, here [1.895787813807022384256773, 1.895787813807022384256774], distance 0.187 units of the last digit
+MATCH    piece  4 bound: theirs 1.895788, here [1.895787813807022384256773, 1.895787813807022384256774], distance 0.187 units of the last digit
+MATCH    piece  5 rho_{i-1}: theirs 0.3864, here [0.3863703305156273146998972, 0.3863703305156273146998973], distance 0.297 units of the last digit
+MATCH    piece  5 rho_i: theirs 0.4830, here [0.4829629131445341433748715, 0.4829629131445341433748716], distance 0.371 units of the last digit
+MATCH    piece  5 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  5 g'(m(rho_i)^2): theirs 1.962824, here [1.962823566210197838070405, 1.962823566210197838070406], distance 0.434 units of the last digit
+MATCH    piece  5 bound: theirs 1.962824, here [1.962823566210197838070405, 1.962823566210197838070406], distance 0.434 units of the last digit
+MATCH    piece  6 rho_{i-1}: theirs 0.4830, here [0.4829629131445341433748715, 0.4829629131445341433748716], distance 0.371 units of the last digit
+MATCH    piece  6 rho_i: theirs 0.5796, here [0.5795554957734409720498459, 0.5795554957734409720498460], distance 0.446 units of the last digit
+MATCH    piece  6 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  6 g'(m(rho_i)^2): theirs 2.047778, here [2.047777630192593102190829, 2.047777630192593102190830], distance 0.370 units of the last digit
+MATCH    piece  6 bound: theirs 2.047778, here [2.047777630192593102190829, 2.047777630192593102190830], distance 0.370 units of the last digit
+MATCH    piece  7 rho_{i-1}: theirs 0.5796, here [0.5795554957734409720498459, 0.5795554957734409720498460], distance 0.446 units of the last digit
+MATCH    piece  7 rho_i: theirs 0.6761, here [0.6761480784023478007248202, 0.6761480784023478007248203], distance 0.481 units of the last digit
+MATCH    piece  7 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  7 g'(m(rho_i)^2): theirs 2.152646, here [2.152645640432912763715221, 2.152645640432912763715222], distance 0.360 units of the last digit
+MATCH    piece  7 bound: theirs 2.152646, here [2.152645640432912763715221, 2.152645640432912763715222], distance 0.360 units of the last digit
+MATCH    piece  8 rho_{i-1}: theirs 0.6761, here [0.6761480784023478007248202, 0.6761480784023478007248203], distance 0.481 units of the last digit
+MATCH    piece  8 rho_i: theirs 0.7727, here [0.7727406610312546293997945, 0.7727406610312546293997946], distance 0.407 units of the last digit
+MATCH    piece  8 q(rho_{i-1}): theirs 1.000000, here [1.000000000000000000000000, 1.000000000000000000000000], distance 0 units of the last digit
+MATCH    piece  8 g'(m(rho_i)^2): theirs 2.277283, here [2.277283366592877669871362, 2.277283366592877669871363], distance 0.367 units of the last digit
+MATCH    piece  8 bound: theirs 2.277283, here [2.277283366592877669871362, 2.277283366592877669871363], distance 0.367 units of the last digit
+MATCH    piece  9 rho_{i-1}: theirs 0.7727, here [0.7727406610312546293997945, 0.7727406610312546293997946], distance 0.407 units of the last digit
+MATCH    piece  9 rho_i: theirs 0.8693, here [0.8693332436601614580747688, 0.8693332436601614580747689], distance 0.333 units of the last digit
+MATCH    piece  9 q(rho_{i-1}): theirs 0.997128, here [0.9971281292110203669643914, 0.9971281292110203669643915], distance 0.130 units of the last digit
+MATCH    piece  9 g'(m(rho_i)^2): theirs 2.415540, here [2.415539923677776862048782, 2.415539923677776862048783], distance 0.0764 units of the last digit
+MATCH    piece  9 bound: theirs 2.408603, here [2.408602805131352562445816, 2.408602805131352562445817], distance 0.195 units of the last digit
+MATCH    piece 10 rho_{i-1}: theirs 0.8693, here [0.8693332436601614580747688, 0.8693332436601614580747689], distance 0.333 units of the last digit
+MATCH    piece 10 rho_i: theirs 0.9659, here [0.9659258262890682867497431, 0.9659258262890682867497432], distance 0.259 units of the last digit
+MATCH    piece 10 q(rho_{i-1}): theirs 0.982455, here [0.9824550499155314200986953, 0.9824550499155314200986954], distance 0.0500 units of the last digit
+MATCH    piece 10 g'(m(rho_i)^2): theirs 2.568320, here [2.568319784251618298592361, 2.568319784251618298592362], distance 0.216 units of the last digit
+MATCH    piece 10 bound: theirs 2.523259, here [2.523258741835970543216314, 2.523258741835970543216315], distance 0.259 units of the last digit
+MATCH    piece 11 rho_{i-1}: theirs 0.9659, here [0.9659258262890682867497431, 0.9659258262890682867497432], distance 0.259 units of the last digit
+MATCH    piece 11 rho_i: theirs 1.0625, here [1.062518408917975115424717, 1.062518408917975115424718], distance 0.185 units of the last digit
+MATCH    piece 11 q(rho_{i-1}): theirs 0.955342, here [0.9553418012614795489212410, 0.9553418012614795489212411], distance 0.199 units of the last digit
+MATCH    piece 11 g'(m(rho_i)^2): theirs 2.737299, here [2.737298517920357625483589, 2.737298517920357625483590], distance 0.483 units of the last digit
+MATCH    piece 11 bound: theirs 2.615056, here [2.615055696700412810222172, 2.615055696700412810222173], distance 0.304 units of the last digit
+MATCH    piece 12 rho_{i-1}: theirs 1.0625, here [1.062518408917975115424717, 1.062518408917975115424718], distance 0.185 units of the last digit
+MATCH    piece 12 rho_i: theirs 1.1591, here [1.159110991546881944099691, 1.159110991546881944099692], distance 0.110 units of the last digit
+MATCH    piece 12 q(rho_{i-1}): theirs 0.915788, here [0.9157883832488647534320286, 0.9157883832488647534320287], distance 0.384 units of the last digit
+MATCH    piece 12 g'(m(rho_i)^2): theirs 2.924389, here [2.924388992290687811745645, 2.924388992290687811745646], distance 0.00771 units of the last digit
+MATCH    piece 12 bound: theirs 2.678121, here [2.678121467240665802582114, 2.678121467240665802582115], distance 0.468 units of the last digit
+MATCH    piece 13 rho_{i-1}: theirs 1.1591, here [1.159110991546881944099691, 1.159110991546881944099692], distance 0.110 units of the last digit
+MATCH    piece 13 rho_i: theirs 1.2557, here [1.255703574175788772774666, 1.255703574175788772774667], distance 0.0358 units of the last digit
+MATCH    piece 13 q(rho_{i-1}): theirs 0.863795, here [0.8637947958776870336310580, 0.8637947958776870336310581], distance 0.205 units of the last digit
+MATCH    piece 13 g'(m(rho_i)^2): theirs 3.131779, here [3.131778592142307374832226, 3.131778592142307374832227], distance 0.408 units of the last digit
+MATCH    piece 13 bound: theirs 2.705214, here [2.705214049733674472196824, 2.705214049733674472196825], distance 0.0498 units of the last digit
+MATCH    piece 14 rho_{i-1}: theirs 1.2557, here [1.255703574175788772774666, 1.255703574175788772774667], distance 0.0358 units of the last digit
+MATCH    piece 14 rho_i: theirs 1.3523, here [1.352296156804695601449640, 1.352296156804695601449641], distance 0.0385 units of the last digit
+MATCH    piece 14 q(rho_{i-1}): theirs 0.799361, here [0.7993610391479463895183293, 0.7993610391479463895183294], distance 0.0392 units of the last digit
+MATCH    piece 14 g'(m(rho_i)^2): theirs 3.361973, here [3.361972981505392229199202, 3.361972981505392229199203], distance 0.0185 units of the last digit
+MATCH    piece 14 bound: theirs 2.687430, here [2.687430216083469880707096, 2.687430216083469880707097], distance 0.217 units of the last digit
+MATCH    piece 15 rho_{i-1}: theirs 1.3523, here [1.352296156804695601449640, 1.352296156804695601449641], distance 0.0385 units of the last digit
+MATCH    piece 15 rho_i: theirs 1.4489, here [1.448888739433602430124614, 1.448888739433602430124615], distance 0.113 units of the last digit
+MATCH    piece 15 q(rho_{i-1}): theirs 0.722487, here [0.7224871130596428210938424, 0.7224871130596428210938425], distance 0.114 units of the last digit
+MATCH    piece 15 g'(m(rho_i)^2): theirs 3.617848, here [3.617847656253243757949742, 3.617847656253243757949743], distance 0.344 units of the last digit
+MATCH    piece 15 bound: theirs 2.613848, here [2.613848308656001120073070, 2.613848308656001120073071], distance 0.309 units of the last digit
+MATCH    piece 16 rho_{i-1}: theirs 1.4489, here [1.448888739433602430124614, 1.448888739433602430124615], distance 0.113 units of the last digit
+MATCH    piece 16 rho_i: theirs 1.5455, here [1.545481322062509258799589, 1.545481322062509258799590], distance 0.187 units of the last digit
+MATCH    piece 16 q(rho_{i-1}): theirs 0.633173, here [0.6331730176127763283575974, 0.6331730176127763283575975], distance 0.0177 units of the last digit
+MATCH    piece 16 g'(m(rho_i)^2): theirs 3.902709, here [3.902708791791850457062941, 3.902708791791850457062942], distance 0.209 units of the last digit
+MATCH    piece 16 bound: theirs 2.471090, here [2.471089902562758353994496, 2.471089902562758353994497], distance 0.0975 units of the last digit
+MATCH    piece 17 rho_{i-1}: theirs 1.5455, here [1.545481322062509258799589, 1.545481322062509258799590], distance 0.187 units of the last digit
+MATCH    piece 17 rho_i: theirs 1.6421, here [1.642073904691416087474563, 1.642073904691416087474564], distance 0.261 units of the last digit
+MATCH    piece 17 q(rho_{i-1}): theirs 0.531419, here [0.5314187528073469113095942, 0.5314187528073469113095943], distance 0.248 units of the last digit
+MATCH    piece 17 g'(m(rho_i)^2): theirs 4.220365, here [4.220365203839209205463173, 4.220365203839209205463174], distance 0.204 units of the last digit
+MATCH    piece 17 bound: theirs 2.242781, here [2.242781213015756976552222, 2.242781213015756976552223], distance 0.214 units of the last digit
+MATCH    piece 18 rho_{i-1}: theirs 1.6421, here [1.642073904691416087474563, 1.642073904691416087474564], distance 0.261 units of the last digit
+MATCH    piece 18 rho_i: theirs 1.7387, here [1.738666487320322916149537, 1.738666487320322916149538], distance 0.336 units of the last digit
+MATCH    piece 18 q(rho_{i-1}): theirs 0.417224, here [0.4172243186433545699498329, 0.4172243186433545699498330], distance 0.319 units of the last digit
+MATCH    piece 18 g'(m(rho_i)^2): theirs 4.575214, here [4.575213623288574259856747, 4.575213623288574259856748], distance 0.377 units of the last digit
+MATCH    piece 18 bound: theirs 1.908890, here [1.908890386624368905800523, 1.908890386624368905800524], distance 0.387 units of the last digit
+MATCH    piece 19 rho_{i-1}: theirs 1.7387, here [1.738666487320322916149537, 1.738666487320322916149538], distance 0.336 units of the last digit
+MATCH    piece 19 rho_i: theirs 1.8353, here [1.835259069949229744824512, 1.835259069949229744824513], distance 0.410 units of the last digit
+MATCH    piece 19 q(rho_{i-1}): theirs 0.290590, here [0.2905897151207993042783134, 0.2905897151207993042783135], distance 0.285 units of the last digit
+MATCH    piece 19 g'(m(rho_i)^2): theirs 4.972340, here [4.972339955122022643666700, 4.972339955122022643666701], distance 0.0449 units of the last digit
+MATCH    piece 19 bound: theirs 1.444911, here [1.444910851042676557460653, 1.444910851042676557460654], distance 0.149 units of the last digit
+MATCH    piece 20 rho_{i-1}: theirs 1.8353, here [1.835259069949229744824512, 1.835259069949229744824513], distance 0.410 units of the last digit
+MATCH    piece 20 rho_i: theirs 1.9319, here [1.931851652578136573499486, 1.931851652578136573499487], distance 0.484 units of the last digit
+MATCH    piece 20 q(rho_{i-1}): theirs 0.151515, here [0.1515149422396811142950358, 0.1515149422396811142950359], distance 0.0578 units of the last digit
+MATCH    piece 20 g'(m(rho_i)^2): theirs 5.417640, here [5.417639766727064897107382, 5.417639766727064897107383], distance 0.234 units of the last digit
+MATCH    piece 20 bound: theirs 0.820853, here [0.8208533763310507038537017, 0.8208533763310507038537018], distance 0.377 units of the last digit
+MATCH    Lemma B max piece bound: theirs 2.7052140497, here [2.705214049733674472196867, 2.705214049733674472196868], distance 0.337 units of the last digit
+MATCH    Lemma B max piece bound, N = 30 plus tail: theirs 2.7052140497, here [2.705214049733674472196867, 2.705214049733674472196868], distance 0.337 units of the last digit
+MATCH    Lemma B x max = m(rho_z)^2: theirs 3.732051, here [3.732050807568877293527446, 3.732050807568877293527447], distance 0.193 units of the last digit
+MATCH    Lemma C CS bound - rho at rho = 2 (theirs: max over [2, 60]): theirs 0.7189805150, here [0.7189805149776396411778491, 0.7189805149776396411778492], distance 0.224 units of the last digit
+MATCH    2 phi(1)/N(1): theirs 0.5751999419, here [0.5751999418783567224573402, 0.5751999418783567224573403], distance 0.217 units of the last digit
+MATCH    phi(1)/N(1)^2: theirs 0.3418336803, here [0.3418336802875192291936198, 0.3418336802875192291936199], distance 0.125 units of the last digit
+MATCH    2 phi(1)/N(1) + phi(1)/N(1)^2: theirs 0.9170336222, here [0.9170336221658759516509601, 0.9170336221658759516509602], distance 0.342 units of the last digit
+PASS rho = 0: sqrt(2 pi)/I - rho by quadrature and by the series agree, both radii < 1e-65 [2.06636567706124646923469594214992632472276095849565422577832562689, 2.06636567706124646923469594214992632472276095849565422577832562690]
+MATCH    sqrt(2 pi)/I(rho) - rho at rho = 0: theirs 2.06636567706124646923469594214992632472276095849565422577833, here [2.066365677061246469234695, 2.066365677061246469234696], distance 0.438 units of the last digit
+PASS rho = 1: sqrt(2 pi)/I - rho by quadrature and by the series agree, both radii < 1e-65 [0.549265708790621435582029463908794142720033336661307007368603317552, 0.549265708790621435582029463908794142720033336661307007368603317553]
+MISMATCH sqrt(2 pi)/I(rho) - rho at rho = 1: theirs 0.549265708790621435582029463908794142720034033184639630479373, here [0.5492657087906214355820294, 0.5492657087906214355820295], distance 6.97e17 units of the last digit; |theirs - here| in [6.96e-43, 6.97e-43], agreement to 42 decimals
+PASS rho = 3: sqrt(2 pi)/I - rho by quadrature and by the series agree, both radii < 1e-65 [-1.00950756837422199636184802648349652504234892408351968083814074215, -1.00950756837422199636184802648349652504234892408351968083814074214]
+MISMATCH sqrt(2 pi)/I(rho) - rho at rho = 3: theirs -1.00950756837422199636184802648349652504234700166643898538360, here [-1.009507568374221996361849, -1.009507568374221996361848], distance 1.93e17 units of the last digit; |theirs - here| in [1.92e-42, 1.93e-42], agreement to 41 decimals
+PASS rho = 10: sqrt(2 pi)/I - rho by quadrature and by the series agree, both radii < 1e-65 [-0.306467328320731678244357886826349119743046239984040987252782617003, -0.306467328320731678244357886826349119743046239984040987252782617002]
+MISMATCH sqrt(2 pi)/I(rho) - rho at rho = 10: theirs -0.306467328320731678244357886826349119742672632017514164823530, here [-0.3064673283207316782443579, -0.3064673283207316782443578], distance 3.74e20 units of the last digit; |theirs - here| in [3.73e-40, 3.74e-40], agreement to 39 decimals
+MATCH    2 log(3/sqrt(2 pi)): theirs 0.3593475109, here [0.3593475109268738992298310, 0.3593475109268738992298311], distance 0.269 units of the last digit
+MATCH    e^2: theirs 7.3890560989, here [7.389056098930650227230427, 7.389056098930650227230428], distance 0.307 units of the last digit
+MATCH    2 sqrt(2 pi) e^2/3: theirs 12.3477446269, here [12.34774462694280475705588, 12.34774462694280475705589], distance 0.429 units of the last digit
+MATCH    2 Gamma(0)/3 = 4 e^{-1/2}/3: theirs 0.8087075463, here [0.8087075462835112314717327, 0.8087075462835112314717328], distance 0.165 units of the last digit
+MATCH    T = 10 bound: theirs 8.162472, here [8.162471735760550127255972, 8.162471735760550127255973], distance 0.265 units of the last digit
+MATCH    T = 10 bound - 3 log T: theirs 1.254716, here [1.254716456778413075201997, 1.254716456778413075201998], distance 0.457 units of the last digit
+MATCH    T = 10 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 1.103796, here [1.103796256534480695276523, 1.103796256534480695276524], distance 0.257 units of the last digit
+MATCH    T = 100 bound: theirs 14.384698, here [14.38469808105906151737179, 14.38469808105906151737180], distance 0.0811 units of the last digit
+MATCH    T = 100 bound - 3 log T: theirs 0.569188, here [0.5691875230947874132638419, 0.5691875230947874132638420], distance 0.477 units of the last digit
+MATCH    T = 100 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 0.220435, here [0.2204348200897779170717732, 0.2204348200897779170717733], distance 0.180 units of the last digit
+MATCH    T = 1000 bound: theirs 21.146066, here [21.14606635129805605710154, 21.14606635129805605710155], distance 0.352 units of the last digit
+MATCH    T = 1000 bound - 3 log T: theirs 0.422801, here [0.4228005143516449009396220, 0.4228005143516449009396221], distance 0.486 units of the last digit
+MATCH    T = 1000 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 0.064445, here [0.06444473071952355157717917, 0.06444473071952355157717918], distance 0.270 units of the last digit
+MATCH    T = 10000 bound: theirs 28.010362, here [28.01036238263945582793819, 28.01036238263945582793820], distance 0.383 units of the last digit
+MATCH    T = 10000 bound - 3 log T: theirs 0.379341, here [0.3793412667109076197222933, 0.3793412667109076197222934], distance 0.267 units of the last digit
+MATCH    T = 10000 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 0.020093, here [0.02009321849925529392790422, 0.02009321849925529392790423], distance 0.219 units of the last digit
+MATCH    T = 100000 bound: theirs 34.904447, here [34.90444695848646185403669, 34.90444695848646185403670], distance 0.0416 units of the last digit
+MATCH    T = 100000 bound - 3 log T: theirs 0.365671, here [0.3656705635757765937668237, 0.3656705635757765937668238], distance 0.437 units of the last digit
+MATCH    T = 100000 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 0.006333, here [0.006333032865769466230018233, 0.006333032865769466230018234], distance 0.0329 units of the last digit
+MATCH    T = 1000000 bound: theirs 41.807879, here [41.80787900652865025128603, 41.80787900652865025128604], distance 0.00653 units of the last digit
+MATCH    T = 1000000 bound - 3 log T: theirs 0.361347, here [0.3613473326358279389621892, 0.3613473326358279389621893], distance 0.333 units of the last digit
+MATCH    T = 1000000 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 0.002001, here [0.002000821055290910454036228, 0.002000821055290910454036229], distance 0.179 units of the last digit
+MATCH    T = 1000000000 bound: theirs 62.529208, here [62.52920826712842982039569, 62.52920826712842982039570], distance 0.268 units of the last digit
+MATCH    T = 1000000000 bound - 3 log T: theirs 0.359411, here [0.3594107562891963519099210, 0.3594107562891963519099211], distance 0.244 units of the last digit
+MATCH    T = 1000000000 eps_T = 2/sqrt T + (4e^{-1/2}/3)/T + (2 sqrt(2pi) e^2/3)/T^{3/2}: theirs 0.000063, here [0.00006324636230138384002366304, 0.00006324636230138384002366305], distance 0.247 units of the last digit
+PASS constants_gp.txt ends with FINAL CHECKS: OK
+
+B. lemma_check_gp.txt (grids read from that file, computed here with certified point values)
+Lemma 5.2 grid: 732 points, 11.3 s
+PASS Lemma 5.2 grid: E - s f(rho^2) < 0 at every grid point (max certified negative) [-0.000126822848716, -0.000126822848715]
+MATCH    Lemma 5.2 grid max of E - s f(rho^2): theirs -1.268228 e-4, here [-0.0001268228487155541102997615, -0.0001268228487155541102997614], distance 0.488 units of the last digit
+   argmax here (rho, s) = (0, 1/10000); theirs: (rho, s) = [0, 0.00010000000000000000000000000000000000000] (must be <= 0)
+MATCH    Lemma 5.2 grid max of E: theirs 1.4913841071, here [1.491384107144366264519762, 1.491384107144366264519763], distance 0.444 units of the last digit
+   argmax here (rho, s) = (11/10, 2/3); theirs: (rho, s) = [1.1000000000000000000000000000000000000, 0.66666666666666666666666666666666666667] (Lemma 5.2 bound 2.8856915928)
+Lemma 6.1 grid: 30401 points, 2.4 s
+PASS Lemma 6.1 grid: max of Gamma(rho c + sigma) - Gamma(rho) < 2.7053 [2.13831039470, 2.13831039471]
+MATCH    Lemma 6.1 grid max of Gamma(rho c + sigma) - Gamma(rho): theirs 2.1383103947, here [2.138310394705495898985165, 2.138310394705495898985166], distance 0.0550 units of the last digit
+   argmax here (rho, s) = (31/25, 2/3); theirs: (rho, s) = [1.2400000000000000000000000000000000000, 0.66666666666666666666666666666666666667] (Lemma 6.1 bound 2.7053)
+PASS lemma_check_gp.txt ends with DONE
+
+COMPARISON: 196 MATCH, 0 NEAR, 6 MISMATCH
+elapsed 17.21 s
+RESULT: ALL 8 CHECKS PASSED

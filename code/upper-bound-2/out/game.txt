@@ -1,0 +1,20 @@
+adversary 1, T = 200, rep 1: regret = 0.503760, bound = 16.399049, max Psi increment = -5.163 e-3, final rho = -0.6598, zero x: 28, negative x: 86, interior y (not 0, +-1/2): 102
+adversary 1, T = 200, rep 2: regret = 0.042537, bound = 16.399049, max Psi increment = -5.137 e-3, final rho = 0.1752, zero x: 35, negative x: 82, interior y (not 0, +-1/2): 101
+adversary 1, T = 200, rep 3: regret = 0.720865, bound = 16.399049, max Psi increment = -6.189 e-3, final rho = 0.7424, zero x: 30, negative x: 89, interior y (not 0, +-1/2): 110
+adversary 1, T = 200, rep 4: regret = 0.327828, bound = 16.399049, max Psi increment = -5.539 e-3, final rho = -0.5594, zero x: 31, negative x: 80, interior y (not 0, +-1/2): 103
+adversary 1, T = 200, rep 5: regret = 0.098725, bound = 16.399049, max Psi increment = -5.137 e-3, final rho = -0.2222, zero x: 28, negative x: 86, interior y (not 0, +-1/2): 104
+adversary 1, T = 1000, rep 1: regret = 0.200666, bound = 21.146066, max Psi increment = -1.030 e-3, final rho = -0.4381, zero x: 148, negative x: 411, interior y (not 0, +-1/2): 516
+adversary 1, T = 1000, rep 2: regret = 0.044968, bound = 21.146066, max Psi increment = -1.449 e-3, final rho = -0.2125, zero x: 136, negative x: 422, interior y (not 0, +-1/2): 502
+adversary 1, T = 1000, rep 3: regret = 0.082369, bound = 21.146066, max Psi increment = -1.726 e-3, final rho = -0.0593, zero x: 140, negative x: 433, interior y (not 0, +-1/2): 496
+adversary 1, T = 1000, rep 4: regret = 0.287622, bound = 21.146066, max Psi increment = -1.562 e-3, final rho = -0.3017, zero x: 148, negative x: 419, interior y (not 0, +-1/2): 485
+adversary 1, T = 1000, rep 5: regret = 2.553898, bound = 21.146066, max Psi increment = -1.408 e-3, final rho = 1.4714, zero x: 145, negative x: 418, interior y (not 0, +-1/2): 492
+adversary 2, T = 200, rep 1: regret = 2.553255, bound = 16.399049, max Psi increment = -5.137 e-3, final rho = -0.5595, zero x: 40, negative x: 92, interior y (not 0, +-1/2): 0
+adversary 3, T = 50, rep 1: regret = 3.350606, bound = 12.406198, max Psi increment = -2.024 e-2, final rho = -1.8595, zero x: 0, negative x: 29, interior y (not 0, +-1/2): 0
+adversary 3, T = 50, rep 2: regret = 3.350606, bound = 12.406198, max Psi increment = -2.024 e-2, final rho = -1.8595, zero x: 0, negative x: 23, interior y (not 0, +-1/2): 0
+adversary 3, T = 50, rep 3: regret = 3.350606, bound = 12.406198, max Psi increment = -2.024 e-2, final rho = 1.8595, zero x: 0, negative x: 21, interior y (not 0, +-1/2): 0
+adversary 3, T = 300, rep 1: regret = 5.568589, bound = 17.587891, max Psi increment = -3.429 e-3, final rho = -2.3516, zero x: 205, negative x: 50, interior y (not 0, +-1/2): 0
+adversary 4, T = 50, rep 1: regret = 10.776295, bound = 12.406198, max Psi increment = -4.403 e-3, final rho = 6.4781, zero x: 0, negative x: 27, interior y (not 0, +-1/2): 0
+adversary 4, T = 50, rep 2: regret = 10.776295, bound = 12.406198, max Psi increment = -4.403 e-3, final rho = -6.4781, zero x: 0, negative x: 27, interior y (not 0, +-1/2): 0
+adversary 4, T = 50, rep 3: regret = 10.776295, bound = 12.406198, max Psi increment = -4.403 e-3, final rho = 6.4781, zero x: 0, negative x: 28, interior y (not 0, +-1/2): 0
+adversary 4, T = 300, rep 1: regret = 16.161402, bound = 17.587891, max Psi increment = -1.299 e-4, final rho = 14.1994, zero x: 0, negative x: 142, interior y (not 0, +-1/2): 0
+GAME OK

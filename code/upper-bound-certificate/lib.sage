@@ -195,7 +195,7 @@ def Ghat_quad(rho, s):
 
 
 # ---------------------------------------------------------------------------
-# Closed forms of Lemma 2.1 (c) and the power series of Gamma and g'.
+# Closed forms from the recursion of Lemma A.1 (b) and the power series of Gamma and g'.
 # ---------------------------------------------------------------------------
 
 
@@ -223,7 +223,7 @@ _GN = {}
 
 
 def Gamma_n(n):
-    """Closed form of Lemma 2.1 (c)."""
+    """Closed form from the recursion of Lemma A.1 (b)."""
     if n not in _GN:
         if n == 0:
             _GN[n] = 2 * EM
@@ -244,8 +244,8 @@ def series_tail(x, N, shift):
 
 
 def Gamma_series(r, N=None):
-    """Gamma(r) = sum_n Gamma_n x^n/(2n)!, x = r^2 (Lemma 2.1 (b)), truncated at N.
-    Tail: Gamma_n x^n/(2n)! <= 2 x^n/n! for n >= 1 (Lemma 2.1 (d), with
+    """Gamma(r) = sum_n Gamma_n x^n/(2n)!, x = r^2 (expanding cosh in the definition of Gamma), truncated at N.
+    Tail: Gamma_n x^n/(2n)! <= 2 x^n/n! for n >= 1 (Lemma A.1 (c), with
     (2n)! >= 2^n (n!)^2 and 1/n <= 1), so the tail is <= series_tail(x, N, 0)."""
     x = RB(r) ^ 2
     if N is None:
@@ -259,7 +259,7 @@ def Gamma_series(r, N=None):
 
 def gprime_series(x, N=None):
     """g'(x) = sum_{n>=1} n Gamma_n x^{n-1}/(2n)!, truncated at N, plus the tail bound
-    2 x^N / ((N+1)! (1 - x/(N+2))) from n Gamma_n/(2n)! <= 2/n! (Lemma 2.1 (d))."""
+    2 x^N / ((N+1)! (1 - x/(N+2))) from n Gamma_n/(2n)! <= 2/n! (Lemma A.1 (c))."""
     x = RB(x)
     if N is None:
         N = 20

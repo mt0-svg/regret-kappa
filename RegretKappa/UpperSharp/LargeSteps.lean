@@ -1,7 +1,7 @@
 import RegretKappa.UpperSharp.Weights
 
 /-!
-# Theorem 3.1 with the paper's constants: large steps (the paper, Lemma 3.11)
+# Theorem 3.1 with the paper's constants: large steps (the paper, Lemma A.8)
 
 In the units of `Upper` (`G = Γ/2`): for `2/3 ≤ b² ≤ 1` and every `ρ`,
 `max (G (ρ c + b)) (G (ρ c - b)) ≤ G ρ + 2.7053/2` with `c = √(1 - b²)` (`large_step_sharp`).
@@ -583,7 +583,7 @@ theorem psi_le {ρ : ℝ} (hρ : 0 ≤ ρ) : Upper.G √(m2 ρ) - Upper.G ρ ≤
     exact (Real.sqrt_le_left hρ).2 (m2_le_sq h2)
   linarith
 
-/-- **Large steps** (the paper, Lemma 3.11, in the units of `G`): for `2/3 ≤ b² ≤ 1`,
+/-- **Large steps** (the paper, Lemma A.8, in the units of `G`): for `2/3 ≤ b² ≤ 1`,
 `max (G (ρ c + b)) (G (ρ c - b)) ≤ G ρ + 2.7053/2` with `c = √(1 - b²)`. -/
 theorem large_step_sharp (ρ : ℝ) {b : ℝ} (hb1 : 2 / 3 ≤ b ^ 2) (hb2 : b ^ 2 ≤ 1) :
     max (Upper.G (ρ * √(1 - b ^ 2) + b)) (Upper.G (ρ * √(1 - b ^ 2) - b)) ≤

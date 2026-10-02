@@ -1,6 +1,0 @@
-pieces rerun, 2026-10-01T17:19:20Z; pari [2, 17, 4]
-pass 1: pieces.gp exit 0, 0.1 s, out/pieces.txt SAME as recorded
-pass 1: pieces_lean.gp exit 0, 0.1 s, out/pieces_lean.txt SAME as recorded
-pass 2: pieces.gp exit 0, 0.1 s, out/pieces.txt SAME as recorded
-pass 2: pieces_lean.gp exit 0, 0.0 s, out/pieces_lean.txt SAME as recorded
-overall: every run exits 0 and reproduces its recorded output

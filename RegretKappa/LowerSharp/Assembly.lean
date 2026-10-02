@@ -11,9 +11,9 @@ density `g²` on `[-2, 2]` (`gP`), phase-2 signs `η` with law `lik` given `z`.
 
 * `expReg_ge`: given `ξ`, the expected regret is at least `P₁(ξ) + 1_Succ (ρ_F² + β(ρ_F, k))`
   (`regret_succ`, `phase2S` on success; `regret_fail` on failure);
-* `avg_P1_nonneg`: `E P₁ ≥ 0` (Lemma 4.7 (3));
-* `avg_expReg_ge`: `E Reg ≥ P(Succ) B₀` (`beta_ge`, `mono_u`, Lemma 4.7 (2) as `abs_rhoS_le`);
-* `prob_fail_le`: `P(fail) ≤ e^{-j}` (Lemma 4.7 (1) from `avg_fail_le`);
+* `avg_P1_nonneg`: `E P₁ ≥ 0` (Lemma 4.4 (3));
+* `avg_expReg_ge`: `E Reg ≥ P(Succ) B₀` (`beta_ge`, `mono_u`, Lemma 4.4 (2) as `abs_rhoS_le`);
+* `prob_fail_le`: `P(fail) ≤ e^{-j}` (Lemma 4.4 (1) from `avg_fail_le`);
 * `adv_core`: the adversary as a finite mixture of plays with weights
   `w(ξ, η) = 2^{-m} ∫ g² lik(η | z) dz`, forcing `(1 - e^{-j}) B₀` on every learner;
 * `lowerSharpAdv`, `lowerSharpBound`: the statements of `RegretKappa/LowerSharp/Statement.lean`.
@@ -53,7 +53,7 @@ noncomputable def expReg (L : ℝ) {m k : ℕ} (Lrn : Learner (m + k)) (ξ : Fin
     lik (fun l => rhoF L ξ * eps k (rr L ξ) l) (fun l => eps k (rr L ξ) l) η z *
       regret Lrn (xA L k ξ) (yA L ξ η)
 
-/-- `β(ρ, k)` of Lemma 4.11 at radius `r`. -/
+/-- `β(ρ, k)` of Lemma 4.6 at radius `r`. -/
 noncomputable def betaS (k : ℕ) (r : ℝ) : ℝ :=
   -(4 / 3 - 8 / π ^ 2) + ∑ i ∈ range k, eps k r i ^ 2 / wInfoJ Jc k r i +
     (1 + ∑ i ∈ range k, eps k r i ^ 2) / wInfoJ Jc k r k
@@ -102,7 +102,7 @@ theorem expReg_ge (L : ℝ) {m k : ℕ} (hm : 1 ≤ m) (Lrn : Learner (m + k)) (
       exact Finset.sum_le_sum fun η _ =>
         mul_le_mul_of_nonneg_left (regret_fail L Lrn ξ η hs) (weight_nonnegP L ξ η hz)
 
-/-- **Lemma 4.7 (3)**: `E ∑_{t<m} (ŷ_t² - 2 ŷ_t y_t) ≥ 0`. -/
+/-- **Lemma 4.4 (3)**: `E ∑_{t<m} (ŷ_t² - 2 ŷ_t y_t) ≥ 0`. -/
 theorem avg_P1_nonneg (L : ℝ) {m k : ℕ} (Lrn : Learner (m + k)) : 0 ≤ avg m (P1 L Lrn) := by
   unfold P1
   rw [avg_sum]
@@ -118,7 +118,7 @@ theorem avg_P1_nonneg (L : ℝ) {m k : ℕ} (Lrn : Learner (m + k)) : 0 ≤ avg 
 noncomputable def B0L (L : ℝ) (k : ℕ) : ℝ :=
   L + log (k / (√L + 2) ^ 2) - c1 - log k / (2 * k) - 1 / k
 
-/-- On success the phase-2 bound is at least `B₀` (Lemma 4.11 (iv), monotonicity in `|ρ_{T₁}|`). -/
+/-- On success the phase-2 bound is at least `B₀` (Lemma 4.6 (iv), monotonicity in `|ρ_{T₁}|`). -/
 theorem succ_ge {L : ℝ} (hL : 145 / 10 ≤ L) {m k : ℕ} (hk : π ^ 2 * exp 2 * (aP L + 2) ^ 2 ≤ k)
     (ξ : Fin m → Bool) (hs : L ≤ rhoF L ξ ^ 2) :
     B0L L k ≤ rhoF L ξ ^ 2 + betaS k (rr L ξ) := by
@@ -169,7 +169,7 @@ theorem avg_expReg_ge {L : ℝ} (hL : 145 / 10 ≤ L) {m k : ℕ} (hm : 1 ≤ m)
   rw [e] at h
   linarith [avg_P1_nonneg L Lrn]
 
-/-- **Lemma 4.7 (1)**: `P(fail) ≤ e^{-j}` when `j n ≤ m - 1` with `n ≥ e G`. -/
+/-- **Lemma 4.4 (1)**: `P(fail) ≤ e^{-j}` when `j n ≤ m - 1` with `n ≥ e G`. -/
 theorem prob_fail_le {L : ℝ} (hL : 145 / 10 ≤ L) {m j n : ℕ} (hm : 1 ≤ m) (hn : exp 1 * Gc L ≤ n)
     (hjn : j * n ≤ m - 1) : avg m (fun ξ => below L (rhoF L ξ)) ≤ exp (-(j : ℝ)) := by
   have hG : 0 < Gc L := by unfold Gc; positivity

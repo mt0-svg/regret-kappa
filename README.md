@@ -1,7 +1,7 @@
 <h1 align="center">The constant of doubly uniform regret in one-dimensional online linear regression is three</h1>
 
 <p align="center">
-  <a href="https://zenodo.org/records/23095140/files/regret-kappa.pdf"><img alt="Paper" src="https://img.shields.io/badge/Paper-PDF-b31b1b"></a>
+  <a href="https://github.com/mt0-svg/regret-kappa/releases/latest/download/regret-kappa.pdf"><img alt="Paper" src="https://img.shields.io/badge/Paper-PDF-b31b1b"></a>
   <a href="https://doi.org/10.5281/zenodo.23095139"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.23095139.svg"></a>
   <a href="https://mt0-svg.github.io/regret-kappa/run.html"><img alt="Lean Proved" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmt0-svg%2Fregret-kappa%2Fbadges%2Flean.json"></a>
   <a href="https://mt0-svg.github.io/regret-kappa/run.html"><img alt="Lean Comparator" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmt0-svg%2Fregret-kappa%2Fbadges%2Fcomparator.json"></a>
@@ -13,47 +13,45 @@
 
 ## The result
 
-We determine the leading constant of the minimax regret of online linear regression in dimension one when the features are revealed one at a time, with no bound known in advance, and the regret is measured against every linear predictor, with no bound on its parameter. For outcomes bounded by $`B`$ and a horizon $`T\ge355713`$, both known to the learner, the minimax regret lies between $`B^2(3\log T-2\log\log T-15.2)`$ and $`B^2(3\log T+0.36+o(1))`$, so it is $`(3+o(1))B^2\log T`$. The upper bound is the regret of an explicit deterministic learner, built on a Gaussian mixture potential; the lower bound is forced by an explicit randomized adversary, whose features can be taken in $`[0,1]`$. With the features known in advance the constant is $`1`$, so revealing them on the fly triples it; this answers, in dimension one, a question of Gaillard et al. (ALT 2019). Lean 4 proves both bounds with their constants.
+We consider online linear regression in dimension one when the features are revealed one at a time, with no bound known in advance, and the regret is measured against every linear predictor, with no bound on its parameter. For outcomes bounded by $`B`$ and a horizon $`T\ge355713`$, both known to the learner, the minimax regret lies between $`B^2(3\log T-2\log\log T-15.2)`$ and $`B^2(3\log T+0.37)`$. The upper bound is the regret of an explicit deterministic learner; the lower bound is forced by an explicit randomized adversary, whose features can be taken in $`[0,1]`$. Lean 4 proves both bounds. Chen, Qian, Rakhlin and Zhivotovskiy (COLT 2026) showed that this regret is of order $`\log T`$, which answers a question of Gaillard et al. (ALT 2019); we find its constant, $`3`$. With the features known in advance the constant is $`1`$, so revealing them on the fly triples it.
 
-The question is in Section 4.1 of Gaillard et al., *Uniform regret bounds over $`\mathbb{R}^d`$ for the sequential linear regression problem with the square loss* ([ALT 2019, PMLR 98](https://proceedings.mlr.press/v98/gaillard19a.html); [arXiv:1805.11386](https://arxiv.org/abs/1805.11386)).
+The order $`\log T`$ is Theorem 5 and Proposition 6 of Chen, Qian, Rakhlin and Zhivotovskiy, *Self-Normalized Martingales and Uniform Regret Bounds for Linear Regression* ([COLT 2026, PMLR 336](https://proceedings.mlr.press/v336/chen26f.html); [arXiv:2605.01628](https://arxiv.org/abs/2605.01628)). The question is in Section 4.1 of Gaillard et al., *Uniform regret bounds over $`\mathbb{R}^d`$ for the sequential linear regression problem with the square loss* ([ALT 2019, PMLR 98](https://proceedings.mlr.press/v98/gaillard19a.html); [arXiv:1805.11386](https://arxiv.org/abs/1805.11386)).
 
 ```lean
 def RegretKappa.MainTheorem : Prop :=
   (∀ B : ℝ, 0 < B → ∀ T : ℕ, LowerSharp.T0 ≤ T →
-    ((B ^ 2 * boundL T : ℝ) : EReal) ≤ ((B ^ 2 * LowerSharp.bT T : ℝ) : EReal) ∧
-      ((B ^ 2 * LowerSharp.bT T : ℝ) : EReal) ≤ minimaxRegret T B ∧
-      minimaxRegret T B ≤ ((B ^ 2 * boundU T : ℝ) : EReal)) ∧
+    ((B ^ 2 * boundL T : ℝ) : EReal) ≤ minimaxRegret T B ∧
+      minimaxRegret T B ≤ ((B ^ 2 * (3 * log T + 0.37) : ℝ) : EReal)) ∧
   KappaEqThree
 
 theorem RegretKappa.main : RegretKappa.MainTheorem
 theorem RegretKappa.mainBoundedFeatures : RegretKappa.MainBoundedFeatures
-theorem RegretKappa.Corollaries.randLowerBound : RegretKappa.Corollaries.RandLowerBound
+theorem RegretKappa.randLowerBound : RegretKappa.Corollaries.RandLowerBound
 ```
 
 ## What is checked
 
-- **Lean 4.** `RegretKappa.main` is Theorem 1.1 with its constants: for every $`B>0`$ and every integer $`T\ge355713`$, $`B^2(3\log T-2\log\log T-15.2)\le B^2b(T)\le\mathrm{Reg}^*_T(B)\le B^2U(T)`$, where $`\mathrm{Reg}^*_T(B)`$ is the minimax regret of deterministic learners, taken in the extended real numbers, and $`\mathrm{Reg}^*_T(B)/(B^2\log T)\to3`$. Its proof goes through Theorem 3.1, the learner (`RegretKappa.UpperSharp.theoremU` and `theoremULog`), and Theorem 4.1, the adversary (`RegretKappa.LowerSharp.lowerSharpAdv`, `lowerSharpSimplified` and `lowerSharpBound`); it takes the limit from `RegretKappa.kappaEqThree`, a first formal proof of the limit with cruder constants (`RegretKappa.Upper.upperBound` and `RegretKappa.Lower.lowerBound`). `RegretKappa.mainBoundedFeatures` is Corollary 5.1 (features in $`[0,1]`$, outcomes in $`\{-B,0,B\}`$, randomized learners) and `RegretKappa.Corollaries.randLowerBound` is Remark 5.2. The theorems have no hypothesis and use only the axioms `propext`, `Classical.choice` and `Quot.sound`; no `sorry`, no `native_decide`. Every numerical step is an inequality between rational numbers checked in Lean, and Lean's kernel evaluates the drift certificate of Computation 4.4. Formal statements of the same results, written separately from the text of the paper, are proved equivalent to these or implied by them, and the readings of Corollary 5.1 and Remark 5.2 without measurability are proved false (Section 7.2 of the paper). Comparator checks the eleven theorems of `config.json` against `RegretKappa/Challenge.lean` and `RegretKappa/Challenge/`, copies of the definitions with `sorry` proofs, replays their proofs in the type checker nanoda, and rejects a challenge in which one term of $`b(T)`$ is changed (`.github/comparator-controls.tsv`).
-- **Computation.** SageMath and PARI/GP programs, kept here with their recorded outputs, redo separately from Lean the certificates of Computation 3.13 (the constants of Theorem 3.1) and Computation 4.4 (the drift inequality of Lemma 4.3) and the constants of Section 4, each at least once in exact rational or Arb ball arithmetic, and compute the values quoted in the paper.
-- **Second programs.** Each of these computations is done again by a program written separately, to catch a bug in one of them: two SageMath programs for items (1), (2), (4) and (5) of Computation 3.13; for the drift inequality, two PARI/GP programs with different certificates and a SageMath program that rebuilds the first certificate in exact rationals and proves the inequality a second time with Arb balls; for the constants of Section 4, two PARI/GP programs at 120 and 80 digits without error bounds and a rigorous SageMath program.
+- **Lean 4.** `RegretKappa.main` is Theorem 1.1 with its constants: for every $`B>0`$ and every integer $`T\ge355713`$, $`B^2(3\log T-2\log\log T-15.2)\le\mathrm{Reg}^*_T(B)\le B^2(3\log T+0.37)`$, where $`\mathrm{Reg}^*_T(B)`$ is the minimax regret of deterministic learners, taken in the extended real numbers, and $`\mathrm{Reg}^*_T(B)/(B^2\log T)\to3`$. It follows from `RegretKappa.mainChain`, the same with the bounds $`B^2b(T)`$ of Theorem 4.1 and $`B^2u(T)`$ of Theorem 3.1 in between, and from `RegretKappa.boundU_le`, $`u(T)\le3\log T+0.37`$ for $`T\ge355713`$. Its proof goes through Theorem 3.1, the learner (`RegretKappa.UpperSharp.theoremU` and `theoremULog`), and Theorem 4.1, the adversary (`RegretKappa.LowerSharp.lowerSharpAdv`, `lowerSharpSimplified` and `lowerSharpBound`); it derives the limit from the two bounds of Theorem 1.1 (`RegretKappa.kappaEqThree_squeeze`). `RegretKappa.mainBoundedFeatures` is Corollary 5.1 (features in $`[0,1]`$, outcomes in $`\{-B,0,B\}`$, randomized learners) and `RegretKappa.mainBoundedFeaturesChain` the same with the bounds $`B^2b(T)`$ and $`B^2u(T)`$ of Theorems 4.1 and 3.1. `RegretKappa.randLowerBound` is Remark 5.2, proved from Corollary 5.1. The theorems have no hypothesis and use only the axioms `propext`, `Classical.choice` and `Quot.sound`; no `sorry`, no `native_decide`. Every numerical step is an inequality between rational numbers checked in Lean, and Lean's kernel evaluates the drift certificate of Computation B.2. Formal statements of the same results, written separately from the text of the paper, are proved equivalent to these or implied by them, and the readings of Corollary 5.1 and Remark 5.2 without measurability are proved false (Appendix C.1 of the paper). Comparator checks the ten theorems of `config.json` against `RegretKappa/Challenge.lean` and `RegretKappa/Challenge/`, copies of the definitions with `sorry` proofs, replays their proofs in the type checker nanoda, and rejects a challenge in which one term of $`b(T)`$ is changed, and one in which the constant $`0.37`$ of the upper bound of `MainTheorem` is changed to $`0.36`$ (`.github/comparator-controls.tsv`).
+- **Computation.** SageMath and PARI/GP programs, kept here with their recorded outputs, write the subdivisions of the drift certificate that the Lean kernel evaluates, redo separately from Lean the certificates of Computation A.9 (the constants of Theorem 3.1) and Computation B.2 (the drift inequality of Lemma B.1) in exact rational or Arb ball arithmetic, and compute the values quoted in the paper.
 - **Cited.** The constant $`1`$ for features known in advance is Theorems 4 and 7 of Gaillard et al.; it is not checked here.
 
 [`STATEMENTS.md`](STATEMENTS.md) maps each numbered statement of the paper to its Lean declarations, or to its scripts and recorded outputs.
 
-`ci.yml` builds the package, fails on any axiom other than these three, scans the sources for `sorry`, `admit` and `native_decide`, runs Comparator with its negative control, and reruns the SageMath programs of `code/upper-bound-certificate/` and `code/lower-bound-3/`, comparing their outputs with the recorded ones. `release.yml` attaches the PDF, the logs of the checks and the build Comparator checked to each release, from the green CI run, without compiling again.
+`ci.yml` builds the package, fails on any axiom other than these three, scans the sources for `sorry`, `admit` and `native_decide`, runs Comparator with its two negative controls, and reruns the SageMath programs of `code/upper-bound-certificate/` and, with PARI/GP 2.17.4 built from its source, the PARI/GP programs of `code/lower-bound/` and `code/lean-upper-sharp/`, comparing their outputs with the recorded ones. `release.yml` attaches the PDF, the logs of the checks and the build Comparator checked to each release, from the green CI run, without compiling again.
 
 ## Layout
 
-| Path                                                                                                                           | Content                                                                                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `RegretKappa/Statement.lean`, `RegretKappa/MainStatement.lean`                                                                 | the definitions (learners, regret, minimax regret) and the statements of Theorem 1.1 and Corollary 5.1                                                                                |
-| `RegretKappa/UpperSharp/`                                                                                                      | Theorem 3.1: the learner and its constants                                                                                                                                            |
-| `RegretKappa/LowerSharp/`                                                                                                      | Theorem 4.1: the adversary and its constants, with the drift certificate of Computation 4.4                                                                                           |
-| `RegretKappa/Corollaries/`, `RegretKappa/Main.lean`                                                                            | randomized learners and bounded features, Corollary 5.1 and Remark 5.2; Theorem 1.1                                                                                                   |
-| `RegretKappa/Upper/`, `RegretKappa/Lower/`, `RegretKappa/Kappa.lean`                                                           | the first formal proof of the limit, with cruder constants                                                                                                                            |
-| `RegretKappa/StatementCheck/`, `RegretKappa/UpperSharpCheck/`, `RegretKappa/LowerSharpCheck/`, `RegretKappa/CorollariesCheck/` | formal statements of the same results written separately from the text of the paper, and their comparison with ours (Section 7.2)                                                     |
-| `RegretKappa/Challenge.lean`, `RegretKappa/Challenge/`, `RegretKappa/Solution.lean`, `config.json`                             | the statements with `sorry`, their proofs, and the Comparator configuration                                                                                                           |
-| `paper/`                                                                                                                       | the TeX source and `statement_map.sh`, which writes `STATEMENTS.md`                                                                                                                   |
-| `code/`                                                                                                                        | the certificate programs, the second programs and the tests, each with its recorded output; [`code/README.md`](code/README.md) maps each directory to the part of the paper it serves |
+| Path                                                                                                                           | Content                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RegretKappa/Statement.lean`, `RegretKappa/MainStatement.lean`                                                                 | the definitions (learners, regret, minimax regret) and the statements of Theorem 1.1 and Corollary 5.1                                                                                                    |
+| `RegretKappa/UpperSharp/`                                                                                                      | Theorem 3.1: the learner and its constants                                                                                                                                                                |
+| `RegretKappa/LowerSharp/`                                                                                                      | Theorem 4.1: the adversary and its constants, with the drift certificate of Computation B.2                                                                                                               |
+| `RegretKappa/Corollaries/`, `RegretKappa/Main.lean`                                                                            | randomized learners and bounded features, Corollary 5.1 and Remark 5.2; Theorem 1.1                                                                                                                       |
+| `RegretKappa/Upper/`, `RegretKappa/Lower/`                                                                                     | definitions and lemmas that `RegretKappa/UpperSharp/` and `RegretKappa/LowerSharp/` build on                                                                                                              |
+| `RegretKappa/StatementCheck/`, `RegretKappa/UpperSharpCheck/`, `RegretKappa/LowerSharpCheck/`, `RegretKappa/CorollariesCheck/` | formal statements of the same results written separately from the text of the paper, and their comparison with ours (Appendix C.1)                                                                        |
+| `RegretKappa/Challenge.lean`, `RegretKappa/Challenge/`, `RegretKappa/Solution.lean`, `config.json`                             | the statements with `sorry`, their proofs, and the Comparator configuration                                                                                                                               |
+| `paper/`                                                                                                                       | the TeX source and `statement_map.sh`, which writes `STATEMENTS.md`                                                                                                                                       |
+| `code/`                                                                                                                        | the certificate programs and the programs that write the data of the Lean proof, each with its recorded output; [`code/README.md`](code/README.md) maps each directory to the part of the paper it serves |
 
 ## Check and reuse
 
@@ -68,7 +66,7 @@ rm -rf .lake/build/lib/lean/RegretKappa/Challenge .lake/build/lib/lean/RegretKap
 # then Comparator, as .github/workflows/ci.yml runs it
 ```
 
-Full check, from source (about 8 minutes for the 84 modules of the package on four cores of an AMD Ryzen 9 5900X, once Mathlib is built; `code/formal-proof/clean_build.out`):
+Full check, from source (about 7 minutes for the 78 modules of the package on four cores of an AMD Ryzen 9 5900X (12 cores, 24 threads), 64 GB of memory, once Mathlib is built; `code/formal-proof/clean_build.out`):
 
 ```sh
 lake exe cache get && lake build
@@ -80,18 +78,18 @@ As a dependency (Lean and Mathlib `v4.34.1`):
 [[require]]
 name = "regret-kappa"
 git = "https://github.com/mt0-svg/regret-kappa"
-rev = "v1.0.0"
+rev = "v1.1.0"
 ```
 
 then `lake update regret-kappa`, `lake exe cache get` and `lake build`, which downloads the build archive of the release.
 
-The computations: [`code/README.md`](code/README.md) gives the command of each program and its recorded running time; all the certified computations together take about four minutes.
+The computations: [`code/README.md`](code/README.md) gives the command of each program and its recorded running time; all of them together take under a minute.
 
 ## Built on
 
 - [Lean 4](https://github.com/leanprover/lean4) and [Mathlib](https://github.com/leanprover-community/mathlib4) (Apache 2.0): the formalization.
 - [Comparator](https://github.com/leanprover/comparator), [lean4export](https://github.com/leanprover/lean4export), [nanoda](https://github.com/ammkrn/nanoda_lib) and [landrun](https://github.com/zouuup/landrun): the check of the statements in CI.
-- [PARI/GP](https://pari.math.u-bordeaux.fr/) and [SageMath](https://github.com/sagemath/sage), with the ball arithmetic of [Arb](https://arblib.org/) (now part of FLINT): the certificates and the second programs.
+- [PARI/GP](https://pari.math.u-bordeaux.fr/) and [SageMath](https://github.com/sagemath/sage), with the ball arithmetic of [Arb](https://arblib.org/) (now part of FLINT): the programs of `code/`.
 
 ## Citation
 

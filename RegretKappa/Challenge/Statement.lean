@@ -40,10 +40,4 @@ def KappaEqThree : Prop :=
   ∀ B : ℝ, 0 < B →
     Tendsto (fun T : ℕ => minimaxRegret T B / ((B ^ 2 * Real.log T : ℝ) : EReal)) atTop (𝓝 3)
 
-theorem Upper.upperBound : UpperBound := sorry
-
-theorem Lower.lowerBound : LowerBound := sorry
-
-theorem kappaEqThree : KappaEqThree := sorry
-
 end RegretKappa

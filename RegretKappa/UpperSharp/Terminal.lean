@@ -5,7 +5,7 @@ import RegretKappa.Upper.Gamma
 /-!
 # Theorem 3.1 with the paper's constants: the terminal condition
 
-The paper, Lemma 3.12: for `ρ ≥ 2`, `√(2π) e^{ρ²/2} ≤ (ρ + 1) Γ(ρ)` (`terminal_ineq`), and so
+The paper, Lemma 3.4: for `ρ ≥ 2`, `√(2π) e^{ρ²/2} ≤ (ρ + 1) Γ(ρ)` (`terminal_ineq`), and so
 `C (λ₀ + Γ(ρ)) ≥ e^{ρ²/2}` for `|ρ| ≤ √T`, that is `Φ₀(ρ) ≥ ρ²` (`terminal_sharp`). With
 `γ(θ) = e^{-(θ-ρ)²/2}`, `Z = ∫_1^∞ γ`, `M = ∫_1^∞ θγ = ρ Z + e^{-(ρ-1)²/2}` and
 `I = ∫_1^∞ γ/θ`: `e^{ρ²/2} I ≤ Γ(ρ)` (`Gam_ge_int`); the tangent `1/θ ≥ 2a - a²θ` at `a = Z/M`
@@ -21,7 +21,7 @@ open Real MeasureTheory Set Finset Filter Topology
 
 /-! ### Numbers -/
 
-/-- The Mills constant of Lemma 3.12: `2E/A + √(2π)E/A² < 1` for `E ≤ e^{-1/2}` (rational
+/-- The Mills constant of Lemma 3.4: `2E/A + √(2π)E/A² < 1` for `E ≤ e^{-1/2}` (rational
 bound) and `A ≥ √(2π)/2 + 0.8556`. -/
 theorem mills_num {E A : ℝ} (hE0 : 0 ≤ E) (hE : E ≤ 0.6065306598)
     (hA : √(2 * π) / 2 + 0.8556 ≤ A) :
@@ -505,7 +505,7 @@ theorem Z_ge {ρ : ℝ} (hρ : 2 ≤ ρ) :
 
 /-! ### The integrals of the terminal condition -/
 
-/-- `e^{ρ²/2} ∫_1^∞ γ/θ ≤ Γ(ρ)`: the paper, proof of Lemma 3.12, first display. -/
+/-- `e^{ρ²/2} ∫_1^∞ γ/θ ≤ Γ(ρ)`: the paper, proof of Lemma 3.4, first display. -/
 theorem Gam_ge_int (ρ : ℝ) :
     exp (ρ ^ 2 / 2) * ∫ θ in Ioi 1, exp (-(θ - ρ) ^ 2 / 2) / θ ≤ Gam ρ := by
   -- pull the constant factor inside the integral
@@ -836,9 +836,9 @@ theorem M_eq (ρ : ℝ) :
     funext θ; ring
   rw [e, integral_add hg hd, integral_const_mul, integral_shift_mul_gauss]
 
-/-! ### Lemma 3.12 -/
+/-! ### Lemma 3.4 -/
 
-/-- The real part of Lemma 3.12: from the identities and bounds of `Z`, `M`, the lower tail `t`
+/-- The real part of Lemma 3.4: from the identities and bounds of `Z`, `M`, the lower tail `t`
 and the tangent bound of `I`, `√(2π) ≤ (ρ + 1) I`. -/
 theorem terminal_alg {ρ Z M I t e : ℝ} (hρ : 2 ≤ ρ) (hMe : M = ρ * Z + e)
     (hsum : t + Z = √(2 * π)) (htle : t ≤ e / (ρ - 1)) (ht0 : 0 ≤ t)
@@ -871,7 +871,7 @@ theorem terminal_alg {ρ Z M I t e : ℝ} (hρ : 2 ≤ ρ) (hMe : M = ρ * Z + e
     linarith
   exact h1.trans (mul_le_mul_of_nonneg_left hI (by linarith))
 
-/-- **Lemma 3.12**, the inequality: for `ρ ≥ 2`, `√(2π) e^{ρ²/2} ≤ (ρ + 1) Γ(ρ)`. -/
+/-- **Lemma 3.4**, the inequality: for `ρ ≥ 2`, `√(2π) e^{ρ²/2} ≤ (ρ + 1) Γ(ρ)`. -/
 theorem terminal_ineq {ρ : ℝ} (hρ : 2 ≤ ρ) : √(2 * π) * exp (ρ ^ 2 / 2) ≤ (ρ + 1) * Gam ρ := by
   have hMe := M_eq ρ
   rw [show (1 - ρ) ^ 2 = (ρ - 1) ^ 2 by ring] at hMe
@@ -903,7 +903,7 @@ theorem Cst_pos (T : ℕ) : 0 < Cst T := by
   unfold Cst
   positivity
 
-/-- **Lemma 3.12**, the consequence: for `ρ² ≤ T`, `Φ₀(ρ) = 2 log(C (λ₀ + Γ(ρ))) ≥ ρ²`. -/
+/-- **Lemma 3.4**, the consequence: for `ρ² ≤ T`, `Φ₀(ρ) = 2 log(C (λ₀ + Γ(ρ))) ≥ ρ²`. -/
 theorem terminal_sharp {T : ℕ} {ρ : ℝ} (hρ : ρ ^ 2 ≤ T) :
     ρ ^ 2 ≤ 2 * log (Cst T * (lam0 T + Gam ρ)) := by
   have hC := Cst_pos T

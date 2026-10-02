@@ -29,7 +29,3 @@ cell 25 [2.50,2.60)  s = 121/5000  subintervals 128
 cell 26 [2.60,2.70)  s = 187/10000  subintervals 128
 cell 27 [2.70,2.80)  s = 71/5000  subintervals 128
 PASS: 1128 certified subintervals, max bisection depth 7, smallest rational margin 0.000723999
-sanity table rule on [0,2.8): min of drift - 1 = 0.089149 at r = 1.6998
-sanity continuous rule on [2.8,12]: min of drift - 1 = 0.959638 at r = 2.8000
-phi(2.8) = 0.382663 (analytic lemma needs phi <= 12/25 = 0.48 on [2.8, oo))
-max of x -> exp(-x/2)(x/2 + x^2/4) at x = 1 + sqrt(5): 0.839962; 2.8^2 = 7.84 > 1 + sqrt(5)

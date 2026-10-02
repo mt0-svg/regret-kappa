@@ -4,7 +4,7 @@ import Mathlib
 # Upper bound: definitions
 
 The potential, the learner's prediction and the constants of the Lean proof of the upper bound
-(the paper, Theorem 3.1, with cruder constants; see `RegretKappa.Upper.Assembly`).
+(the paper, Theorem 3.1, with cruder constants).
 
 * `wt θ = e^{-θ²/2} (1/θ + 2/θ³)`, the weight of the mixture on `θ > 1`;
 * `G r = ∫_1^∞ cosh(θ r) wt(θ) dθ`, half the potential `Γ` of the paper;

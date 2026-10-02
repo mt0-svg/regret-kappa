@@ -1,2 +1,3 @@
 # Negative controls of Comparator (ci.yml): name, file, a line of the challenge, the line it is changed to, and the text of the rejection Comparator must print.
 bT	RegretKappa/Challenge/LowerSharp.lean	    (level T + log (k0 T / (√(level T) + 2) ^ 2) - c1 - log (k0 T) / (2 * k0 T) - 1 / k0 T)	    (level T + log (k0 T / (√(level T) + 2) ^ 2) - c1 - log (k0 T) / (2 * k0 T) - 2 / k0 T)	Const does not match between challenge and target 'RegretKappa.LowerSharp.bT'
+closedForm	RegretKappa/Challenge.lean	      minimaxRegret T B ≤ ((B ^ 2 * (3 * log T + 0.37) : ℝ) : EReal)) ∧	      minimaxRegret T B ≤ ((B ^ 2 * (3 * log T + 0.36) : ℝ) : EReal)) ∧	Const does not match between challenge and target 'RegretKappa.MainTheorem'

@@ -8,11 +8,11 @@ open Lean Meta in
 #eval show MetaM Unit from do
   let mut hyps := 0
   let mut axs : Array Name := #[]
-  for n in [``RegretKappa.main, ``RegretKappa.mainBoundedFeatures, ``RegretKappa.Corollaries.randLowerBound,
+  for n in [``RegretKappa.main, ``RegretKappa.mainChain, ``RegretKappa.mainBoundedFeatures,
+      ``RegretKappa.mainBoundedFeaturesChain, ``RegretKappa.randLowerBound,
       ``RegretKappa.UpperSharp.theoremU, ``RegretKappa.UpperSharp.theoremULog,
       ``RegretKappa.LowerSharp.lowerSharpAdv, ``RegretKappa.LowerSharp.lowerSharpBound,
-      ``RegretKappa.LowerSharp.lowerSharpSimplified, ``RegretKappa.kappaEqThree, ``RegretKappa.Upper.upperBound,
-      ``RegretKappa.Lower.lowerBound] do
+      ``RegretKappa.LowerSharp.lowerSharpSimplified] do
     let c ← getConstInfo n
     hyps := hyps + (← forallTelescope c.type fun xs _ =>
       xs.foldlM (fun k x => do return if ← isProp (← inferType x) then k + 1 else k) 0)

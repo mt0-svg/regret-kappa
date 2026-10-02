@@ -18,12 +18,30 @@ noncomputable def boundL (T : ℕ) : ℝ := 3 * log T - 2 * log (log T) - 15.2
 
 def MainTheorem : Prop :=
   (∀ B : ℝ, 0 < B → ∀ T : ℕ, LowerSharp.T0 ≤ T →
+    ((B ^ 2 * boundL T : ℝ) : EReal) ≤ minimaxRegret T B ∧
+      minimaxRegret T B ≤ ((B ^ 2 * (3 * log T + 0.37) : ℝ) : EReal)) ∧
+  KappaEqThree
+
+def MainTheoremChain : Prop :=
+  (∀ B : ℝ, 0 < B → ∀ T : ℕ, LowerSharp.T0 ≤ T →
     ((B ^ 2 * boundL T : ℝ) : EReal) ≤ ((B ^ 2 * LowerSharp.bT T : ℝ) : EReal) ∧
       ((B ^ 2 * LowerSharp.bT T : ℝ) : EReal) ≤ minimaxRegret T B ∧
       minimaxRegret T B ≤ ((B ^ 2 * boundU T : ℝ) : EReal)) ∧
   KappaEqThree
 
 def MainBoundedFeatures : Prop :=
+  ∀ B : ℝ, 0 < B → ∀ T : ℕ, LowerSharp.T0 ≤ T →
+    (∃ (ι : Type) (_ : Fintype ι) (w : ι → ℝ) (x y : ι → Fin T → ℝ),
+      (∀ i, 0 ≤ w i) ∧ ∑ i, w i = 1 ∧
+      (∀ i t, x i t ∈ Set.Icc (0 : ℝ) 1) ∧ (∀ i t, y i t ∈ ({-B, 0, B} : Set ℝ)) ∧
+      ∀ (Ω : Type u) [MeasurableSpace Ω] (μ : Measure Ω) (L : Ω → Learner T),
+        Corollaries.IsRandLearner μ L →
+          ((B ^ 2 * boundL T : ℝ) : EReal) ≤ Corollaries.advRegret μ L w x y) ∧
+    ((B ^ 2 * boundL T : ℝ) : EReal) ≤ Corollaries.minimaxRegretBF T B ∧
+    Corollaries.minimaxRegretBF T B ≤ Corollaries.minimaxRegretBFI T B ∧
+    Corollaries.minimaxRegretBFI T B ≤ ((B ^ 2 * (3 * log T + 0.37) : ℝ) : EReal)
+
+def MainBoundedFeaturesChain : Prop :=
   ∀ B : ℝ, 0 < B → ∀ T : ℕ, LowerSharp.T0 ≤ T →
     (∃ (ι : Type) (_ : Fintype ι) (w : ι → ℝ) (x y : ι → Fin T → ℝ),
       (∀ i, 0 ≤ w i) ∧ ∑ i, w i = 1 ∧
@@ -38,6 +56,12 @@ def MainBoundedFeatures : Prop :=
 
 theorem main : MainTheorem := sorry
 
+theorem mainChain : MainTheoremChain := sorry
+
 theorem mainBoundedFeatures : MainBoundedFeatures.{u} := sorry
+
+theorem mainBoundedFeaturesChain : MainBoundedFeaturesChain.{u} := sorry
+
+theorem randLowerBound : Corollaries.RandLowerBound.{u} := sorry
 
 end RegretKappa

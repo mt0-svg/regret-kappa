@@ -2,14 +2,14 @@ import RegretKappa.UpperSharp.Weights
 import RegretKappa.Upper.SmallSteps
 
 /-!
-# Theorem 3.1 with the paper's constants: small steps (the paper, Lemma 3.10)
+# Theorem 3.1 with the paper's constants: small steps (the paper, Lemma A.7)
 
 In the units of `Upper` (`G = Γ/2`): for `b² ≤ 2/3` and every `ρ`,
 `Ghat (ρ √(1 - b²)) b ≤ G ρ + 2.8857/2` (`small_step_sharp`).
 
 With `c = √(1 - b²)`, `s = b² = 1 - c²` and `x = c² ∈ [1/3, 1]`, the substitution `u = c θ`
-(`Upper.Ghat_subst`, the paper's Lemma 3.9) splits `Ghat (ρ c) b - G ρ` into the cutoff drift on
-`(c, 1]` and the drift on `(1, ∞)`, as in the paper's proof of Lemma 3.10. No power series of
+(`Upper.Ghat_subst`, the paper's Lemma A.6) splits `Ghat (ρ c) b - G ρ` into the cutoff drift on
+`(c, 1]` and the drift on `(1, ∞)`, as in the paper's proof of Lemma A.7. No power series of
 `Γ` is used:
 
 * on `(c, 1]`, `cosh(uρ) ≤ 1 + u²ρ²/2 + u⁴ Rf(ρ)` and `e^{-u²/2} ≤ e^{-c²/2}`
@@ -369,7 +369,7 @@ theorem exp_mul_affine_le {x α β : ℝ} (hx0 : 0 ≤ x) (hpos : 0 ≤ α + β 
     nlinarith [mul_le_mul_of_nonneg_left h hq.le, mul_le_mul_of_nonneg_right h2 hpos]
   nlinarith
 
-/-- The coefficients of the bound of Lemma 3.10: the polynomial in `ρ²` is at most
+/-- The coefficients of the bound of Lemma A.7: the polynomial in `ρ²` is at most
 `4.32855/2`, from `quartic_le`. -/
 theorem coeffs_le (ρ : ℝ) :
     (exp (-1 / 6) * (3 / 2 * log 3 / 2 + 1) - 2 * J0) +
@@ -404,7 +404,7 @@ theorem coeffs_le (ρ : ℝ) :
   linear_combination hc0' + hc1y + (1 / 48) * hy2 + (9 / 1440) * hy3 + (49 / 80640) * hy4 +
     (1 / 2) * hq
 
-/-- The real inequality that closes Lemma 3.10, in the units of `G`, with `s = 1 - c²`,
+/-- The real inequality that closes Lemma A.7, in the units of `G`, with `s = 1 - c²`,
 `x = c²`, `y = ρ²`. -/
 theorem small_alg_sharp (ρ : ℝ) {c : ℝ} (hc0 : 0 < c) (hc1 : c ≤ 1) (hc3 : 1 / 3 ≤ c ^ 2) (H : ℝ)
     (hH : J0 + K0 * (ρ ^ 2 / 2) + mom 1 * (ρ ^ 4 / 24) + mom 3 * (ρ ^ 6 / 720) +
@@ -497,7 +497,7 @@ theorem small_alg_sharp (ρ : ℝ) {c : ℝ} (hc0 : 0 < c) (hc1 : c ≤ 1) (hc3 
       linarith
   linarith
 
-/-- **Small steps** (the paper, Lemma 3.10, in the units of `G`): for `b² ≤ 2/3`,
+/-- **Small steps** (the paper, Lemma A.7, in the units of `G`): for `b² ≤ 2/3`,
 `Ghat (ρ √(1 - b²)) b ≤ G ρ + 2.8857/2`. -/
 theorem small_step_sharp (ρ : ℝ) {b : ℝ} (hb : b ^ 2 ≤ 2 / 3) :
     Upper.Ghat (ρ * √(1 - b ^ 2)) b ≤ Upper.G ρ + 2.8857 / 2 := by

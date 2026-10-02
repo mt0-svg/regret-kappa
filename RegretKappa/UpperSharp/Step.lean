@@ -8,9 +8,9 @@ import RegretKappa.Upper.Mixability
 
 Proposition 3.2 of the paper with `β = 3` (`3/2` in the units of `G`): the learner's loss plus the
 potential after the round is at most the potential before it. In the variables `ρ`, `b`
-(`step_abstract_sharp`): for `b² ≤ 2/3` mixability (`Upper.mix_small`) and Lemma 3.10
+(`step_abstract_sharp`): for `b² ≤ 2/3` mixability (`Upper.mix_small`) and Lemma A.7
 (`small_step_sharp`, `2.8857/2 ≤ 3/2`); for `b² ≥ 2/3` the prediction `0` (`Upper.mix_large`) and
-Lemma 3.11 (`large_step_sharp`, `2.7053/2 ≤ 3/2`). `step_sharp` restates it on the state `(S, V)`
+Lemma A.8 (`large_step_sharp`, `2.7053/2 ≤ 3/2`). `step_sharp` restates it on the state `(S, V)`
 and the current feature `x` (Lemma 2.3 of the paper), and `step_paper` in the units of the
 statement, for the prediction `predU` and the potential `Γ`.
 -/

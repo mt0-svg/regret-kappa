@@ -1,12 +1,12 @@
 name = "regret-kappa"
-version = "1.0.0"
+version = "1.1.0"
 description = "Online linear regression in dimension one with features revealed on the fly: the minimax regret is (3 + o(1)) B^2 log T, with an explicit learner and an explicit adversary and their constants, proved in Lean 4"
 keywords = ["math", "online learning", "online linear regression", "minimax regret", "formal verification"]
 license = "Apache-2.0"
 licenseFiles = ["LICENSE", "NOTICE"]
 preferReleaseBuild = true
 releaseRepo = "https://github.com/mt0-svg/regret-kappa"
-defaultTargets = ["Statement", "IndepStatement", "StatementCheck", "Upper", "Lower", "Kappa", "UpperSharp",
+defaultTargets = ["Statement", "IndepStatement", "StatementCheck", "Upper", "Lower", "UpperSharp",
   "UpperSharpCheck", "Corollaries", "CorollariesIndep", "CorollariesCheck", "LowerSharp", "Main", "LowerSharpCheck",
   "Challenge", "Solution"]
 
@@ -25,7 +25,7 @@ rev = "v4.34.1"
 name = "Statement"
 roots = ["RegretKappa.Statement"]
 
-# Two formalizations of the limit written separately (Section 7.2), under Lean's default options, which they were
+# Two formalizations of the limit written separately (Appendix C.1), under Lean's default options, which they were
 # written with.
 [[lean_lib]]
 name = "IndepStatement"
@@ -37,21 +37,15 @@ leanOptions = { autoImplicit = true, relaxedAutoImplicit = true }
 name = "StatementCheck"
 roots = ["RegretKappa.StatementCheck.Equiv", "RegretKappa.StatementCheck.Equiv2"]
 
-# The first formal proof of the limit, with cruder constants (Section 7.2): the upper half, the learner of
-# Theorem 3.1 with the increment 120.
+# Definitions and lemmas of the upper bound that UpperSharp builds on.
 [[lean_lib]]
 name = "Upper"
 globs = ["RegretKappa.Upper.+"]
 
-# The lower half, with a simpler adversary than that of Theorem 4.1.
+# Definitions and lemmas of the lower bound that LowerSharp builds on.
 [[lean_lib]]
 name = "Lower"
 globs = ["RegretKappa.Lower.+"]
-
-# The limit from the two halves.
-[[lean_lib]]
-name = "Kappa"
-roots = ["RegretKappa.Kappa"]
 
 # Theorem 3.1 with its learner and constants (Section 3).
 [[lean_lib]]
@@ -68,7 +62,7 @@ globs = ["RegretKappa.UpperSharpCheck.+"]
 name = "Corollaries"
 globs = ["RegretKappa.Corollaries.+"]
 
-# Formalizations of Corollary 5.1 and Remark 5.2 written separately (Section 7.2), under Lean's default options.
+# Formalizations of Corollary 5.1 and Remark 5.2 written separately (Appendix C.1), under Lean's default options.
 [[lean_lib]]
 name = "CorollariesIndep"
 roots = ["RegretKappa.CorollariesCheck.Indep42a", "RegretKappa.CorollariesCheck.Indep42b",
@@ -85,7 +79,7 @@ roots = ["RegretKappa.CorollariesCheck.Junk", "RegretKappa.CorollariesCheck.Equi
   "RegretKappa.CorollariesCheck.Equiv51b", "RegretKappa.CorollariesCheck.Equiv42c",
   "RegretKappa.CorollariesCheck.Equiv51c", "RegretKappa.CorollariesCheck.Equiv51u"]
 
-# Theorem 4.1 with its adversary and constants (Section 4), the drift certificate of Computation 4.4 included.
+# Theorem 4.1 with its adversary and constants (Section 4), the drift certificate of Computation B.2 included.
 [[lean_lib]]
 name = "LowerSharp"
 globs = ["RegretKappa.LowerSharp.+"]

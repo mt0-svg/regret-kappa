@@ -3,7 +3,7 @@ import RegretKappa.Lower.Drift
 /-!
 # Lower bound: the hitting time of phase 1
 
-The paper, Lemma 4.6 at `j = 1` only, for the chain of `Lower/Drift.lean` stopped at
+The paper, Lemma B.4 at `j = 1` only, for the chain of `Lower/Drift.lean` stopped at
 level `L`: below the level it moves by `step`, at or above it stays put (`sstep`, the move `0`).
 As in the paper, the adversary plays the feature `0` once the level is reached, and phase 2
 starts at a fixed round.

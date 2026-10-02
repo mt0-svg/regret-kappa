@@ -29,7 +29,7 @@ lattice, and is finite for `B ≥ 0` (`minimaxRegret_nonneg`, `minimaxRegret_le`
 
 `kappaEqThree_iff` proves `KappaEqThree ↔ UpperBound ∧ LowerBound`. The modules
 `RegretKappa.StatementCheck.*` compare this file with two formalizations written separately
-(Section 7.2 of the paper).
+(Appendix C.1 of the paper).
 -/
 
 namespace RegretKappa

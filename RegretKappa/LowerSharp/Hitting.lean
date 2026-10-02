@@ -3,7 +3,7 @@ import RegretKappa.LowerSharp.Chain
 /-!
 # Sharp lower bound: the hitting time of phase 1
 
-The paper, Lemmas 4.5 (the overshoot), 4.6 (a geometric tail) and 4.7 (1) and (2), for the chain
+The paper, Lemmas B.3 (the overshoot), B.4 (a geometric tail) and 4.4 (1) and (2), for the chain
 stopped at level `L` (`sst`). The expectations are the backward recursion `ex` of
 `Lower/Hitting.lean` (the Markov property built in; `avg_chainOf` turns it into the average over
 the signs).
@@ -26,7 +26,7 @@ open Real RegretKappa.Lower
 /-- `a₊ = √L + √(5/8) e^{-L/4}`, the largest `|ρ|` the chain stopped at `L` reaches. -/
 noncomputable def aP (L : ℝ) : ℝ := √L + √(5 / 8) * exp (-L / 4)
 
-/-- The constant `G = 8.8 e^{L/2}` of Lemma 4.5. -/
+/-- The constant `G = 8.8 e^{L/2}` of Lemma B.3. -/
 noncomputable def Gc (L : ℝ) : ℝ := 88 / 10 * exp (L / 2)
 
 /-- The semigroup law of the backward recursion. -/
@@ -140,7 +140,7 @@ theorem overshoot_mono {u v : ℝ} (huv : u ≤ v) :
   have h_mono : Monotone f := monotone_of_hasDerivAt_nonneg h_deriv h_f'_nonneg
   exact h_mono huv
 
-/-- `a₊²/2 ≤ L/2 + log 1.1` for `L ≥ 14.5` (the paper, Lemma 4.5). -/
+/-- `a₊²/2 ≤ L/2 + log 1.1` for `L ≥ 14.5` (the paper, Lemma B.3). -/
 theorem exp_aP_sq_le {L : ℝ} (hL : 145 / 10 ≤ L) :
     exp (aP L ^ 2 / 2) ≤ 11 / 10 * exp (L / 2) := by
   have hL0 : 0 ≤ L := by linarith
@@ -198,7 +198,7 @@ theorem sqrt_large_move (ρ : ℝ) : √(5 / 8 * exp (-ρ ^ 2 / 2)) = √(5 / 8)
     rw [← Real.exp_nat_mul]; ring_nf
   rw [Real.sqrt_mul (by norm_num), h, Real.sqrt_sq (Real.exp_pos _).le]
 
-/-- **Lemma 4.5 (the overshoot), invariance**: for `L ≥ 14.5` the stopped chain keeps
+/-- **Lemma B.3 (the overshoot), invariance**: for `L ≥ 14.5` the stopped chain keeps
 `|ρ| ≤ a₊`. -/
 theorem abs_sst_le {L : ℝ} (hL : 145 / 10 ≤ L) {ρ : ℝ} (hρ : |ρ| ≤ aP L) (b : Bool) :
     |sst L ρ b| ≤ aP L := by
@@ -292,7 +292,7 @@ theorem ex_below_pt {L : ℝ} (hL : 145 / 10 ≤ L) {n : ℕ} (hn : 1 ≤ n) {ρ
     rw [ex_fixed (sst L) (fun b => sst_of_le hL' b) (below L) n]
     simp [below, h]
 
-/-- **Lemma 4.6, the geometric tail**: `P(ρ_{jn}² < L) ≤ (G/n)^j`. -/
+/-- **Lemma B.4, the geometric tail**: `P(ρ_{jn}² < L) ≤ (G/n)^j`. -/
 theorem ex_below_pow {L : ℝ} (hL : 145 / 10 ≤ L) {n : ℕ} (hn : 1 ≤ n) (j : ℕ) {ρ : ℝ}
     (hρ : |ρ| ≤ aP L) : ex (sst L) (j * n) (below L) ρ ≤ (Gc L / n) ^ j := by
   induction j generalizing ρ with
@@ -331,7 +331,7 @@ noncomputable def rhoF (L : ℝ) {m : ℕ} (ξ : Fin m → Bool) : ℝ := rhoS L
 /-- The final `V = V_{m-1}`. -/
 noncomputable def VF (L : ℝ) {m : ℕ} (ξ : Fin m → Bool) : ℝ := VS L (ext ξ) (m - 1)
 
-/-- **Lemma 4.7 (1)**: phase 1 fails with probability at most `(G/n)^j` when `j n ≤ m - 1`. -/
+/-- **Lemma 4.4 (1)**: phase 1 fails with probability at most `(G/n)^j` when `j n ≤ m - 1`. -/
 theorem avg_fail_le {L : ℝ} (hL : 145 / 10 ≤ L) {m : ℕ} (hm : 1 ≤ m) {j n : ℕ} (hn : 1 ≤ n)
     (hjn : j * n ≤ m - 1) : avg m (fun ξ => below L (rhoF L ξ)) ≤ (Gc L / n) ^ j := by
   obtain ⟨m', rfl⟩ : ∃ m', m = m' + 1 := ⟨m - 1, by omega⟩

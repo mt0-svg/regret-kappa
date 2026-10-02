@@ -3,7 +3,7 @@ import RegretKappa.Lower.VanTrees
 /-!
 # Sharp lower bound: the van Trees inequality for a prior `g²`
 
-The paper, Lemma 4.9 (van Trees, finite sample space), for the phase-2 model of
+The paper, Lemma B.5 (van Trees, finite sample space), for the phase-2 model of
 `Lower/Model.lean` and any prior density `g²` on `[-2, 2]` with `g` differentiable, `g'`
 continuous and `g(±2) = 0`. The Fisher information of the prior is `J = ∫ 4 g'²`
 (`π'²/π = 4 g'²` for `π = g²`).

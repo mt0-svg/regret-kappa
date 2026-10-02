@@ -11,7 +11,7 @@ log=out/run.txt
 {
   echo "run of code/upper-bound-certificate, $(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "SageMath $(sage --version 2>&1 | head -1)"
-  sha256sum lib.sage t0_tools.sage c1_gamma.sage c2_lemma52.sage c3_lemma61.sage c4_lemma71.sage c5_final.sage neg_fail.sage neg_raise.sage neg_fake.sage run.sh
+  sha256sum lib.sage t0_tools.sage c1_gamma.sage c2_small_steps.sage c3_large_steps.sage c4_terminal.sage c5_final.sage neg_fail.sage neg_raise.sage neg_fake.sage run.sh
 } > "$log"
 
 verify() { # $1 output file, $2 exit status; prints OK or the reason of the rejection
@@ -27,7 +27,7 @@ verify() { # $1 output file, $2 exit status; prints OK or the reason of the reje
 }
 
 status=0
-for s in t0_tools c1_gamma c2_lemma52 c3_lemma61 c4_lemma71 c5_final neg_fail neg_raise neg_fake; do
+for s in t0_tools c1_gamma c2_small_steps c3_large_steps c4_terminal c5_final neg_fail neg_raise neg_fake; do
   t0=$(date +%s.%N)
   # home-directory paths (in tracebacks) are written as ~ so that no login name is recorded
   sage "$s.sage" 2>&1 | sed "s|$HOME|~|g" > "out/$s.txt"

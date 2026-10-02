@@ -5,11 +5,11 @@ import RegretKappa.Upper.Gamma
 
 The paper, Sections 3.3 and 3.4. For `|η| ≤ 1` the two-point
 inequality `(1 + η) e^{x - η} + (1 - η) e^{-(x - η)} ≤ 2 e^{x²/2 - η²/2}` (Hoeffding's lemma for
-a two-point law, the paper's Lemma 3.6) holds for every real `x`; integrated against the mixture it
+a two-point law, the paper's Lemma A.3) holds for every real `x`; integrated against the mixture it
 gives `(1 + η) e^{-η} A₊ + (1 - η) e^{η} A₋ ≤ 2 e^{-η²/2} Z` with `A_± = λ + G(a ± b)` and
 `Z = λ + Ghat a b`, and the learner's clipped `η` then makes both terms at most `e^{-η²/2} Z`
-(Lemma 3.7 and Corollary 3.8). Convexity of `exp` reduces an outcome `y ∈ [-1, 1]` to the
-endpoints (Lemma 3.5).
+(Lemma A.4 and Corollary A.5). Convexity of `exp` reduces an outcome `y ∈ [-1, 1]` to the
+endpoints (Lemma A.2).
 -/
 
 namespace RegretKappa.Upper
@@ -398,7 +398,7 @@ theorem two_point_zero {η : ℝ} (hη : |η| ≤ 1) :
   have := two_point hη 0
   simpa [neg_div] using this
 
-/-- Mixability (Corollary 3.8 of the paper). -/
+/-- Mixability (Corollary A.5 of the paper). -/
 theorem mix_small {lam a b y : ℝ} (hlam : 0 < lam) (hy : |y| ≤ 1) (hb : b ^ 2 < 1) :
     exp (eta lam a b ^ 2 / 2 - eta lam a b * y) * (lam + G (a + b * y)) ≤ lam + Ghat a b := by
   refine mix_step hlam hy fun η hη => ?_

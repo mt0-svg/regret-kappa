@@ -87,6 +87,4 @@ def BoundedFeaturesUpperUI : Prop :=
       ((B ^ 2 * (2 * log (exp 2 + (√(T : ℝ) + 1) * (3 * T + 2 * exp (-1 / 2)) / √(2 * π))) : ℝ) :
         EReal)
 
-theorem randLowerBound : RandLowerBound.{u} := sorry
-
 end RegretKappa.Corollaries

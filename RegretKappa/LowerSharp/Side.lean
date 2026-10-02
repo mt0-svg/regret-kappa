@@ -4,7 +4,7 @@ import RegretKappa.LowerSharp.Statement
 /-!
 # Sharp lower bound: the side conditions and the simplified forms
 
-The paper, Lemma 4.12 and the end of the proof of Theorem 4.1, for every integer `T ≥ T₀`:
+The paper, Lemma 4.3 and the end of the proof of Theorem 4.1, for every integer `T ≥ T₀`:
 
 * (C1) `L ≥ 14.5` (`level_ge`), with the actual `j₀` rather than the paper's `L_low`: `j₀ = 4` on
   `T₀ ≤ T < e^{e⁴/3}`, where `L ≥ 2 log(T₀ / (80 e)) ≥ 14.8`, and where `j₀ = J ≥ 5`,

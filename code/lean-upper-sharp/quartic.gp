@@ -1,4 +1,4 @@
-\\ Lemma 3.10 of the paper with rational bounds of the constants, for the Lean proof.
+\\ Lemma A.7 of the paper with rational bounds of the constants, for the Lean proof.
 \\ Run: gp -q quartic.gp > out/quartic.txt
 default(realprecision, 50);
 Em = 6065306597/10^10; Ep = 6065306598/10^10;      \\ e^{-1/2}

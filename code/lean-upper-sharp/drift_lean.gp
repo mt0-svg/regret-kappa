@@ -1,4 +1,4 @@
-\\ The cells of the drift certificate (the paper, Lemma 4.3 (b) and Computation 4.4): for each
+\\ The cells of the drift certificate (the paper, Lemma B.1 (b) and Computation B.2): for each
 \\ cell j and the order N given in the
 \\ variable NN (default 14), the bisection tree of drift_tree_lib.gp as a natural number (preorder
 \\ bits from the least significant one, 1 = split, 0 = leaf), and a draft Lean theorem per

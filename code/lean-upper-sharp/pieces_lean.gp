@@ -1,4 +1,4 @@
-\\ The 22 rational pieces of Lemma 3.11 of the paper, with the rounded values of the Lean proof.
+\\ The 22 rational pieces of Lemma A.8 of the paper, with the rounded values of the Lean proof.
 \\ Piece i (i = 1..22) is rho in [(i-1)/11, i/11]. With s2 = 1.4142136 >= sqrt 2:
 \\   q_i >= q((i-1)/11) = m2((i-1)/11) - ((i-1)/11)^2 and x_i >= m2(i/11), both rounded up to 1e-6,
 \\   and the bound q_i * (gpN(30, x_i) + tailN(30, x_i)) <= 2.7053 in exact rationals, with

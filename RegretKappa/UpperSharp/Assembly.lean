@@ -1,6 +1,6 @@
 import RegretKappa.UpperSharp.Step
 import RegretKappa.UpperSharp.Terminal
-import RegretKappa.Upper.Assembly
+import RegretKappa.Upper.Sums
 
 /-!
 # Theorem 3.1 with the paper's constants: the potential along the play

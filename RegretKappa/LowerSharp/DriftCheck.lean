@@ -3,7 +3,7 @@ import Mathlib
 /-!
 # The checker of the drift certificate
 
-The paper, Lemma 4.3 (b): on a cell `[j/10, (j+1)/10)` of `[0, 2.8)` the step `s = s_j` is a
+The paper, Lemma B.1 (b): on a cell `[j/10, (j+1)/10)` of `[0, 2.8)` the step `s = s_j` is a
 constant rational number, and on a subinterval `[ℓ, ℓ']` the drift `8 h_s(ρ) - 8 e^{ρ²/2} - 1`
 is at least the rational number `certQ N ℓ ℓ' s`, built from the partial sums `e_N`, `ch_N` and
 the upper bound `ē_N` of the exponential. `check` runs over a bisection tree of a cell, encoded as

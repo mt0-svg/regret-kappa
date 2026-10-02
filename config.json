@@ -1,11 +1,11 @@
 {
   "challenge_module": "RegretKappa.Challenge",
   "solution_module": "RegretKappa.Solution",
-  "theorem_names": ["RegretKappa.main", "RegretKappa.mainBoundedFeatures", "RegretKappa.Corollaries.randLowerBound",
+  "theorem_names": ["RegretKappa.main", "RegretKappa.mainChain", "RegretKappa.mainBoundedFeatures",
+    "RegretKappa.mainBoundedFeaturesChain", "RegretKappa.randLowerBound",
     "RegretKappa.UpperSharp.theoremU", "RegretKappa.UpperSharp.theoremULog",
     "RegretKappa.LowerSharp.lowerSharpAdv", "RegretKappa.LowerSharp.lowerSharpBound",
-    "RegretKappa.LowerSharp.lowerSharpSimplified",
-    "RegretKappa.kappaEqThree", "RegretKappa.Upper.upperBound", "RegretKappa.Lower.lowerBound"],
+    "RegretKappa.LowerSharp.lowerSharpSimplified"],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true,
   "lean_kernel": false

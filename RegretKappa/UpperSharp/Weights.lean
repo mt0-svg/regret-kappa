@@ -4,7 +4,7 @@ import RegretKappa.Upper.Gamma
 /-!
 # Theorem 3.1 with the paper's constants: the moments of the weight and the derivative of `g`
 
-In the units of the library `Upper` (`G = Γ/2`). The paper's Lemma 3.4 (b) to (d), in the form the
+In the units of the library `Upper` (`G = Γ/2`). The paper's Lemma A.1 (b) to (d), in the form the
 large steps use:
 
 * `Mw j = ∫_1^∞ θ^{2j} wt(θ) dθ`, half the paper's `Γ_j`, in closed form from `e^{-1/2}` and `K0`
@@ -608,7 +608,7 @@ theorem Mw_le (n : ℕ) : Mw (n + 1) ≤ 2 ^ (n + 1) * (n.factorial : ℝ) := by
     rw [e2]
     nlinarith [mul_nonneg (mul_nonneg hp.le hj0) hj]
 
-/-- The coefficient bound of the paper's Lemma 3.4 (c), `n Γ_n/(2n)! ≤ 2/n!`, in the units of `G`. -/
+/-- The coefficient bound of the paper's Lemma A.1 (c), `n Γ_n/(2n)! ≤ 2/n!`, in the units of `G`. -/
 theorem coeff_le (n : ℕ) :
     ((n : ℝ) + 1) * Mw (n + 1) / ((2 * n + 2).factorial : ℝ) ≤ 1 / ((n + 1).factorial : ℝ) := by
   have hM := Mw_le n

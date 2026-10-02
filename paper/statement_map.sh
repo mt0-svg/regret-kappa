@@ -27,7 +27,7 @@ while ($s =~ /\\(?:re)?newcommand\{\\([A-Za-z]+)\}\{/g) { my $n = $1; my ($b) = 
 sub math { my $x = shift;
   for my $n (sort { length $b <=> length $a } keys %mac) { $x =~ s/\\\Q$n\E(?![A-Za-z])/$mac{$n}/g }
   $x =~ s/\\\|/\\Vert /g; $x =~ s/\|/\\vert /g; "\$`$x`\$" }
-sub md { my $x = shift; $x =~ s/\\lname\{([^}]*)\}/`$1`/g; $x =~ s/\\_/_/g; $x =~ s/\$([^\$]+)\$/math($1)/ge;
+sub md { my $x = shift; $x =~ s/\\(?:lname|texttt)\{([^}]*)\}/`$1`/g; $x =~ s/\\_/_/g; $x =~ s/\$([^\$]+)\$/math($1)/ge;
   $x =~ s/~/ /g; $x =~ s/\\ref\{([^}]*)\}/$num{$1} \/\/ '??'/ge; $x =~ s/\s+/ /g; $x }
 my %kind = (thm => 'Theorem', lem => 'Lemma', prop => 'Proposition', cor => 'Corollary', comp => 'Computation',
   def => 'Definition', rem => 'Remark', q => 'Question', tab => 'Table', sec => 'Section', subsec => 'Section');

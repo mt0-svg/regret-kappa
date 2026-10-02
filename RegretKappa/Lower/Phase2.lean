@@ -4,7 +4,7 @@ import RegretKappa.Lower.ClosedForm
 /-!
 # Lower bound: the excess of phase 2
 
-The paper, Lemma 4.11, steps (i) and (ii), in normalized coordinates. Phase 2 has `k`
+The paper, Lemma 4.6, steps (i) and (ii), in normalized coordinates. Phase 2 has `k`
 rounds; the past of phase 1 enters only through `ρ` (with `|ρ| + 2 ≤ r`). Given the prior variable
 `z ∈ [-2, 2]` (`θ* √V = ρ + z`), the outcome of round `i` is a sign with mean
 `a_i(z) = (ρ + z) ε_i`, `ε_i = eps k r i`; the learner's prediction `yh i η` in round `i` depends
@@ -198,7 +198,7 @@ theorem round_vanTrees {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) (i : Fin k)
   rw [intervalIntegral.integral_const_mul, div_eq_mul_one_div]
   exact mul_le_mul_of_nonneg_left hvt (sq_nonneg _)
 
-/-- **Excess of phase 2** (the paper, Lemma 4.11 (i) and (ii), comparator term
+/-- **Excess of phase 2** (the paper, Lemma 4.6 (i) and (ii), comparator term
 dropped). -/
 theorem phase2 {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) (yh : Fin k → (Fin k → Bool) → ℝ)
     (hyh : ∀ (i : Fin k) (η η' : Fin k → Bool), (∀ l : Fin k, l.val < i.val → η l = η' l) →

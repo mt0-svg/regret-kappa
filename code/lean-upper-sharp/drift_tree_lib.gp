@@ -1,4 +1,4 @@
-\\ Bisection trees of the drift certificate of the paper, Lemma 4.3 (b) (copy of the method of
+\\ Bisection trees of the drift certificate of the paper, Lemma B.1 (b) (copy of the method of
 \\ code/lower-bound/drift_check.gp, same table, same bound): for each cell j and each N in Ns, the
 \\ preorder bit string of the bisection tree (1 = split, 0 = certified leaf), its number of leaves,
 \\ its depth and its smallest margin with the leaf where it occurs. Exact rational arithmetic.

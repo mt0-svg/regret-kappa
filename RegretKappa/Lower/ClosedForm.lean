@@ -3,7 +3,7 @@ import Mathlib
 /-!
 # Lower bound: the phase-2 schedule and the closed form of its van Trees sum
 
-The paper, Lemma 4.11 (iv), in the indexing of Lean (round `i = 0, ..., k - 1` here is
+The paper, Lemma 4.6 (iv), in the indexing of Lean (round `i = 0, ..., k - 1` here is
 round `i + 1` of the paper). With `r = |ρ| + 2`, the phase-2 feature of round `i`, normalized by
 `√V_{T₁}`, is `ε_i = √((i + 1) / (2 k r²))`, so `|θ* x| ≤ r ε_i = ν_i` with
 `ν_i² = (i + 1) / (2 k) ≤ 1/2`. The information available before round `i` is at most
@@ -225,7 +225,7 @@ theorem sum_log_div_ge (k : ℕ) (hk : 1 ≤ k) :
   calc -(k : ℝ) = Real.log (Real.exp (-(k : ℝ))) := (Real.log_exp _).symm
     _ ≤ Real.log ((Nat.factorial k : ℝ) / (k : ℝ) ^ k) := Real.log_le_log (Real.exp_pos _) h2
 
-/-- **Closed form of the van Trees sum** (Lemma 4.11 (iv) of the paper, this schedule). -/
+/-- **Closed form of the van Trees sum** (Lemma 4.6 (iv) of the paper, this schedule). -/
 theorem closedForm {k : ℕ} (hk : 1 ≤ k) {r : ℝ} (hr : 0 < r) :
     log (k / (10 * r ^ 2)) * (1 - 1 / (2 * k)) - 1 ≤
       ∑ i ∈ range k, eps k r i ^ 2 / wInfo k r i := by

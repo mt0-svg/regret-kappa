@@ -4,7 +4,7 @@ import RegretKappa.LowerSharp.Statement
 /-!
 # Sharp lower bound: the prior
 
-The paper, Lemma 4.10 (the prior): the density `f_Z(z) = (1/2) cos²(π z/4)` on `[-2, 2]` is
+The paper, Lemma B.6 (the prior): the density `f_Z(z) = (1/2) cos²(π z/4)` on `[-2, 2]` is
 `g²` with `g(z) = cos(π z/4)/√2` (`gP`), `g' = -(π/4) sin(π z/4)/√2` (`gP'`), `g(±2) = 0`; its
 mass is `1` (`integral_gP_sq`), its Fisher information `∫ 4 g'² = π²/4 = J` (`integral_gP_deriv_sq`)
 and its second moment `∫ z² g² = 4/3 - 8/π²` (`integral_sq_gP_sq`). `vanTreesP` is the van Trees
@@ -286,7 +286,7 @@ theorem integral_sq_gP_sq : ∫ z in (-2 : ℝ)..2, z ^ 2 * gP z ^ 2 = 4 / 3 - 8
 
 theorem Jc_pos : 0 < Jc := by unfold Jc; positivity
 
-/-- **The van Trees inequality** (Lemma 4.9) for the prior of the paper. -/
+/-- **The van Trees inequality** (Lemma B.5) for the prior of the paper. -/
 theorem vanTreesP {n : ℕ} (α β c : Fin n → ℝ) (hc : ∀ l, c l < 1)
     (h : ∀ l, ∀ z ∈ Icc (-2 : ℝ) 2, |α l + β l * z| ≤ c l) (ψ : (Fin n → Bool) → ℝ) :
     1 / (Jc + ∑ l, β l ^ 2 / (1 - c l ^ 2)) ≤

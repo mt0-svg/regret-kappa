@@ -1,6 +1,6 @@
 \\ Writes the module RegretKappa/LowerSharp/DriftCells.lean: the move table of the paper
 \\ (Section 4.2), one kernel check per cell of the bisection tree of drift_tree_lib.gp at the order
-\\ NN = 14 (the same 1128 leaves as with N = 40, drift_nscan.gp), and Lemma 4.3 (b) of the paper
+\\ NN = 14, and Lemma B.1 (b) of the paper
 \\ on [0, 2.8) as drift_table. The checker and its soundness are in DriftCheck.lean.
 read("drift_tree_lib.gp");
 bitsToNat(b) = my(v = Vec(b), c = 0); for(i = 1, #v, if(v[i] == "1", c += 2^(i-1))); c;
@@ -10,7 +10,7 @@ my(F = "../../RegretKappa/LowerSharp/DriftCells.lean");
 system(Str("rm -f ", F));
 write(F, "import RegretKappa.LowerSharp.DriftCheck\n");
 write(F, "/-!\n# The drift certificate\n");
-write(F, "The paper, Lemma 4.3 (b) and Computation 4.4: one kernel check per cell `[j/10, (j+1)/10)`,");
+write(F, "The paper, Lemma B.1 (b) and Computation B.2: one kernel check per cell `[j/10, (j+1)/10)`,");
 write(F, "with the order N = ", NN, " of the partial sums, and `drift_table`, the inequality on `[0, 2.8)`.");
 write(F, "Written by `code/lean-upper-sharp/drift_cells.gp` (the trees: `drift_tree_lib.gp`). Each cell");
 write(F, "is its own declaration, since the kernel cost of one declaration grows faster than linearly.\n-/\n");
@@ -31,7 +31,7 @@ for(j = 0, 27,
   write(F, "    0 ≤ driftGap ((stab ", j, " : ℚ) : ℝ) ρ :=");
   write(F, "  check_sound ", NN, " (by norm_num [stab]) (by norm_num [stab]) 8 _ _ _ cell", j, "_check (by norm_num)");
   write(F, "    (by norm_num) (by norm_num) ρ (by push_cast; linarith) (by push_cast; linarith)"));
-write(F, "\n/-- **The paper, Lemma 4.3 (b).** On `[0, 2.8)`, with `s = s_j` on the cell `j = ⌊10 ρ⌋`, the");
+write(F, "\n/-- **The paper, Lemma B.1 (b).** On `[0, 2.8)`, with `s = s_j` on the cell `j = ⌊10 ρ⌋`, the");
 write(F, "drift `8 h_s(ρ) - 8 e^{ρ²/2}` is at least `1`. -/");
 write(F, "theorem drift_table (ρ : ℝ) (h0 : 0 ≤ ρ) (h1 : ρ < 28 / 10) :");
 write(F, "    0 ≤ driftGap ((stab ⌊10 * ρ⌋₊ : ℚ) : ℝ) ρ := by");

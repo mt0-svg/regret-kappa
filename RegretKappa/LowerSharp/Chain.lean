@@ -8,7 +8,7 @@ The paper, Lemma 4.2 (the chain), for the move rule of `LowerSharp/Move.lean` st
 `s = ssm L ρ_t`, plays the feature `√(V_t s / (1 - s))` and the outcome `sgn ζ_{t+1}`. Then
 `V_{t+1} = V_t / (1 - s)` and `ρ_{t+1} = sst L ρ_t ζ_{t+1}`: `V_t = ∑_{s ≤ t} x_s²` (`sum_xS_sq`)
 and `S_t = ρ_t √V_t` (`sum_xS_mul`). Once `ρ² ≥ L` the move is `0`: the feature is `0` and the
-state stays put. The proofs are those of `Lower/Adversary.lean` for this move.
+state stays put.
 -/
 
 namespace RegretKappa.LowerSharp

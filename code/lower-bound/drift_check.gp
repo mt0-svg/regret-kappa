@@ -1,4 +1,4 @@
-\\ Phase 1 drift certificate: Lemma 4.3 of the paper, Computation 4.4 (Lemma 3.1 or P1-drift in the outputs).
+\\ Phase 1 drift certificate: Computation B.2 of the paper, part (b) of the proof of Lemma B.1.
 \\ Claim: with g(r) = 8 exp(r^2/2) and the move s(r) below, for every r in [0, 28/10],
 \\   (1/2) [g(r sqrt(1-s) + sqrt(s)) + g(r sqrt(1-s) - sqrt(s))] - g(r) >= 1,
 \\ where the left side equals 8 [exp((r^2 (1-s) + s)/2) cosh(r sqrt(s(1-s))) - exp(r^2/2)].
@@ -43,19 +43,4 @@ check(lo, hi, s, depth) =
          ncells, maxdepth, minmargin * 1.);
 }
 
-\\ Sanity (floating point, not part of the certificate): the drift with the table rule on a fine grid,
-\\ and the analytic regime r >= 2.8 with the continuous rule s = 5/8 exp(-r^2/2).
-default(realprecision, 38);
-D(r, s) = 8 * (exp((r^2*(1-s)+s)/2) * cosh(r*sqrt(s*(1-s))) - exp(r^2/2)) - 1;
-phi(r) = exp(-r^2/2) * (r^2/2 + r^4/4);
-{
-  my(w = 10^9, wr);
-  forstep(r = 0, 2.8 - 1/4000, 1/4000, my(m = D(r, tab[floor(r*10)+1])); if(m < w, w = m; wr = r));
-  printf("sanity table rule on [0,2.8): min of drift - 1 = %.6f at r = %.4f\n", w, wr);
-  w = 10^9;
-  forstep(r = 28/10, 12, 1/1000, my(m = D(r, 5/8*exp(-r^2/2))); if(m < w, w = m; wr = r));
-  printf("sanity continuous rule on [2.8,12]: min of drift - 1 = %.6f at r = %.4f\n", w, wr);
-  printf("phi(2.8) = %.6f (analytic lemma needs phi <= 12/25 = 0.48 on [2.8, oo))\n", phi(28/10));
-  printf("max of x -> exp(-x/2)(x/2 + x^2/4) at x = 1 + sqrt(5): %.6f; 2.8^2 = 7.84 > 1 + sqrt(5)\n", exp(-(1+sqrt(5))/2)*((1+sqrt(5))/2 + (1+sqrt(5))^2/4));
-}
 quit

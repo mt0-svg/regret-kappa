@@ -14,7 +14,7 @@ rounds: phase 1 is rounds `0, ..., m - 1`, phase 2 is rounds `m, ..., m + k - 1`
 * Success, `L ≤ ρ_F²`: round `m + i` plays the feature `ε_i √V` (`ε_i = eps k r i`,
   `r = |ρ_F| + 2`, `V = V_{m-1}`) and the outcome `sgn η_i`. Failure: phase 2 plays `x = y = 0`.
 
-`regret_succ` is the regret on a play of the paper (Lemma 4.8, from Lemma 2.2, with
+`regret_succ` is the regret on a play of the paper (Lemma 4.5, from Lemma 2.2, with
 `θ* √V = ρ + z`), with the comparator term `V_T (θ* - θ̂_T)²` kept; `regret_fail` the bound on the
 failure branch. The causality lemmas say which signs each prediction sees.
 -/
@@ -111,7 +111,7 @@ theorem pred_natAdd_congr (L : ℝ) {m k : ℕ} (Lrn : Learner (m + k)) (ξ : Fi
   · simp only [yA, fappend_ge _ _ s h1]
     rw [h _ (by simp; omega)]
 
-/-- The pointwise algebra of the comparator, the identity of the paper's Lemma 4.8:
+/-- The pointwise algebra of the comparator, the identity of the paper's Lemma 4.5:
 with `X = ∑ ε_i²`, `Y = ∑ ε_i y_i`, `u = ρ + z`,
 `∑ (ŷ_i² - 2 ŷ_i y_i) + (ρ + Y)²/(1 + X)
   = ρ² - z² + ∑ ((ŷ_i - y_i)² - (u ε_i - y_i)²) + (1 + X) ((ρ + Y)/(1 + X) - ρ - z)²`. -/
@@ -157,7 +157,7 @@ theorem sum_phase1 (L : ℝ) {m : ℕ} (hm : 1 ≤ m) (ξ : Fin m → Bool) :
   · have h := sum_xS_sq L (ext ξ) (m - 1)
     rwa [Nat.sub_add_cancel hm, ← Fin.sum_univ_eq_sum_range] at h
 
-/-- **The regret identity on a successful play** (the paper, Lemma 4.8, from Lemma 2.2,
+/-- **The regret identity on a successful play** (the paper, Lemma 4.5, from Lemma 2.2,
 `θ* √V = ρ + z`, comparator term kept). -/
 theorem regret_succ (L : ℝ) {m k : ℕ} (hm : 1 ≤ m) (Lrn : Learner (m + k)) (ξ : Fin m → Bool)
     (η : Fin k → Bool) (z : ℝ) (hs : L ≤ rhoF L ξ ^ 2) :

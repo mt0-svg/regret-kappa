@@ -1,3 +1,0 @@
-Lemmas 1.1 and 1.2 on 300 random exact instances: PASS
-Lemma 2.1 (rho update, exact on 300 random instances, rational and irrational parts): PASS
-elapsed: 0 s

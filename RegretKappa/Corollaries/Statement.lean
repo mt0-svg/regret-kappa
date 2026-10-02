@@ -3,10 +3,10 @@ import RegretKappa.Statement
 /-!
 # Target statements: randomized learners and bounded features
 
-The paper, Corollary 5.1 and Remark 5.2, in asymptotic form, on the model of
+Bounded features and randomized learners, in asymptotic form, on the model of
 `RegretKappa/Statement.lean` (`Learner`, `regret`; rounds indexed by `Fin T`).
 
-Randomized learners (the paper, Section 2.1). A randomized learner
+Randomized learners. A randomized learner
 draws its predictions from laws that depend on the past, with randomness independent of the
 adversary's, and conditionally on its randomness it is deterministic. Here it is a probability
 space `(Ω, μ)` with a family `L : Ω → Learner T` of deterministic learners, each prediction
@@ -25,22 +25,22 @@ randomized learner with a constant family, and its expected regret is its regret
 Adversaries. Against a fixed play `(x, y)` the expected regret is `expRegret μ L x y`. An adversary
 that ignores the predictions and plays `(x i, y i)` with probability `w i`, for `i` in a finite
 type, is a random play independent of the learner's randomness, one randomized adaptive adversary
-in the sense of the paper, Section 2.1. Its expected regret `advRegret μ L w x y` is taken over
+in the sense of the paper. Its expected regret `advRegret μ L w x y` is taken over
 `ω` and `i` in the same way: with one play of probability `1` it is `expRegret`
 (`advRegret_unique`), and against a deterministic learner it is the average of the regrets on
 the plays, weighted by their probabilities (`advRegret_const`).
 
 Targets, in the asymptotic form of `RegretKappa.LowerBound`: the paper's bound `B ^ 2 b(T)` for
 `T ≥ T₀` becomes `(3 - ε) B ^ 2 log T` for every `ε > 0` and every large `T`.
-* `RandLowerBound` (Remark 5.2, randomized learners, against fixed plays): for every `B > 0` and
+* `RandLowerBound` (randomized learners, against fixed plays): for every `B > 0` and
   `ε > 0`, for every large `T`, every randomized learner has a play with `|y_t| ≤ B` on which its
   expected regret is at least `(3 - ε) B ^ 2 log T`;
-* `BoundedFeatures` (Corollary 5.1, deterministic learners): for every `B > 0` and `ε > 0`, for
+* `BoundedFeatures` (deterministic learners): for every `B > 0` and `ε > 0`, for
   every large `T`, every learner has a play with features in `[0, 1]` and outcomes in `{-B, 0, B}`
   on which its regret is at least `(3 - ε) B ^ 2 log T`;
-* `BoundedFeaturesRand` (Corollary 5.1, randomized learners): the same for every randomized learner
+* `BoundedFeaturesRand` (randomized learners): the same for every randomized learner
   and its expected regret;
-* `BoundedFeaturesAdv` (Corollary 5.1, the adversary): for every `B > 0` and `ε > 0`, for every
+* `BoundedFeaturesAdv` (the adversary): for every `B > 0` and `ε > 0`, for every
   large `T`, there is an adversary that ignores the predictions, with finitely many plays, each
   with features in `[0, 1]` and outcomes in `{-B, 0, B}`, against which every randomized learner
   has expected regret at least `(3 - ε) B ^ 2 log T`.
@@ -109,7 +109,7 @@ noncomputable def advRegret {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω) 
       ENNReal.ofReal (regret (L ω) (x i) (y i) + ∑ t, y i t ^ 2) ∂μ : ENNReal) : EReal) -
     ((∑ i, w i * ∑ t, y i t ^ 2 : ℝ) : EReal)
 
-/-- **Remark 5.2, randomized learners on one play (target).** For every `B > 0` and `ε > 0`, for
+/-- **Randomized learners on one play (target).** For every `B > 0` and `ε > 0`, for
 every large horizon `T`, every randomized learner has a play with `|y t| ≤ B` on which its
 expected regret is at least `(3 - ε) B ^ 2 log T`. -/
 def RandLowerBound : Prop :=
@@ -118,7 +118,7 @@ def RandLowerBound : Prop :=
       ∃ x y : Fin T → ℝ, (∀ t, |y t| ≤ B) ∧
         (((3 - ε) * B ^ 2 * Real.log T : ℝ) : EReal) ≤ expRegret μ L x y
 
-/-- **Corollary 5.1, deterministic learners (target).** For every `B > 0` and `ε > 0`, for every
+/-- **Bounded features, deterministic learners (target).** For every `B > 0` and `ε > 0`, for every
 large horizon `T`, every learner has a play with features in `[0, 1]` and outcomes in `{-B, 0, B}`
 on which its regret is at least `(3 - ε) B ^ 2 log T`. -/
 def BoundedFeatures : Prop :=
@@ -126,7 +126,7 @@ def BoundedFeatures : Prop :=
     ∃ x y : Fin T → ℝ, (∀ t, x t ∈ Set.Icc (0 : ℝ) 1) ∧ (∀ t, y t ∈ ({-B, 0, B} : Set ℝ)) ∧
       (3 - ε) * B ^ 2 * Real.log T ≤ regret L x y
 
-/-- **Corollary 5.1, randomized learners (target).** For every `B > 0` and `ε > 0`, for every
+/-- **Bounded features, randomized learners (target).** For every `B > 0` and `ε > 0`, for every
 large horizon `T`, every randomized learner has a play with features in `[0, 1]` and outcomes in
 `{-B, 0, B}` on which its expected regret is at least `(3 - ε) B ^ 2 log T`. -/
 def BoundedFeaturesRand : Prop :=
@@ -135,7 +135,7 @@ def BoundedFeaturesRand : Prop :=
       ∃ x y : Fin T → ℝ, (∀ t, x t ∈ Set.Icc (0 : ℝ) 1) ∧ (∀ t, y t ∈ ({-B, 0, B} : Set ℝ)) ∧
         (((3 - ε) * B ^ 2 * Real.log T : ℝ) : EReal) ≤ expRegret μ L x y
 
-/-- **Corollary 5.1, the adversary (target).** For every `B > 0` and `ε > 0`, for every large
+/-- **Bounded features, the adversary (target).** For every `B > 0` and `ε > 0`, for every large
 horizon `T`, there is an adversary that ignores the predictions and plays `(x i, y i)` with
 probability `w i`, `i` in a finite type, every play with features in `[0, 1]` and outcomes in
 `{-B, 0, B}`, against which every randomized learner has expected regret at least

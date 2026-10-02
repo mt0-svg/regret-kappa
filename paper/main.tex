@@ -81,7 +81,6 @@ We consider online linear regression in dimension one when the features are reve
 \maketitle
 
 \definecolor{leangreen}{RGB}{0,122,61}
-\definecolor{compblue}{RGB}{0,84,166}
 \newcommand{\badge}[2]{\colorbox{#1}{\strut\textcolor{white}{\sffamily\bfseries\small #2}}}
 \begin{center}
 \footnotesize
@@ -89,8 +88,7 @@ We consider online linear regression in dimension one when the features are reve
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.2\textwidth} >{\raggedright\arraybackslash}p{0.7\textwidth}}
 \rowcolor{black!6}
 \multicolumn{2}{>{\raggedright\arraybackslash}p{0.93\textwidth}}{\textit{This is AI-generated research: the results, proofs and code were found and written by AI. Credit goes to all the humans whose work it builds on.}}\\
-\badge{leangreen}{Proved in Lean 4} & With Mathlib, no hypothesis and only the standard axioms: Theorem~\ref{thm:main} with its constants (\lname{RegretKappa.main}), through Theorems~\ref{thm:upper} and~\ref{thm:lower} and the lemmas of Sections~\ref{sec:setting} to~\ref{sec:lower} and Appendices~\ref{app:upper} and~\ref{app:lower}; Corollary~\ref{cor:bounded}; and Remark~\ref{rem:rand}. The numerical steps are inequalities between rational numbers checked in Lean, and Lean's kernel evaluates the drift certificate of Computation~\ref{comp:drift}.\\
-\badge{compblue}{By computation} & PARI/GP and SageMath programs write the subdivisions of the drift certificate, redo the certificates of Computations~\ref{comp:upper} and~\ref{comp:drift} separately from Lean in exact rational or ball arithmetic, and compute the values quoted in the text (Section~\ref{sec:checks}).\\
+\badge{leangreen}{Proved in Lean 4} & Theorem~\ref{thm:main} with its constants, Theorems~\ref{thm:upper} and~\ref{thm:lower} with the lemmas of Sections~\ref{sec:setting} to~\ref{sec:lower} and Appendices~\ref{app:upper} and~\ref{app:lower}, the numerical steps and the drift certificate of Computation~\ref{comp:drift} included, Corollary~\ref{cor:bounded} and Remark~\ref{rem:rand} are proved in Lean~4 with Mathlib, with no hypothesis and only the standard axioms (\lname{RegretKappa.main}).\\
 \rowcolor{black!6}
 \multicolumn{2}{>{\raggedright\arraybackslash}p{0.93\textwidth}}{Lean proofs, code, certificates and the \TeX{} source: \href{\repo}{\texttt{github.com/mt0-svg/regret-kappa}}}\\
 \end{tabular}
@@ -139,7 +137,7 @@ The upper bound is the regret $B^2u(T)$ of an explicit learner (Theorem~\ref{thm
 ``The open question is therefore whether we can improve the lower bound and make it larger for strategies that only discover the features on the fly, or if a doubly uniform regret upper bound of $dB^2\ln(T)+\mathcal O_T(1)$ over the $\mathbf u$ and the $\mathbf x_t,\,y_t$ is also possible in the case of sequentially revealed features.''
 \end{question}
 
-Here $\mathbf u\in\R^d$ is the comparator, and the question concerns features with $\|\mathbf x_t\|\le X$ for a bound $X$. \citet[Theorem~5, Proposition~6 and Theorem~7]{CQRZ} answered it, with the orders recalled above. In dimension one, Theorem~\ref{thm:main} adds the constant, and Corollary~\ref{cor:bounded} shows that it is the same for features in $[0,1]$: the leading term is $3B^2\log T$, so no bound of the form $B^2\log T+O(1)$ holds uniformly when the features are revealed on the fly. Our lower bound holds against every learner, whatever it knows; the learner of our upper bound uses $B$ and $T$ (Section~\ref{sec:remarks}). For the lower bound, \citet{GaillardALT19} suggest random features that are dependent over time, or features built as functions of the strategy's past predictions. The adversary of Theorem~\ref{thm:lower} does the first: its features depend on the past outcomes, and it never looks at the predictions.
+Here $\mathbf u\in\R^d$ is the comparator, and the question concerns features with $\|\mathbf x_t\|\le X$ for a bound $X$. \citet[Theorem~5, Proposition~6 and Theorem~7]{CQRZ} answered it, with the orders recalled above. In dimension one, Theorem~\ref{thm:main} adds the constant, and Corollary~\ref{cor:bounded} shows that it is the same for features in $[0,1]$: the leading term is $3B^2\log T$, so no bound of the form $B^2\log T+O(1)$ holds uniformly when the features are revealed on the fly. Our lower bound holds against every learner, whatever it knows; the learner of our upper bound uses $B$ and $T$ (Section~\ref{sec:remarks}). For the lower bound, \citet[Section~4.1]{GaillardALT19} suggest random features that are dependent over time, or features built as functions of the strategy's past predictions. The adversary of Theorem~\ref{thm:lower} does the first: its features depend on the past outcomes, and it never looks at the predictions.
 
 \subsection*{Previous work}
 With a scale fixed in advance, the constant is $1$. Against a comparator penalized by a multiple of $\|\theta\|^2$, with features revealed on the fly, the forecaster of \citet{Vovk01} and \citet{AW01} has regret at most $dB^2\log T$ plus a term that depends on the penalty and on a bound on the features \citetext{\citealp[Theorem~1]{Vovk01}; \citealp[Theorem~5.6]{AW01}}, and \citet[Theorem~2]{Vovk01} proved that its leading term $dB^2\log T$ cannot be lowered. \citet[Theorem~15]{MHvE} gave a forecaster that needs no bound on the outcomes, with leading constant $1$ and a bound that grows with $\|\theta\|$ and with the norms of the features. None of these bounds is uniform over the comparators and the features. In dimension $d\ge2$ no bound of order $\log T$ is uniform: besides the linear growth of the square loss regret recalled above, \citet[Theorem~6]{Kot17} showed for linear losses that a regret bound that depends on the comparator only through the norm $(\sum_t(\theta\cdot x_t)^2)^{1/2}$, which is invariant under linear changes of the features, must grow like $\sqrt T$. So dimension one is the case in which a constant exists.
@@ -147,10 +145,10 @@ With a scale fixed in advance, the constant is $1$. Against a comparator penaliz
 \subsection*{Method}
 Both halves work with the state $\rho_t=S_t/\sqrt{V_t}$, where $S_t=\sum_{i\le t}x_iy_i$ and $V_t=\sum_{i\le t}x_i^2$. The regret equals $\sum_t(\yh_t^2-2\yh_ty_t)+\rho_T^2$ (Lemma~\ref{lem:identity}), and each round moves $\rho$ to $\rho\sqrt{1-s}+\varepsilon y\sqrt s$, where $\varepsilon$ is the sign of $x_t$ and $s=x_t^2/V_t$ is a step that the adversary chooses freely (Lemma~\ref{lem:state}). The discrete analysis of \citet[Section~3]{HLPR} for two experts uses the same map, in the variables $\rho\sqrt{1-s}$ and $\sqrt s$, with the step fixed by the round. The proof of \citet[Theorem~4]{CQRZ} runs the map with a step chosen freely by the martingale, and bounds $\E\exp(c\rho_t^2)$ round by round with Hoeffding's lemma.
 
-The learner (Section~\ref{sec:upper}) plays against the potential $2\log(C(\lambda+\Gamma(\rho)))$, where $\lambda$ counts the rounds left and $\Gamma$ mixes the exponentials $e^{\theta\rho}$ over $|\theta|\ge1$. Mixability of the square loss \citep{Vovk98,HKW,Vovk01} controls the rounds with small steps, the monotonicity of $\Gamma$ those with large steps, and each round costs an increment $3$ of $\lambda$; at the end the potential must dominate $\rho_T^2$ for $|\rho_T|\le\sqrt T$, which forces $C$ of order $\sqrt T$. The adversary (Section~\ref{sec:lower}) plays in two phases. In the first, of $\lfloor T/2\rfloor$ rounds, it drives $\rho_t^2$ up to a level $L$ close to $2\log T$ with fair random signs as outcomes, against which no prediction gains anything, which leaves the term $\rho_t^2\approx2\log T$ in the regret. In the second, it draws a parameter from a prior centred at the least squares estimate and generates the outcomes from it; by the van Trees inequality \citep{GL}, on which the lower bound of \citet[Theorem~4]{GaillardALT19} for known features also rests, estimating this parameter costs every learner about $\log T$ more. The two halves reach $3$ by different splits, as the following heuristic shows; the proofs do not use it. For the learner, $u(T)=2\log\bigl(e^2+C(3T+\Gamma(0))\bigr)$ is about $2\log(3T)+2\log C$, and $2\log C\approx\log T$: the rounds pay $2\log T$ through the increments, and the end pays $\log T$ through $C$. For the adversary, $8e^{\rho^2/2}$ gains at least $1$ per move on average in phase~1 and stays below $8.8\,e^{L/2}$, so the state reaches the level $L$ within about $e^{L/2}$ moves, and $L\approx2\log T$ is the level reachable in $T/2$ rounds; this pays $2\log T$. In phase~2, round $i$ costs the learner about $2/i$, the squared error of estimating the parameter from the outcomes before it, once $i$ exceeds about $\pi\sqrt{T\log T}$; summed over the $T/2$ rounds this is about $\log T-\log\log T$.
+The learner (Section~\ref{sec:upper}) plays against the potential $2\log(C(\lambda+\Gamma(\rho)))$, where $\lambda$ counts the rounds left and $\Gamma$ mixes the exponentials $e^{\theta\rho}$ over $|\theta|\ge1$. Mixability of the square loss \citetext{\citealp[Section~2, Example~4]{Vovk98}; \citealp[Example~3.13]{HKW}; \citealp[Section~2.4, Lemma~2]{Vovk01}} controls the rounds with small steps, the monotonicity of $\Gamma$ those with large steps, and each round costs an increment $3$ of $\lambda$; at the end the potential must dominate $\rho_T^2$ for $|\rho_T|\le\sqrt T$, which forces $C$ of order $\sqrt T$. The adversary (Section~\ref{sec:lower}) plays in two phases. In the first, of $\lfloor T/2\rfloor$ rounds, it drives $\rho_t^2$ up to a level $L$ close to $2\log T$ with fair random signs as outcomes, against which no prediction gains anything, which leaves the term $\rho_t^2\approx2\log T$ in the regret. In the second, it draws a parameter from a prior centred at the least squares estimate and generates the outcomes from it; by the van Trees inequality \citep[Section~2, inequality~(3)]{GL}, on which the lower bound of \citet[Theorem~4]{GaillardALT19} for known features also rests, estimating this parameter costs every learner about $\log T$ more. The two halves reach $3$ by different splits, as the following heuristic shows; the proofs do not use it. For the learner, $u(T)=2\log\bigl(e^2+C(3T+\Gamma(0))\bigr)$ is about $2\log(3T)+2\log C$, and $2\log C\approx\log T$: the rounds pay $2\log T$ through the increments, and the end pays $\log T$ through $C$. For the adversary, $8e^{\rho^2/2}$ gains at least $1$ per move on average in phase~1 and stays below $8.8\,e^{L/2}$, so the state reaches the level $L$ within about $e^{L/2}$ moves, and $L\approx2\log T$ is the level reachable in $T/2$ rounds; this pays $2\log T$. In phase~2, round $i$ costs the learner about $2/i$, the squared error of estimating the parameter from the outcomes before it, once $i$ exceeds about $\pi\sqrt{T\log T}$; summed over the $T/2$ rounds this is about $\log T-\log\log T$.
 
 \subsection*{Organisation}
-Sections~\ref{sec:setting} to~\ref{sec:proofmain} prove Theorem~\ref{thm:main}, with the proofs of the lemmas and the certificates in Appendices~\ref{app:upper} and~\ref{app:lower}. Section~\ref{sec:remarks} gathers open questions, and Section~\ref{sec:checks} and Appendix~\ref{app:checks} describe the formal proof and the computations. Logarithms are natural throughout.
+Sections~\ref{sec:setting} to~\ref{sec:proofmain} prove Theorem~\ref{thm:main}, with the proofs of the lemmas and the certificates in Appendices~\ref{app:upper} and~\ref{app:lower}. Section~\ref{sec:remarks} gathers open questions, and Section~\ref{sec:checks} describes the formal proof and its data. Logarithms are natural throughout.
 
 \section{The game and the regret identity}\label{sec:setting}
 
@@ -174,7 +172,7 @@ Both strategies of the paper are described for $B=1$; the next lemma transfers t
 Let $B>0$, let $\mathcal L$ be a deterministic learner, and let $\mathcal L^B$ predict $\yh_t=B\,\mathcal L_t(x_1,\dots,x_t;y_1/B,\dots,y_{t-1}/B)$. For every play $(x,y)$, the regret of $\mathcal L^B$ on $(x,y)$ is $B^2$ times the regret of $\mathcal L$ on $(x,y/B)$.
 \end{lemma}
 
-Since $(\mathcal L^{1/B})^B=\mathcal L$, every deterministic learner is of the form $\mathcal L^B$. The learner of Section~\ref{sec:upper} is described for $B=1$ and run for general $B$ in the form $\mathcal L^B$, which uses $B$; the adversary of Section~\ref{sec:lower} is described for $B=1$, and its outcomes are multiplied by $B$ for general $B$. The next identity, the completion of squares of \citet[Section~2.1]{CQRZ} in dimension one, puts the comparator into the state.
+Since $(\mathcal L^{1/B})^B=\mathcal L$, every deterministic learner is of the form $\mathcal L^B$. The learner of Section~\ref{sec:upper} is described for $B=1$ and run for general $B$ in the form $\mathcal L^B$, which uses $B$; the adversary of Section~\ref{sec:lower} is described for $B=1$, and its outcomes are multiplied by $B$ for general $B$. The next identity, the completion of squares of \citet[Section~2.1]{CQRZ} in dimension one, puts the comparator into the state; both halves of the proof start from it.
 
 \begin{lemma}[regret identity]\label{lem:identity}
 \leanmap{RegretKappa.Upper.bestLinearLoss_closed, RegretKappa.Upper.sum_sq_sub_bestLinearLoss, RegretKappa.Lower.regret_eq}
@@ -185,10 +183,10 @@ For every play, $\inf_{\theta\in\R}\sum_t(\theta x_t-y_t)^2=\sum_ty_t^2-R_T$. He
 \end{lemma}
 
 \begin{proof}
-The sum equals $V_T\theta^2-2S_T\theta+\sum_ty_t^2$. If $V_T>0$, it is minimal at $\theta=S_T/V_T$, with value $\sum_ty_t^2-S_T^2/V_T$. If $V_T=0$, every $x_t$ vanishes, so $S_T=0$ and the sum is the constant $\sum_ty_t^2$. Subtracting from $\sum_t(\yh_t-y_t)^2=\sum_t(\yh_t^2-2\yh_ty_t)+\sum_ty_t^2$ gives the formula, since $\rho_T^2=R_T$.
+The sum equals $V_T\theta^2-2S_T\theta+\sum_ty_t^2$. If $V_T>0$, it is minimal at $\theta=S_T/V_T$, with value $\sum_ty_t^2-S_T^2/V_T$. If $V_T=0$, every $x_t$ vanishes, so $S_T=0$ and the sum is the constant $\sum_ty_t^2$. Subtracting from $\sum_t(\yh_t-y_t)^2=\sum_t(\yh_t^2-2\yh_ty_t)+\sum_ty_t^2$ gives the formula, since $\rho_T^2=R_T$. This is \lname{RegretKappa.Lower.regret_eq} in the formalization.
 \end{proof}
 
-The next lemma shows how one round moves the state and what it costs.
+The next lemma, which the learner and the adversary both use, shows how one round moves the state and what it costs.
 
 \begin{lemma}[the state]\label{lem:state}
 \leanmap{RegretKappa.Upper.rho_sq_le, RegretKappa.Upper.sq_sum_mul_le, RegretKappa.UpperSharp.step_sharp}
@@ -233,8 +231,10 @@ Recall from Section~\ref{sec:setting} that $\rho_t=S_t/\sqrt{V_t}$, $s_t=x_t^2/V
 The learner that predicts $\yh_t$ in round $t$ is the \emph{potential learner} with parameters $T$ and $\lambda_0>0$. By Lemma~\ref{lem:state}(b), $\rho c\pm\sigma$ are the states to which the outcomes $\varepsilon_ty_t=\pm1$ lead from $\rho=\rho_{t-1}$, so the prediction is the clipped half log-ratio of the potential at these two states. The increment $3$ of $\lambda$ per round is the larger of the one-round costs $2.8857$ of small steps and $2.7053$ of large steps (Lemmas~\ref{lem:small} and~\ref{lem:large}), rounded up.
 
 \begin{theorem}\label{thm:upper}
-\leanmap{RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog, RegretKappa.Corollaries.regret_rescale_learnerU_le, RegretKappa.boundU_le}
-\mapnote{Lean proves the first form for every $T\ge0$ and the second for $T\ge1$, for outcomes in $[-1,1]$ with the learner written out (\lname{RegretKappa.UpperSharp.learnerU}), the case of $[-B,B]$ with the learner of Lemma~\ref{lem:scaling}, and the bound $u(T)\le3\log T+0.37$ as \lname{RegretKappa.boundU_le}.}
+\leanmap{RegretKappa.UpperSharp.theoremU, RegretKappa.UpperSharp.theoremULog,
+  RegretKappa.Corollaries.regret_rescale_learnerU_le, RegretKappa.boundU_le,
+  RegretKappa.UpperSharp.ulog_bound, RegretKappa.UpperSharp.const_c_le}
+\mapnote{Lean proves the first form for every $T\ge0$ and the second for $T\ge1$, for outcomes in $[-1,1]$ with the learner written out (\lname{RegretKappa.UpperSharp.learnerU}), the case of $[-B,B]$ with the learner of Lemma~\ref{lem:scaling}, and the bound $u(T)\le3\log T+0.37$ as \lname{RegretKappa.boundU_le}. The bounds $4e^{-1/2}/3\le0.81$, $\sqrt T\ge596$ and $2\log(3/\sqrt{2\pi})\le0.366$ of the proof are steps of \lname{RegretKappa.UpperSharp.ulog_bound} and \lname{RegretKappa.boundU_le}, and $2\sqrt{2\pi}\,e^2/3\le12.35$ is \lname{RegretKappa.UpperSharp.const_c_le}.}
 Let $T\ge1$ be an integer, $C=(\sqrt T+1)/\sqrt{2\pi}$ and $\lambda_0=e^2/C$, and let $\Gamma$ be as in \eqref{eq:Gamma}. On every play with outcomes in $[-1,1]$, the potential learner \eqref{eq:learner} with parameters $T$ and $\lambda_0$ has regret \eqref{eq:regret}
 \begin{align*}
 \Reg(T)\le u(T)&:=2\log\Bigl(e^2+\frac{(\sqrt T+1)(3T+2e^{-1/2})}{\sqrt{2\pi}}\Bigr)\\
@@ -271,7 +271,6 @@ The last input is the terminal condition: at the end, the potential must dominat
 
 \begin{lemma}[terminal condition]\label{lem:terminal}
 \leanmap{RegretKappa.UpperSharp.terminal_ineq, RegretKappa.UpperSharp.terminal_sharp}
-\codemap{code/upper-bound-certificate/c4_terminal.sage > code/upper-bound-certificate/out/c4_terminal.txt}
 For $\rho\ge2$, $\sqrt{2\pi}\,e^{\rho^2/2}\le(\rho+1)\Gamma(\rho)$, with $\Gamma$ as in \eqref{eq:Gamma}. Consequently, with $C=(\sqrt T+1)/\sqrt{2\pi}$ and $\lambda_0=e^2/C$ as in Theorem~\ref{thm:upper}, $C(\lambda_0+\Gamma(\rho))\ge e^{\rho^2/2}$ for $|\rho|\le\sqrt T$, that is $\Phi_0(\rho)\ge\rho^2$ there.
 \end{lemma}
 
@@ -282,7 +281,7 @@ By Lemma~\ref{lem:potential} with $n=T$, $\sum_{t\le T}(\yh_t^2-2\yh_ty_t)+\Phi_
 \[
 u(T)-3\log T-2\log\frac3{\sqrt{2\pi}}\le\frac2{\sqrt T}+\frac{2\Gamma(0)}{3T}+\frac{2\sqrt{2\pi}\,e^2}{3T^{3/2}}=\frac2{\sqrt T}+\frac{4e^{-1/2}}{3}\,\frac1T+\frac{2\sqrt{2\pi}\,e^2}{3}\,\frac1{T^{3/2}},
 \]
-with $4e^{-1/2}/3=0.80870754\ldots<0.81$ and $2\sqrt{2\pi}\,e^2/3=12.347744\ldots<12.35$ (Computation~\ref{comp:upper}). For $T\ge355713$, $\sqrt T>596$, so that $2/\sqrt T<0.00336$ and $0.81/T+12.35/T^{3/2}<10^{-5}$, and with $2\log(3/\sqrt{2\pi})=0.35934751\ldots$ we get $u(T)\le3\log T+0.37$. For outcomes in $[-B,B]$, by Lemma~\ref{lem:scaling} the regret of the learner $\mathcal L^B$ on a play $(x,y)$ is $B^2$ times the regret of \eqref{eq:learner} on $(x,y/B)$, whose outcomes lie in $[-1,1]$. This is \lname{RegretKappa.UpperSharp.theoremU} in the formalization, with \lname{RegretKappa.boundU_le} for the bound $3\log T+0.37$.
+with $4e^{-1/2}/3\le0.81$ and $2\sqrt{2\pi}\,e^2/3\le12.35$ (Computation~\ref{comp:upper}). For $T\ge355713$, $\sqrt T\ge596$, so that $2/\sqrt T<0.00336$ and $0.81/T+12.35/T^{3/2}<10^{-5}$; and $2\log(3/\sqrt{2\pi})=\log(9/(2\pi))\le0.366$, since $9/(2\pi)\le1+0.366+0.366^2/2\le e^{0.366}$. Hence $u(T)\le3\log T+0.37$. For outcomes in $[-B,B]$, by Lemma~\ref{lem:scaling} the regret of the learner $\mathcal L^B$ on a play $(x,y)$ is $B^2$ times the regret of \eqref{eq:learner} on $(x,y/B)$, whose outcomes lie in $[-1,1]$. The bound $\Reg(T)\le u(T)$ is \lname{RegretKappa.UpperSharp.theoremU} in the formalization.
 \end{proof}
 
 \section{An explicit adversary}\label{sec:lower}
@@ -294,15 +293,17 @@ This section proves the lower bound of Theorem~\ref{thm:main} with the two-phase
 For an integer $T\ge3$ let
 \begin{gather}
 j_0=\lceil\log(3\log T)\rceil,\qquad L=2\log\frac{T}{20e\,j_0},\qquad k_0=T-\lfloor T/2\rfloor,\notag\\
-c_1=\frac12+\frac43-\frac8{\pi^2}+\log(\pi^2)+\frac{\pi^2/4-2}{\pi^2e^2}=3.3186327\ldots,\notag\\
+c_1=\frac12+\frac43-\frac8{\pi^2}+\log(\pi^2)+\frac{\pi^2/4-2}{\pi^2e^2}\le3.33,\notag\\
 b(T)=\bigl(1-e^{-j_0}\bigr)\Bigl[L+\log\frac{k_0}{(\sqrt L+2)^2}-c_1-\frac{\log k_0}{2k_0}-\frac1{k_0}\Bigr].\label{eq:bT}
 \end{gather}
 The level $L$ is chosen so that $j_0$ blocks of about $8.8e\cdot e^{L/2}$ rounds take $0.44\,T$ of the $\lfloor T/2\rfloor$ rounds of phase~1 (condition (C2) of Section~\ref{subsec:prooflower}), and $j_0$ so that phase~1 fails with probability at most $e^{-j_0}\le1/(3\log T)$, which costs at most $1$ in $b(T)$. In the bracket, $L$ is the term $\rho^2$ of the regret identity at the end of phase~1, $\log(k_0/(\sqrt L+2)^2)$ the cost of estimating the parameter of phase~2 from the state $|\rho|=\sqrt L$, and $c_1$ collects the constants of phase~2, among them the second moment $\frac43-\frac8{\pi^2}$ and the Fisher information $\pi^2/4$ of the prior (Lemma~\ref{lem:prior}).
 
 
 \begin{theorem}\label{thm:lower}
-\leanmap{RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpSimplified, RegretKappa.LowerSharp.lowerSharpBound}
-\mapnote{(a), (b) and (c) are \lname{RegretKappa.LowerSharp.LowerSharpAdv}, \lname{RegretKappa.LowerSharp.LowerSharpSimplified} and \lname{RegretKappa.LowerSharp.LowerSharpBound}; the proof of (a) builds the plays of $\mathcal A_T$ (\lname{RegretKappa.LowerSharp.adv_core}).}
+\leanmap{RegretKappa.LowerSharp.lowerSharpAdv, RegretKappa.LowerSharp.lowerSharpSimplified,
+  RegretKappa.LowerSharp.lowerSharpBound, RegretKappa.LowerSharp.c1_le, RegretKappa.LowerSharp.B0_ge,
+  RegretKappa.LowerSharp.bT_ge, RegretKappa.LowerSharp.simplified_two, RegretKappa.LowerSharp.B0_nonneg}
+\mapnote{(a), (b) and (c) are \lname{RegretKappa.LowerSharp.LowerSharpAdv}, \lname{RegretKappa.LowerSharp.LowerSharpSimplified} and \lname{RegretKappa.LowerSharp.LowerSharpBound}; the proof of (a) builds the plays of $\mathcal A_T$ (\lname{RegretKappa.LowerSharp.adv_core}). The bound $c_1\le3.33$ is \lname{RegretKappa.LowerSharp.c1_le}; the proof of (b) is \lname{RegretKappa.LowerSharp.B0_ge}, \lname{RegretKappa.LowerSharp.bT_ge}, \lname{RegretKappa.LowerSharp.simplified_two} and \lname{RegretKappa.LowerSharp.B0_nonneg}, with the steps \lname{RegretKappa.LowerSharp.two_log_a_add_two_le}, \lname{RegretKappa.LowerSharp.small_k0} and \lname{RegretKappa.LowerSharp.const_le}.}
 Let $T\ge T_0=355713$ be an integer, and let $b(T)$ be as in \eqref{eq:bT}.
 \begin{enumerate}
 \item[(a)] There is an adversary that ignores the predictions and plays finitely many plays $(x^i,y^i)$, with probabilities $p_i$, with features $x^i_t\ge0$ and outcomes $y^i_t\in\{-1,0,1\}$, against which every deterministic learner has $\sum_ip_i\Reg(x^i,y^i)\ge b(T)$.
@@ -311,9 +312,7 @@ Let $T\ge T_0=355713$ be an integer, and let $b(T)$ be as in \eqref{eq:bT}.
 \end{enumerate}
 \end{theorem}
 
-The proof shows that the adversary $\mathcal A_T$ of Section~\ref{subsec:adversary} is one as in (a). The threshold $T_0$ is the least integer at which the lower bound $2\log T-2\log(20e)-2\log(\log(3\log T)+1)$ of $L$, which follows from $j_0<\log(3\log T)+1$, reaches $14.5$, the value that condition (C1) of Section~\ref{subsec:prooflower} asks of $L$. The leading term of $b(T)$ is $3\log T$, that of Theorem~\ref{thm:upper}.
-
-\codemap{code/lean-upper-sharp/lsharp_margins.gp > code/lean-upper-sharp/out/lsharp_margins.txt}
+The proof shows that the adversary $\mathcal A_T$ of Section~\ref{subsec:adversary} is one as in (a). The threshold $T_0$ is set so that $L\ge14.5$ for every $T\ge T_0$, the value that condition (C1) of Section~\ref{subsec:prooflower} asks of $L$ (Lemma~\ref{lem:side}). The leading term of $b(T)$ is $3\log T$, that of Theorem~\ref{thm:upper}.
 
 \subsection{The adversary}\label{subsec:adversary}
 Let $T_1=\lfloor T/2\rfloor$, the length of phase~1, so that $k_0=T-T_1$ is the length of phase~2. The adversary $\mathcal A_T$ uses independent random signs $\xi_1,\dots,\xi_{T_1}$, uniform on $\{-1,1\}$, a real random variable $Z$, independent of the signs, with density $g^2$ on $[-2,2]$, where
@@ -348,7 +347,7 @@ Phase~2 follows the scheme of the proof of \citet[Theorem~4]{GaillardALT19}, aft
 
 \emph{Failure, off $\Succ$}: $x_t=y_t=0$ for $t>T_1$.
 
-The adversary never looks at the predictions. Its phase-1 features are functions of the earlier signs and its phase-2 features of $(\rho_{T_1},V_{T_1})$, so they carry no information on $Z$; and since the signs and the phase-2 outcomes take finitely many values, $\mathcal A_T$ plays finitely many plays, each with its probability. The next lemma identifies phase~1 with a Markov chain on the state.
+The adversary never looks at the predictions. Its phase-1 features are functions of the earlier signs and its phase-2 features of $(\rho_{T_1},V_{T_1})$, so they carry no information on $Z$; and since the signs and the phase-2 outcomes take finitely many values, $\mathcal A_T$ plays finitely many plays, each with its probability. The next lemma identifies phase~1 with a Markov chain on the state, for the proofs of Lemmas~\ref{lem:phase1} and~\ref{lem:split}.
 
 \begin{lemma}[the chain]\label{lem:chain}
 \leanmap{RegretKappa.LowerSharp.sum_xS_sq, RegretKappa.LowerSharp.sum_xS_mul, RegretKappa.LowerSharp.rhoS_eq_chainOf}
@@ -365,8 +364,8 @@ Put $a=\sqrt L$ and $a_+=a+\sqrt{5/8}\,e^{-L/4}$, the largest value of $|\rho|$ 
 and four lemmas: the side conditions hold (Lemma~\ref{lem:side}), phase~1 succeeds with high probability and the learner gains nothing in it (Lemma~\ref{lem:phase1}), the regret splits on each play (Lemma~\ref{lem:split}), and phase~2 costs the learner at least a function $\beta$ of the state (Lemma~\ref{lem:phase2}). Their proofs are in Appendix~\ref{app:lower}, with that of Lemma~\ref{lem:chain}, which follows from the definition of the features and Lemma~\ref{lem:state}(b).
 
 \begin{lemma}\label{lem:side}
-\leanmap{RegretKappa.LowerSharp.level_ge, RegretKappa.LowerSharp.C2, RegretKappa.LowerSharp.C3}
-\codemap{code/lean-upper-sharp/lsharp_margins.gp > code/lean-upper-sharp/out/lsharp_margins.txt}
+\leanmap{RegretKappa.LowerSharp.level_ge, RegretKappa.LowerSharp.C2, RegretKappa.LowerSharp.C3,
+  RegretKappa.LowerSharp.exp_33_4_le, RegretKappa.LowerSharp.five_case, RegretKappa.LowerSharp.j0_le}
 Conditions (C1), (C2) and (C3) hold for every integer $T\ge T_0=355713$.
 \end{lemma}
 
@@ -432,9 +431,6 @@ and, since $b_0\ge0$ (Appendix~\ref{app:lower}), $\E\,\Reg(T)\ge\Prob(\Succ)\,b_
 (c) Let $B>0$ and let $\mathcal L$ be a deterministic learner. By (a), applied to the learner $\mathcal L^{1/B}$ of Lemma~\ref{lem:scaling}, some play $(x^i,y^i)$ has $\Reg(x^i,y^i)\ge b(T)$ for $\mathcal L^{1/B}$, since a weighted average with weights of sum $1$ is at most the largest term. Since $(\mathcal L^{1/B})^B=\mathcal L$, Lemma~\ref{lem:scaling} gives that the regret of $\mathcal L$ on $(x^i,By^i)$ is $B^2$ times that, at least $B^2b(T)$, and the outcomes $By^i_t$ lie in $[-B,B]$. This is \lname{RegretKappa.LowerSharp.lowerSharpBound} in the formalization.
 \end{proof}
 
-The values quoted in this section are computed by a PARI/GP program (Section~\ref{sec:checks}); the proofs use only the inequalities between them, which Lean checks.
-\codemap{code/lean-upper-sharp/lsharp_margins.gp > code/lean-upper-sharp/out/lsharp_margins.txt}
-
 \section{Proof of Theorem~\ref{thm:main}; bounded features and randomized learners}\label{sec:proofmain}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
@@ -452,7 +448,7 @@ the integral of a nonnegative measurable function, with no integrability assumed
 
 \begin{corollary}\label{cor:bounded}
 \leanmap{RegretKappa.mainBoundedFeatures, RegretKappa.Corollaries.boundedFeatures_of_mixture, RegretKappa.Corollaries.le_advRegret}
-\mapnote{Lean states it as \lname{RegretKappa.MainBoundedFeatures}, with the two minimax regrets \lname{RegretKappa.Corollaries.minimaxRegretBF} and \lname{RegretKappa.Corollaries.minimaxRegretBFI} in the extended real numbers, for randomized learners on probability spaces in every universe; the separate statement of Section~\ref{subsec:lean} is equivalent to it for probability spaces in the lowest universe. The sharper form of the sentence after the corollary, with $B^2b(T)$ and $B^2u(T)$, is \lname{RegretKappa.mainBoundedFeaturesChain} (\lname{RegretKappa.MainBoundedFeaturesChain}).}
+\mapnote{Lean states it as \lname{RegretKappa.MainBoundedFeatures}, with the two minimax regrets \lname{RegretKappa.Corollaries.minimaxRegretBF} and \lname{RegretKappa.Corollaries.minimaxRegretBFI} in the extended real numbers, for randomized learners on probability spaces in every universe. The sharper form of the sentence after the corollary, with $B^2b(T)$ and $B^2u(T)$, is \lname{RegretKappa.mainBoundedFeaturesChain} (\lname{RegretKappa.MainBoundedFeaturesChain}).}
 Let $B>0$ and let $T\ge355713$ be an integer. There is an oblivious adversary that plays finitely many plays $(x^i,y^i)$, with probabilities $p_i$, with features in $[0,1]$ and outcomes in $\{-B,0,B\}$, against which every randomized learner has expected regret at least $B^2(3\log T-2\log\log T-15.2)$. For deterministic learners,
 \begin{align*}
 B^2\bigl(3\log T-2\log\log T-15.2\bigr)&\le\Regs_T\bigl(B;[0,1],\{-B,0,B\}\bigr)\\
@@ -463,23 +459,29 @@ B^2\bigl(3\log T-2\log\log T-15.2\bigr)&\le\Regs_T\bigl(B;[0,1],\{-B,0,B\}\bigr)
 The proof gives the sharper bounds of Theorems~\ref{thm:lower} and~\ref{thm:upper}: the adversary forces $B^2b(T)$, and $B^2b(T)\le\Regs_T(B;[0,1],\{-B,0,B\})\le\Regs_T(B;[0,1],[-B,B])\le B^2u(T)$, with $b(T)$ as in \eqref{eq:bT} and $u(T)$ as in Theorem~\ref{thm:upper}. Its proof is in Appendix~\ref{app:lower}.
 
 \begin{remark}[randomized learners on one play]\label{rem:rand}
-\leanmap{RegretKappa.randLowerBound}
-\mapnote{Lean states it as \lname{RegretKappa.Corollaries.RandLowerBound} and proves it from Corollary~\ref{cor:bounded}; the readings without measurability are refuted by \lname{RegretKappa.CorollariesCheck.V42b.not_randLowerBound}, \lname{RegretKappa.CorollariesCheck.not_randLowerBound} and \lname{RegretKappa.CorollariesCheck.V51c.not_randPlay}.}
-For every $B>0$ and $\gamma>0$ there is $T_\gamma$ such that for every $T\ge T_\gamma$, every randomized learner has a play with outcomes in $[-B,B]$ on which its expected regret is at least $(3-\gamma)B^2\log T$. By the measurability in the definition of a randomized learner, its expected regret against an oblivious adversary is the weighted average of its expected regrets on the plays, so this follows from Corollary~\ref{cor:bounded}, as $3\log T-2\log\log T-15.2\ge(3-\gamma)\log T$ for large $T$. The measurability cannot be dropped: without it the expected regret is not defined, and under the usual conventions that give a value to the integral of a function that is not measurable, the Bochner integral and the lower integral, the statement fails (Section~\ref{subsec:lean}).
+\leanmap{RegretKappa.randLowerBound, RegretKappa.CorollariesCheck.V42b.not_randLowerBound}
+\mapnote{Lean states it as \lname{RegretKappa.Corollaries.RandLowerBound} and proves it from Corollary~\ref{cor:bounded}; the reading with the Bochner integral and no measurability is refuted by \lname{RegretKappa.CorollariesCheck.V42b.not_randLowerBound}, with the learner of \lname{RegretKappa.CorollariesCheck.integral_famBot}.}
+For every $B>0$ and $\gamma>0$ there is $T_\gamma$ such that for every $T\ge T_\gamma$, every randomized learner has a play with outcomes in $[-B,B]$ on which its expected regret is at least $(3-\gamma)B^2\log T$. By the measurability in the definition of a randomized learner, its expected regret against an oblivious adversary is the weighted average of its expected regrets on the plays, so this follows from Corollary~\ref{cor:bounded}, as $3\log T-2\log\log T-15.2\ge(3-\gamma)\log T$ for large $T$. The measurability cannot be dropped: without it the expected regret is not defined, and with the Bochner integral of the regret in its place, which is $0$ for a function that is not integrable, the statement is false, since two deterministic learners on a two-point space with the trivial $\sigma$-algebra have expected regret $0$ on every play with outcomes in $[-1,1]$. The first statement is \lname{RegretKappa.randLowerBound} in the formalization.
 \end{remark}
 
 When the features are known to the learner from the start, the minimax regret in dimension one lies between $B^2(\log T-\log\log T-3)$ for $T\ge8$, with features in $[0,1]$ \citep[Theorem~4]{GaillardALT19}, and $B^2(\log(1+T)+1)$, for all real features \citep[Theorem~7]{GaillardALT19}. By Corollary~\ref{cor:bounded}, revealing the features one at a time raises the constant from $1$ to $3$.
 
 \section{Further remarks}\label{sec:remarks}
 
-\emph{The additive constants.} Theorem~\ref{thm:main} leaves a gap of order $\log\log T$ between the two bounds. In the lower bound, the term $-\log\log T$ of Theorem~\ref{thm:lower}(b) comes from the radius $r=|\rho_{T_1}|+2$ of phase~2, through $\log(k_0/r^2)$ in Lemma~\ref{lem:phase2} with $r^2\approx2\log T$, and the term $-2\log(\log\log T+2.1)$ from the factor $j_0$ in the level $L$. A second order term of order $\log\log T$ is not specific to features revealed on the fly: for the constant feature $x_t=1$, known in advance, the minimax regret is $B^2(\log T-\log\log T+O(\log\log T/\log T))$ \citep[Corollary~1 and Lemma~3, for their loss, which is half of ours]{TW00}. Whether $\Regs_T(1)-3\log T$ is bounded is open. Our guess is that the lower bound is the one to move: a phase~1 that reached the level $L$ in a time of order $e^{L/2}/\sqrt L$, as a diffusion does, in place of $e^{L/2}$, would gain about $\log L$ in the level and cancel the term $-\log\log T$ of the radius. What blocks this route is that a drift function of order $e^{\rho^2/2}/|\rho|$, for a move rule with smaller steps at high levels, has at $|\rho|$ near $10$ a relative drift of order $\rho^{-6}$, far below what the bounds on intervals of Computation~\ref{comp:drift} resolve.
+\emph{The additive constants.} Theorem~\ref{thm:main} leaves a gap of order $\log\log T$ between the two bounds. In the lower bound, the term $-\log\log T$ of Theorem~\ref{thm:lower}(b) comes from the radius $r=|\rho_{T_1}|+2$ of phase~2, through $\log(k_0/r^2)$ in Lemma~\ref{lem:phase2} with $r^2\approx2\log T$, and the term $-2\log(\log\log T+2.1)$ from the factor $j_0$ in the level $L$. A second order term of order $\log\log T$ is not specific to features revealed on the fly: for the constant feature $x_t=1$, known in advance, the minimax regret is $B^2(\log T-\log\log T+O(\log\log T/\log T))$ \citep[Corollary~1 and Lemma~3, for their loss, which is half of ours]{TW00}. Whether $\Regs_T(1)-3\log T$ is bounded is open. Our guess is that the lower bound is the one to move: a phase~1 that reached the level $L$ in a time of order $e^{L/2}/\sqrt L$, as a diffusion does, in place of $e^{L/2}$, would gain about $\log L$ in the level and cancel the term $-\log\log T$ of the radius. What blocks this route is that a drift function of order $e^{\rho^2/2}/|\rho|$, for a move rule with smaller steps at high levels, has a relative drift that becomes very small as $|\rho|$ grows, too small at high levels for bounds on intervals as in Computation~\ref{comp:drift} to certify.
 
 \emph{Unknown $B$ or $T$.} The learner of Theorem~\ref{thm:upper} uses $T$ through the count $\lambda$ of the rounds left and the scale $C\approx\sqrt{T/(2\pi)}$ of the terminal condition, and $B$ through the rescaling of Lemma~\ref{lem:scaling}. Whether some learner that knows neither $B$ nor $T$ has, for every $T$ and every play of length $T$ with $|y_t|\le B$, regret at most $(3+\varepsilon_T)B^2\log T$, with $\varepsilon_T\to0$ independent of the play and of $B$, is open, and we have no guess. The learner of Theorem~\ref{thm:upper} has this regret but knows $B$ and $T$. The algorithm of \citet[Theorem~5]{CQRZ} has regret of order $B^2\log T$ on every play, with a constant that it does not make explicit, and it also takes the horizon $T$ as input. The lower bound of Theorem~\ref{thm:lower} holds for every learner, so it applies unchanged.
 
-\section{Formal proof and computations}\label{sec:checks}
-Lean~4.34.1 \citep{Lean4} with Mathlib \citep{Mathlib} at its release v4.34.1 proves Theorem~\ref{thm:main}, Theorems~\ref{thm:upper} and~\ref{thm:lower}, Corollary~\ref{cor:bounded} and Remark~\ref{rem:rand}, with the constants of the paper, on formal definitions of the learners, the regret and the minimax regret that transcribe Sections~\ref{sec:intro}, \ref{sec:setting} and~\ref{sec:proofmain}. Lean proves them with no hypothesis and only the three standard axioms of Lean (propositional extensionality, the axiom of choice and the soundness of quotients), with no unproved step and no call to compiled code. Every numerical step is an inequality between rational numbers checked in exact arithmetic, and Lean's kernel evaluates the $1128$ rational numbers of the drift certificate of Computation~\ref{comp:drift}. Comparator \citep{Comparator} checks ten of the formal theorems against their statements written again in separate files (Section~\ref{subsec:lean}), and replays their proofs in nanoda \citep{nanoda}, a type checker for Lean written separately from Lean's kernel. Programs in PARI/GP~2.17.4 \citep{PARI} and SageMath~10.9 \citep{Sage}, with the ball arithmetic of Arb \citep{Arb}, write the subdivisions of the drift certificate, redo the certificates of Computations~\ref{comp:upper} and~\ref{comp:drift} separately from Lean in exact rational or ball arithmetic, and compute the values quoted in the text; no proof of the paper rests on them alone. All checks ran on one machine, an AMD Ryzen 9 5900X (12 cores, 24 threads), 64 GB of memory, under Linux, shared with other work. Appendix~\ref{app:checks} gives the details, and the repository \citep{repo} maps every numbered statement to its formal declarations and to its scripts and recorded outputs.
+\section{The formal proof and its data}\label{sec:checks}
+This section describes how the proof is checked: what the formal proof proves and what it trusts, and which program wrote the data it checks.
 
-\emph{Data availability.} The repository \citep{repo} holds the source of this paper, the Lean package with the records of its checks, and every program with its complete recorded output. Rerunning the programs takes under a minute.
+Lean~4.34.1 \citep{Lean4} with Mathlib \citep{Mathlib} at its release v4.34.1 proves Theorem~\ref{thm:main}, Theorems~\ref{thm:upper} and~\ref{thm:lower}, Corollary~\ref{cor:bounded} and Remark~\ref{rem:rand}, with the constants of the paper. Their formal statements rest on definitions that transcribe Sections~\ref{sec:intro}, \ref{sec:setting} and~\ref{sec:proofmain}: a deterministic learner for the horizon $T$ is a sequence of maps from $x_1,\dots,x_t$ and $y_1,\dots,y_{t-1}$ to a prediction, the regret is \eqref{eq:regret}, the minimax regret \eqref{eq:minimax} is an infimum of suprema in the extended real numbers, and randomized learners and their expected regret are those of Section~\ref{sec:proofmain}, with the expectation in the extended real numbers. The theorems have no hypothesis and depend on the three standard axioms of Lean and Mathlib, propositional extensionality, the axiom of choice and the soundness of quotients, and on no other axiom. No proof has a function evaluated by compiled code, so no compiled code belongs to the trusted base; the Lean kernel checks every declaration. The numerical steps are inequalities between explicit numbers, or inequalities in one real or integer variable proved by monotonicity or by a polynomial bound, all derived from rational bounds proved in Lean on the constants involved ($e$, $\pi$, square roots, logarithms and $K_0$); the kernel evaluates the rational numbers of the drift certificate of Computation~\ref{comp:drift}, one cell per declaration. Comparator \citep{Comparator} checks ten of these theorems, those of Theorem~\ref{thm:main} and Corollary~\ref{cor:bounded}, each in its closed form and with the bounds of Theorems~\ref{thm:upper} and~\ref{thm:lower}, and those of Theorems~\ref{thm:upper} and~\ref{thm:lower} and of Remark~\ref{rem:rand}: it checks that they prove the statements of separate files, which a program writes from the statement files by copying their definitions and stating the ten theorems without proof, and which import only Mathlib and one another, with no axiom other than these three, and it has every declaration they depend on, those of Mathlib included, checked again by nanoda \citep{nanoda}, an implementation of the Lean kernel written separately. The formal proof follows the paper, with three differences of form: the upper bound works with $\Gamma/2$ in place of $\Gamma$, so with the increment $3/2$; Lemma~\ref{lem:small} is proved from polynomial bounds on $\cosh$ with a remainder, in place of the series of $\cosh$, and these bounds lead to the same quartic $f$; and in part (iv) of the proof of Lemma~\ref{lem:phase2}, $\sum_{1\le i<k_0}\log(i/k_0)$ is bounded through $k_0^{k_0}/k_0!\le e^{k_0}$ in place of the integral of $\log$.
+
+The subdivisions of Computation~\ref{comp:drift} were written into the Lean module by a PARI/GP program \citep{PARI}. The proof does not trust this program, since the kernel checks what it writes.
+
+The computations used PARI/GP~2.17.4 and Lean~4.34.1 with Mathlib~v4.34.1, on one machine, an AMD Ryzen 9 5900X (12 cores, 24 threads), 64~GB of memory. Building the formal proof takes a few minutes on four cores once Mathlib is built, and the check with Comparator about $2$ minutes. The repository \citep{repo} maps every numbered statement to its Lean declarations.
+
+\emph{Data availability.} The repository \citep{repo} holds the source of this paper, the Lean package with the records of its checks, and the program that wrote the subdivisions of the drift certificate.
 
 \section*{Contact}
 Questions, corrections and comments are welcome as issues on the repository: \url{\repo/issues/new/choose}.
@@ -493,11 +495,11 @@ This appendix proves Lemmas~\ref{lem:scaling}, \ref{lem:state}, \ref{lem:potenti
 \subsection{Proofs of Lemmas~\ref{lem:scaling}, \ref{lem:state} and~\ref{lem:potential}}
 
 \begin{proof}[Proof of Lemma~\ref{lem:scaling}]
-Put $y'=y/B$ and let $\yh'_t$ be the predictions of $\mathcal L$ on $(x,y')$, so that $\mathcal L^B$ predicts $B\yh'_t$. Then $(B\yh'_t-y_t)^2=B^2(\yh'_t-y'_t)^2$ and $\sum_t(\theta x_t-y_t)^2=B^2\sum_t((\theta/B)x_t-y'_t)^2$; since $\theta\mapsto\theta/B$ is a bijection of $\R$, the infimum over $\theta$ is multiplied by $B^2$ as well.
+Put $y'=y/B$ and let $\yh'_t$ be the predictions of $\mathcal L$ on $(x,y')$, so that $\mathcal L^B$ predicts $B\yh'_t$. Then $(B\yh'_t-y_t)^2=B^2(\yh'_t-y'_t)^2$ and $\sum_t(\theta x_t-y_t)^2=B^2\sum_t((\theta/B)x_t-y'_t)^2$; since $\theta\mapsto\theta/B$ is a bijection of $\R$, the infimum over $\theta$ is multiplied by $B^2$ as well. This is \lname{RegretKappa.Corollaries.regret_rescale_inv} in the formalization.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lem:state}]
-(a) By the Cauchy-Schwarz inequality, $S_t^2\le(\sum_{i\le t}y_i^2)V_t\le tV_t$. (b) If $V_t=0$, then $x_t=0$ and $V_{t-1}=0$, so $\rho_t=\rho_{t-1}=0$ and $s_t=0$. If $V_t>0$, then $\rho_t=(S_{t-1}+x_ty_t)/\sqrt{V_t}$; the first part is $\rho_{t-1}\sqrt{V_{t-1}/V_t}=\rho_{t-1}\sqrt{1-s_t}$ (both sides vanish when $V_{t-1}=0$), and the second is $\varepsilon_ty_t\sqrt{s_t}$. (c) Use $\varepsilon_t^2=1$.
+(a) By the Cauchy-Schwarz inequality, $S_t^2\le(\sum_{i\le t}y_i^2)V_t\le tV_t$. (b) If $V_t=0$, then $x_t=0$ and $V_{t-1}=0$, so $\rho_t=\rho_{t-1}=0$ and $s_t=0$. If $V_t>0$, then $\rho_t=(S_{t-1}+x_ty_t)/\sqrt{V_t}$; the first part is $\rho_{t-1}\sqrt{V_{t-1}/V_t}=\rho_{t-1}\sqrt{1-s_t}$ (both sides vanish when $V_{t-1}=0$), and the second is $\varepsilon_ty_t\sqrt{s_t}$. (c) Use $\varepsilon_t^2=1$. Part (a) is \lname{RegretKappa.Upper.rho_sq_le} in the formalization, where (b) and (c) are steps of the proof of Proposition~\ref{prop:P}.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lem:potential}]
@@ -505,7 +507,7 @@ By induction on $n$. For $n=0$ both sides are $\Phi_T(0)$, since $\rho_0=0$. Let
 \[
 \yh_t^2-2\yh_ty_t+\Phi_{T-t}(\rho_t)=\eta^2-2\eta y+2\log C+2\log\bigl(\lambda+\Gamma(\rho_{t-1}c+y\sigma)\bigr)
 \]
-with $\eta=\eta(\lambda,\rho_{t-1},s)$, and Proposition~\ref{prop:P} bounds the right side by $2\log C+2\log(\lambda+3+\Gamma(\rho_{t-1}))=\Phi_{T-t+1}(\rho_{t-1})$. Adding $\sum_{i<t}(\yh_i^2-2\yh_iy_i)$ and the induction hypothesis at $n=t-1$ gives the claim at $n=t$.
+with $\eta=\eta(\lambda,\rho_{t-1},s)$, and Proposition~\ref{prop:P} bounds the right side by $2\log C+2\log(\lambda+3+\Gamma(\rho_{t-1}))=\Phi_{T-t+1}(\rho_{t-1})$. Adding $\sum_{i<t}(\yh_i^2-2\yh_iy_i)$ and the induction hypothesis at $n=t-1$ gives the claim at $n=t$. This is \lname{RegretKappa.UpperSharp.potential_leU} in the formalization.
 \end{proof}
 
 \subsection{The potential}\label{subsec:Gamma}
@@ -546,7 +548,7 @@ Let $\Gamma$ be as in \eqref{eq:Gamma}.
 \[
 \cosh(\theta\sqrt{v'})-\cosh(\theta\sqrt v)\le(v'-v)\,\frac{\theta\sinh(\theta\sqrt{v'})}{2\sqrt{v'}}.
 \]
-Multiplying by $2e^{-\theta^2/2}(\theta^{-1}+2\theta^{-3})$ and integrating over $\theta\ge1$ gives the claim.
+Multiplying by $2e^{-\theta^2/2}(\theta^{-1}+2\theta^{-3})$ and integrating over $\theta\ge1$ gives the claim. Part (d), the bound used for the large steps, is \lname{RegretKappa.UpperSharp.G_sqrt_sub_le} in the formalization.
 \end{proof}
 
 \subsection{Two outcomes}\label{subsec:two}
@@ -563,7 +565,7 @@ In particular the left side of \eqref{eq:P} is at most the larger of its values 
 \end{lemma}
 
 \begin{proof}
-By \eqref{eq:Gamma}, $e^{-\eta y}A(y)=\lambda e^{-\eta y}+\int_{|\theta|\ge1}e^{\theta\rho c}\,e^{y(\theta\sigma-\eta)}\,w(\theta)\,d\theta$. For fixed $\theta$ the functions $y\mapsto e^{-\eta y}$ and $y\mapsto e^{y(\theta\sigma-\eta)}$ are convex, so on $[-1,1]$ each lies below its chord; integrating against the positive weight gives the inequality. Its right side is a convex combination of the values of $e^{-\eta y}A(y)$ at $y=\pm1$.
+By \eqref{eq:Gamma}, $e^{-\eta y}A(y)=\lambda e^{-\eta y}+\int_{|\theta|\ge1}e^{\theta\rho c}\,e^{y(\theta\sigma-\eta)}\,w(\theta)\,d\theta$. For fixed $\theta$ the functions $y\mapsto e^{-\eta y}$ and $y\mapsto e^{y(\theta\sigma-\eta)}$ are convex, so on $[-1,1]$ each lies below its chord; integrating against the positive weight gives the inequality. Its right side is a convex combination of the values of $e^{-\eta y}A(y)$ at $y=\pm1$. This is \lname{RegretKappa.Upper.G_convex} in the formalization.
 \end{proof}
 
 \subsection{Mixability}\label{subsec:mix}
@@ -579,7 +581,7 @@ For $\eta\in[-1,1]$ and $z\in\R$,
 \end{lemma}
 
 \begin{proof}
-Let $\kappa(v)=\log\bigl(((1+\eta)e^v+(1-\eta)e^{-v})/2\bigr)$, the logarithm of the moment generating function of the law on $\{-1,1\}$ with mean $\eta$. Then $\kappa(0)=0$, $\kappa'(0)=\eta$, and $\kappa''=1-(\kappa')^2\le1$, since $\kappa'(v)=((1+\eta)e^v-(1-\eta)e^{-v})/((1+\eta)e^v+(1-\eta)e^{-v})$. By Taylor's formula $\kappa(v)\le\eta v+v^2/2$, which is Hoeffding's lemma for this law. At $v=z-\eta$, $\eta v+v^2/2=(z^2-\eta^2)/2$.
+Let $\kappa(v)=\log\bigl(((1+\eta)e^v+(1-\eta)e^{-v})/2\bigr)$, the logarithm of the moment generating function of the law on $\{-1,1\}$ with mean $\eta$. Then $\kappa(0)=0$, $\kappa'(0)=\eta$, and $\kappa''=1-(\kappa')^2\le1$, since $\kappa'(v)=((1+\eta)e^v-(1-\eta)e^{-v})/((1+\eta)e^v+(1-\eta)e^{-v})$. By Taylor's formula $\kappa(v)\le\eta v+v^2/2$, which is Hoeffding's lemma for this law. At $v=z-\eta$, $\eta v+v^2/2=(z^2-\eta^2)/2$. This is \lname{RegretKappa.Upper.two_point} in the formalization.
 \end{proof}
 
 The next lemma turns an inequality of this form into a bound on the cost of the prediction $\eta(\lambda,\rho,s)$ of \eqref{eq:learner} against both outcomes.
@@ -594,7 +596,7 @@ e^{-\eta^*}A_+\le e^{-\eta^{*2}/2}W\qquad\text{and}\qquad e^{\eta^*}A_-\le e^{-\
 \end{lemma}
 
 \begin{proof}
-The numbers $A_\pm$ are positive, since $\lambda>0$ and $\Gamma\ge0$ (Lemma~\ref{lem:Gamma}(a)). Let $\eta_0=\frac12\log(A_+/A_-)$, so that $\eta^*=\clip(\eta_0)$. If $|\eta_0|\le1$, then $\eta^*=\eta_0$ and $e^{-\eta_0}A_+=e^{\eta_0}A_-$, so the hypothesis at $\eta=\eta_0$ reads $2e^{\eta_0}A_-\le2e^{-\eta_0^2/2}W$, which is both inequalities. If $\eta_0>1$, then $\eta^*=1$, the hypothesis at $\eta=1$ reads $2e^{-1}A_+\le2e^{-1/2}W$, and $e\,A_-<e^{-1}A_+$ since $A_+>e^2A_-$. The case $\eta_0<-1$ is symmetric.
+The numbers $A_\pm$ are positive, since $\lambda>0$ and $\Gamma\ge0$ (Lemma~\ref{lem:Gamma}(a)). Let $\eta_0=\frac12\log(A_+/A_-)$, so that $\eta^*=\clip(\eta_0)$. If $|\eta_0|\le1$, then $\eta^*=\eta_0$ and $e^{-\eta_0}A_+=e^{\eta_0}A_-$, so the hypothesis at $\eta=\eta_0$ reads $2e^{\eta_0}A_-\le2e^{-\eta_0^2/2}W$, which is both inequalities. If $\eta_0>1$, then $\eta^*=1$, the hypothesis at $\eta=1$ reads $2e^{-1}A_+\le2e^{-1/2}W$, and $e\,A_-<e^{-1}A_+$ since $A_+>e^2A_-$. The case $\eta_0<-1$ is symmetric. This is \lname{RegretKappa.Upper.mix_alg} in the formalization.
 \end{proof}
 
 Integrated against a positive measure, Lemma~\ref{lem:mix} gives the hypothesis of Lemma~\ref{lem:choice} for a mixture of exponentials. The two lemmas together are a form of the mixability of the square loss at rate $1/2$ for the outcomes $\pm1$ \citep[Section~2.4, Lemma~2]{Vovk01}; for outcomes in $\{0,1\}$ it is the mixability at rate $2$ of \citet[Section~2, Example~4]{Vovk98} and \citet[Example~3.13]{HKW}, after the change of outcome $y\mapsto2y-1$. The next corollary takes two choices of $W$, one for small steps and one for large steps.
@@ -613,7 +615,7 @@ Let $\lambda>0$, $\rho\in\R$, $s\in[0,1]$, $y\in[-1,1]$, and $\eta=\eta(\lambda,
 \end{corollary}
 
 \begin{proof}
-By Lemma~\ref{lem:endpoints} it suffices to take $y=\pm1$, and by Lemma~\ref{lem:choice}, the left side of \eqref{eq:P} at $y=\pm1$ is at most $2\log W$ for every $W$ that satisfies its hypothesis. (a) Since $s<1$, $e^{\theta^2s/2}w(\theta)$ has Gaussian decay and $\Ghat(\rho,s)$ is finite. Multiply Lemma~\ref{lem:mix} at $z=\theta\sigma$ by $e^{\theta c\rho}w(\theta)$, integrate over $|\theta|\ge1$, and add $\lambda$ times Lemma~\ref{lem:mix} at $z=0$; this is the hypothesis with $W=\lambda+\Ghat(\rho,s)$. (b) Lemma~\ref{lem:mix} at $z=0$ gives $(1+\eta)e^{-\eta}+(1-\eta)e^{\eta}\le2e^{-\eta^2/2}$, and $1\pm\eta\ge0$; multiplied by $W=\max(A_+,A_-)$ this gives the hypothesis.
+By Lemma~\ref{lem:endpoints} it suffices to take $y=\pm1$, and by Lemma~\ref{lem:choice}, the left side of \eqref{eq:P} at $y=\pm1$ is at most $2\log W$ for every $W$ that satisfies its hypothesis. (a) Since $s<1$, $e^{\theta^2s/2}w(\theta)$ has Gaussian decay and $\Ghat(\rho,s)$ is finite. Multiply Lemma~\ref{lem:mix} at $z=\theta\sigma$ by $e^{\theta c\rho}w(\theta)$, integrate over $|\theta|\ge1$, and add $\lambda$ times Lemma~\ref{lem:mix} at $z=0$; this is the hypothesis with $W=\lambda+\Ghat(\rho,s)$. (b) Lemma~\ref{lem:mix} at $z=0$ gives $(1+\eta)e^{-\eta}+(1-\eta)e^{\eta}\le2e^{-\eta^2/2}$, and $1\pm\eta\ge0$; multiplied by $W=\max(A_+,A_-)$ this gives the hypothesis. Part (a) is \lname{RegretKappa.Upper.mix_small} in the formalization.
 \end{proof}
 
 \subsection{Small steps}\label{subsec:small}
@@ -629,7 +631,7 @@ For $s\in[0,1)$ and $\rho\in\R$, with $c=\sqrt{1-s}$ and $\Ghat$ as in Corollary
 \end{lemma}
 
 \begin{proof}
-Since $\theta^2s/2-\theta^2/2=-\theta^2c^2/2$, $\Ghat(\rho,s)=2\int_1^\infty\cosh(\theta c\rho)\,e^{-\theta^2c^2/2}(\theta^{-1}+2\theta^{-3})\,d\theta$. As $s<1$, $c>0$, and the change of variable from $\theta$ to $c\theta$ maps $[1,\infty)$ onto $[c,\infty)$, keeps $d\theta/\theta$ and turns $d\theta/\theta^3$ into $c^2d\theta/\theta^3$.
+Since $\theta^2s/2-\theta^2/2=-\theta^2c^2/2$, $\Ghat(\rho,s)=2\int_1^\infty\cosh(\theta c\rho)\,e^{-\theta^2c^2/2}(\theta^{-1}+2\theta^{-3})\,d\theta$. As $s<1$, $c>0$, and the change of variable from $\theta$ to $c\theta$ maps $[1,\infty)$ onto $[c,\infty)$, keeps $d\theta/\theta$ and turns $d\theta/\theta^3$ into $c^2d\theta/\theta^3$. This is \lname{RegretKappa.Upper.Ghat_subst} in the formalization.
 \end{proof}
 
 Splitting this integral at $\theta=1$ and subtracting $\Gamma(\rho)$ gives, since $2c^2-2=-2s$, $\Ghat(\rho,s)-\Gamma(\rho)=D(\rho,s)-4sH(\rho)$, where
@@ -660,7 +662,7 @@ Let $f(v)=\sum_{n=0}^4f_nv^n/(2n)!$ with
 \[
 f_0=2e^{-1/6}\Bigl(1+\frac{\tau}2\Bigr)-4H_0,\quad f_1=2e^{-1/2}\Bigl(\frac12+\tau\Bigr)-4H_1,\quad f_n=3e^{-1/2}-4H_n\ (n=2,3,4).
 \]
-So $(D_n(s)-4sH_n)/s\le f_n$ for $n\le4$, and for $n\ge5$ it is at most $3e^{-1/2}-4H_n\le0$, because $H_n=K_{n-1}$ increases with $n$ by Lemma~\ref{lem:Gamma}(b) and $H_2=e^{-1/2}$. Dropping the terms $n\ge5$ gives $\Ghat-\Gamma\le s\,f(\rho^2)$. By Lemma~\ref{lem:Gamma}(b), $H_1=K_0$, $H_2=e^{-1/2}$, $H_3=3e^{-1/2}$, $H_4=13e^{-1/2}$, and an integration by parts gives $H_0=(e^{-1/2}-K_0)/2$; so $f_2=-e^{-1/2}$, $f_3=-9e^{-1/2}$, $f_4=-49e^{-1/2}$. These are negative, so $f$ is concave on $[0,\infty)$, and $f'(0)=f_1/2>0$; its maximum is at the unique positive root $v^*=3.9683254\ldots$ of the cubic $f'$, where $f(v^*)=4.3285373\ldots$, below $4.32855$ (Computation~\ref{comp:upper}). Hence $\Ghat-\Gamma\le s\,f(\rho^2)\le\frac23f(v^*)=2.8856915\ldots$. This is \lname{RegretKappa.UpperSharp.small_step_sharp} in the formalization.
+So $(D_n(s)-4sH_n)/s\le f_n$ for $n\le4$, and for $n\ge5$ it is at most $3e^{-1/2}-4H_n\le0$, because $H_n=K_{n-1}$ increases with $n$ by Lemma~\ref{lem:Gamma}(b) and $H_2=e^{-1/2}$. Dropping the terms $n\ge5$ gives $\Ghat-\Gamma\le s\,f(\rho^2)$. By Lemma~\ref{lem:Gamma}(b), $H_1=K_0$, $H_2=e^{-1/2}$, $H_3=3e^{-1/2}$, $H_4=13e^{-1/2}$, and an integration by parts gives $H_0=(e^{-1/2}-K_0)/2$; so $f_2=-e^{-1/2}$, $f_3=-9e^{-1/2}$, $f_4=-49e^{-1/2}$, and $f(v)\le4.32855$ for every $v\ge0$ (Computation~\ref{comp:upper}). Hence $\Ghat-\Gamma\le s\,f(\rho^2)\le\frac23\cdot4.32855=2.8857$, as $0<s\le2/3$. This is \lname{RegretKappa.UpperSharp.small_step_sharp} in the formalization.
 \end{proof}
 
 \subsection{Large steps}\label{subsec:large}
@@ -669,7 +671,6 @@ For large steps, Corollary~\ref{cor:mix}(b) leaves a bound on the increase of $\
 \begin{lemma}[large steps]\label{lem:large}
 \leanmap{RegretKappa.UpperSharp.large_step_sharp, RegretKappa.UpperSharp.psi_le, RegretKappa.UpperSharp.piece_bound}
 \mapnote{Lean proves it in the normalization $\Gamma/2$ ($2.7053/2$), with one theorem for each piece (\lname{RegretKappa.UpperSharp.piece_1} to \lname{RegretKappa.UpperSharp.piece_22}).}
-\codemap{code/lean-upper-sharp/pieces_lean.gp > code/lean-upper-sharp/out/pieces_lean.txt}
 For $s\in[2/3,1]$ and $\rho\in\R$, with $\Gamma$ as in \eqref{eq:Gamma}, $c=\sqrt{1-s}$ and $\sigma=\sqrt s$, $\max\bigl(\Gamma(\rho c+\sigma),\Gamma(\rho c-\sigma)\bigr)\le\Gamma(\rho)+2.7053$.
 \end{lemma}
 
@@ -686,13 +687,13 @@ If $\rho\ge0$, then $|\rho c-\sigma|\le\rho c+\sigma$; if $\rho<0$, then $\Gamma
 \[
 \delta(v)\le\sum_{n=1}^{30}\frac{n\Gamma_nv^{n-1}}{(2n)!}+\frac{2v^{30}}{31!\,(1-v/32)},
 \]
-with $\Gamma_n$ from Lemma~\ref{lem:Gamma}(b). With $q_i$ and $m_i$ the upward roundings to six decimals of $q(\rho^{(i-1)})$ and $m(\rho^{(i)})^2$, as in the formal proof, all $m_i$ below $4$, the twenty-two products of $q_i$ and this bound at $m_i$, with the $\Gamma_n$ computed from the rational upper bounds of $K_0$ and $e^{-1/2}$ of Computation~\ref{comp:upper}, which can only increase them, are at most $2.7053$; the largest, $2.6942861\ldots$, is on the piece $[13/11,14/11]$. This is \lname{RegretKappa.UpperSharp.large_step_sharp} in the formalization.
+with $\Gamma_n$ from Lemma~\ref{lem:Gamma}(b). With $q_i$ and $m_i$ the upward roundings to six decimals of $q(\rho^{(i-1)})$ and $m(\rho^{(i)})^2$, as in the formal proof, all $m_i$ below $32$, the twenty-two products of $q_i$ and this bound at $m_i$, with the $\Gamma_n$ computed from the rational upper bounds of $K_0$ and $e^{-1/2}$ of Computation~\ref{comp:upper}, which can only increase them, are at most $2.7053$. This is \lname{RegretKappa.UpperSharp.large_step_sharp} in the formalization.
 \end{proof}
 
 \subsection{Proofs of Proposition~\ref{prop:P} and Lemma~\ref{lem:terminal}}\label{subsec:proofP}
 
 \begin{proof}[Proof of Proposition~\ref{prop:P}]
-If $s\le2/3$, then $s<1$, and Corollary~\ref{cor:mix}(a) and Lemma~\ref{lem:small} bound the left side of \eqref{eq:P} by $2\log(\lambda+\Gamma(\rho)+2.8857)$. If $s\ge2/3$, Corollary~\ref{cor:mix}(b) and Lemma~\ref{lem:large} bound it by $2\log(\lambda+\Gamma(\rho)+2.7053)$. In both cases it is at most $2\log(\lambda+3+\Gamma(\rho))$. The split at $s=2/3$ keeps both bounds below $3$: the bound of Lemma~\ref{lem:small} is the split point times $4.3285373\ldots$, the maximum of a quartic, and grows with the split point, while the range of steps of Lemma~\ref{lem:large}, and with it its bound, shrinks as the split point grows.
+If $s\le2/3$, then $s<1$, and Corollary~\ref{cor:mix}(a) and Lemma~\ref{lem:small} bound the left side of \eqref{eq:P} by $2\log(\lambda+\Gamma(\rho)+2.8857)$. If $s\ge2/3$, Corollary~\ref{cor:mix}(b) and Lemma~\ref{lem:large} bound it by $2\log(\lambda+\Gamma(\rho)+2.7053)$. In both cases it is at most $2\log(\lambda+3+\Gamma(\rho))$. The split at $s=2/3$ keeps both bounds below $3$: the bound of Lemma~\ref{lem:small} is the split point times the maximum of a quartic, at most $4.32855$, and grows with the split point, while the range of steps of Lemma~\ref{lem:large}, and with it its bound, shrinks as the split point grows. This is \lname{RegretKappa.UpperSharp.step_paper} in the formalization.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lem:terminal}]
@@ -704,7 +705,7 @@ Let $M_0=\int_1^\infty e^{-(\theta-\rho)^2/2}d\theta=\sqrt{2\pi}\,F(\rho-1)$ and
 \[
 \frac{\sqrt{2\pi}}{e^{-\rho^2/2}\Gamma(\rho)}\le\frac{\sqrt{2\pi}\,M_1}{M_0^2}=\frac{\rho}{F(\rho-1)}+\frac{\phi(\rho-1)}{F(\rho-1)^2}.
 \]
-For $\rho\ge2$, $\rho-1\ge1$, and $\rho/F(\rho-1)-\rho=\rho\bar F(\rho-1)/F(\rho-1)\le\frac{\rho}{\rho-1}\frac{\phi(\rho-1)}{F(\rho-1)}\le\frac{2\phi(1)}{F(1)}$, by the Mills ratio bound $\bar F(z)\le\phi(z)/z$ for $z>0$, by $\rho/(\rho-1)\le2$, and because $\phi$ decreases and $F$ increases on $[1,\infty)$; for the same reason $\phi(\rho-1)/F(\rho-1)^2\le\phi(1)/F(1)^2$. Since $2\phi(1)/F(1)+\phi(1)/F(1)^2=0.91703362\ldots<1$ (Computation~\ref{comp:upper}), we get $\sqrt{2\pi}/(e^{-\rho^2/2}\Gamma(\rho))\le\rho+1$, which is the inequality. For the consequence: if $|\rho|\le2$, then $C\lambda_0=e^2\ge e^{\rho^2/2}$; if $2\le|\rho|\le\sqrt T$, then $C\,\Gamma(\rho)\ge(|\rho|+1)\Gamma(\rho)/\sqrt{2\pi}\ge e^{\rho^2/2}$ by evenness. This is \lname{RegretKappa.UpperSharp.terminal_sharp} in the formalization.
+For $\rho\ge2$, $\rho-1\ge1$, and $\rho/F(\rho-1)-\rho=\rho\bar F(\rho-1)/F(\rho-1)\le\frac{\rho}{\rho-1}\frac{\phi(\rho-1)}{F(\rho-1)}\le\frac{2\phi(1)}{F(1)}$, by the Mills ratio bound $\bar F(z)\le\phi(z)/z$ for $z>0$, by $\rho/(\rho-1)\le2$, and because $\phi$ decreases and $F$ increases on $[1,\infty)$; for the same reason $\phi(\rho-1)/F(\rho-1)^2\le\phi(1)/F(1)^2$. Since $2\phi(1)/F(1)+\phi(1)/F(1)^2<1$ (Computation~\ref{comp:upper}), we get $\sqrt{2\pi}/(e^{-\rho^2/2}\Gamma(\rho))\le\rho+1$, which is the inequality. For the consequence: if $|\rho|\le2$, then $C\lambda_0=e^2\ge e^{\rho^2/2}$; if $2\le|\rho|\le\sqrt T$, then $C\,\Gamma(\rho)\ge(|\rho|+1)\Gamma(\rho)/\sqrt{2\pi}\ge e^{\rho^2/2}$ by evenness. This is \lname{RegretKappa.UpperSharp.terminal_sharp} in the formalization.
 \end{proof}
 
 The numerical inequalities of this appendix are collected in the following computation.
@@ -714,20 +715,19 @@ The numerical inequalities of this appendix are collected in the following compu
   RegretKappa.UpperSharp.K0_ge,
   RegretKappa.UpperSharp.K0_le,
   RegretKappa.UpperSharp.quartic_le,
-  RegretKappa.UpperSharp.piece_14,
+  RegretKappa.UpperSharp.piece_1,
   RegretKappa.UpperSharp.mills_num,
   RegretKappa.UpperSharp.const_c_le}
 \mapnote{one theorem for each piece, \lname{RegretKappa.UpperSharp.piece_1} to \lname{RegretKappa.UpperSharp.piece_22}; the rational bounds of the constants are in the module Consts}
-\codemap{code/upper-bound-certificate/run.sh > code/upper-bound-certificate/out/run.txt, code/lean-upper-sharp/pieces_lean.gp > code/lean-upper-sharp/out/pieces_lean.txt, code/lean-upper-sharp/quartic.gp > code/lean-upper-sharp/out/quartic.txt, code/lean-upper-sharp/k0.gp > code/lean-upper-sharp/out/k0.txt}
 The proofs of this appendix use the following inequalities between explicit numbers, built from $e^{-1/2}$, $e^{-1/6}$, $e^2$, $\log3$, $\pi$, $\sqrt2$, $K_0=\int_1^\infty\theta^{-1}e^{-\theta^2/2}\,d\theta$ and the standard normal density $\phi$ and distribution function $F$ at $1$:
 \begin{enumerate}
 \item[(1)] $0.2798867\le K_0\le0.2798869$, which gives the $\Gamma_n$ of Lemma~\ref{lem:Gamma}(b) from $e^{-1/2}$, with $0.6065306597\le e^{-1/2}\le0.6065306598$;
 \item[(2)] $f(v)\le4.32855$ for $v\ge0$, for the quartic $f$ of the proof of Lemma~\ref{lem:small}, so that $\frac23\max f\le2.8857$;
 \item[(3)] the twenty-two piece bounds of the proof of Lemma~\ref{lem:large}, all at most $2.7053$;
 \item[(4)] $2\phi(1)/F(1)+\phi(1)/F(1)^2<1$ (Lemma~\ref{lem:terminal});
-\item[(5)] $4e^{-1/2}/3<0.81$ and $2\sqrt{2\pi}\,e^2/3<12.35$ (Theorem~\ref{thm:upper}).
+\item[(5)] $4e^{-1/2}/3\le0.81$ and $2\sqrt{2\pi}\,e^2/3\le12.35$ (Theorem~\ref{thm:upper}).
 \end{enumerate}
-Lean proves each of them, by rational bounds on these constants proved in Lean and inequalities between rational numbers checked in exact arithmetic. The values quoted with an ellipsis, $v^*=3.9683254\ldots$, $f(v^*)=4.3285373\ldots$, the largest piece bound $2.6942861\ldots$, $0.91703362\ldots$, $0.80870754\ldots$, $12.347744\ldots$ and $2\log(3/\sqrt{2\pi})=0.35934751\ldots$, are computed separately from Lean (Section~\ref{subsec:second}).
+Lean proves each of them from rational bounds on these constants proved in Lean: (1) gives two of these bounds, (2) is an inequality for a polynomial in one variable, and (3) to (5) are inequalities between explicit numbers. Item (2) is \lname{RegretKappa.UpperSharp.quartic_le} in the formalization.
 \end{computation}
 
 \section{Proofs of Sections~\ref{sec:lower} and~\ref{sec:proofmain}}\label{app:lower}
@@ -738,14 +738,13 @@ This appendix proves Lemmas~\ref{lem:chain} to~\ref{lem:phase2} and part (b) of 
 This subsection proves Lemmas~\ref{lem:chain} and~\ref{lem:phase1}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:chain}]
-By the definition of $x_{t+1}$, $V_{t+1}=V_t+V_ts_L(\rho_t)/(1-s_L(\rho_t))=V_t/(1-s_L(\rho_t))$, so $x_{t+1}^2/V_{t+1}=s_L(\rho_t)$, and $x_{t+1}\ge0$. Lemma~\ref{lem:state}(b) gives the update of $\rho$, and $y_{t+1}=\xi_{t+1}$ is a fair sign independent of the past. Also $V_1=1$ and $V_t$ does not decrease.
+By the definition of $x_{t+1}$, $V_{t+1}=V_t+V_ts_L(\rho_t)/(1-s_L(\rho_t))=V_t/(1-s_L(\rho_t))$, so $x_{t+1}^2/V_{t+1}=s_L(\rho_t)$, and $x_{t+1}\ge0$. Lemma~\ref{lem:state}(b) gives the update of $\rho$, and $y_{t+1}=\xi_{t+1}$ is a fair sign independent of the past. Also $V_1=1$ and $V_t$ does not decrease. This is \lname{RegretKappa.LowerSharp.rhoS_eq_chainOf} in the formalization.
 \end{proof}
 
 Lemma~\ref{lem:phase1} rests on a drift function. The move rule is made so that $U(\rho)=8e^{\rho^2/2}$ gains at least $1$ in expectation at each move; this drift drives $\rho^2$ to the level $L$ (Lemma~\ref{lem:FL}).
 
 \begin{lemma}[drift]\label{lem:drift}
-\leanmap{RegretKappa.LowerSharp.drift, RegretKappa.LowerSharp.driftGap_large, RegretKappa.LowerSharp.drift_table}
-\codemap{code/lean-upper-sharp/lsharp_margins.gp > code/lean-upper-sharp/out/lsharp_margins.txt}
+\leanmap{RegretKappa.LowerSharp.drift, RegretKappa.LowerSharp.driftGap_large, RegretKappa.LowerSharp.chi_le, RegretKappa.LowerSharp.drift_table}
 For every $\rho\in\R$, with $s=s(\rho)$ the move rule of Section~\ref{subsec:adversary},
 \[
 \tfrac12\Bigl[U\bigl(\rho\sqrt{1-s}+\sqrt s\bigr)+U\bigl(\rho\sqrt{1-s}-\sqrt s\bigr)\Bigr]\ge U(\rho)+1 .
@@ -757,7 +756,7 @@ Part (b) of the proof below rests on the following finite computation.
 \begin{computation}[the drift certificate]\label{comp:drift}
 \leanmap{RegretKappa.LowerSharp.drift_table, RegretKappa.LowerSharp.check_sound}
 \mapnote{one kernel check for each cell, \lname{RegretKappa.LowerSharp.drift_cell0} to \lname{RegretKappa.LowerSharp.drift_cell27}, on the subdivisions written by \texttt{drift\_cells.gp}}
-\codemap{code/lean-upper-sharp/drift_lean.gp > code/lean-upper-sharp/out/drift_codes.txt, code/lower-bound/drift_check.gp > code/lower-bound/drift_check.out}
+\codemap{code/drift-cells/drift_cells.gp > code/drift-cells/out/drift_cells.txt}
 For $N\ge1$ let
 \[
 e_N(v)=\sum_{n\le N}\frac{v^n}{n!},\qquad\bar e_N(v)=e_N(v)+\frac{v^{N+1}(N+2)}{(N+1)!\,(N+2-v)},\qquad\ch_N(v)=\sum_{n\le N}\frac{v^n}{(2n)!},
@@ -766,7 +765,7 @@ and for a cell index $j\in\{0,\dots,27\}$, with $s_j$ the value of the move rule
 \begin{equation}\label{eq:driftnum}
 8\,e_N\Bigl(\frac{\ell^2(1-s_j)+s_j}2\Bigr)\ch_N\bigl(\ell^2s_j(1-s_j)\bigr)-8\,\bar e_N\Bigl(\frac{\ell'^2}2\Bigr)-1,
 \end{equation}
-a rational number that bounds from below the gain of Lemma~\ref{lem:drift} minus $1$ on $[\ell,\ell']$ (proof of Lemma~\ref{lem:drift} below). The finite statement is: for each $j=0,\dots,27$ there are rationals $j/10=\ell_0<\ell_1<\dots<\ell_n=(j+1)/10$ such that \eqref{eq:driftnum} with $N=14$, $\ell=\ell_{i-1}$ and $\ell'=\ell_i$ is nonnegative for every $i$. The subdivisions come from bisecting each cell until this holds: $1128$ subintervals in all, at most $7$ bisections deep, and the smallest of the rational numbers is $7.2399651\times10^{-4}$, in the cell $[1.7,1.8)$. Lean's kernel evaluates the $1128$ rational numbers in exact arithmetic, one cell per declaration, and Lean derives the inequality of Lemma~\ref{lem:drift} on $[0,2.8)$ from them. The programs that write the subdivisions and redo the certificate are described in Section~\ref{subsec:second}.
+a rational number that bounds from below the gain of Lemma~\ref{lem:drift} minus $1$ on $[\ell,\ell']$ (proof of Lemma~\ref{lem:drift} below). The finite statement is: for each $j=0,\dots,27$ there are rationals $j/10=\ell_0<\ell_1<\dots<\ell_n=(j+1)/10$ such that \eqref{eq:driftnum} with $N=14$, $\ell=\ell_{i-1}$ and $\ell'=\ell_i$ is nonnegative for every $i$. The subdivisions come from bisecting each cell until this holds. Lean's kernel evaluates these rational numbers in exact arithmetic, and Lean derives the inequality of Lemma~\ref{lem:drift} on $[0,2.8)$ from them. This is \lname{RegretKappa.LowerSharp.drift_table} in the formalization.
 \end{computation}
 
 \begin{proof}[Proof of Lemma~\ref{lem:drift}]
@@ -780,7 +779,7 @@ Both sides are even in $\rho$, so let $\rho\ge0$.
 \[
 8h_s(\rho)-U(\rho)\ge8e^{\rho^2/2}s\Bigl(\frac12-s\Bigl(\frac{\rho^2}2+\frac{\rho^4}4\Bigr)\Bigr)=\frac52-\frac{25}8\chi(\rho),\qquad\chi(\rho)=e^{-\rho^2/2}\Bigl(\frac{\rho^2}2+\frac{\rho^4}4\Bigr).
 \]
-The function $v\mapsto e^{-v/2}(v/2+v^2/4)$ has derivative $e^{-v/2}(1/2+v/4-v^2/8)$, negative for $v>1+\sqrt5$; since $2.8^2=7.84$, $\chi$ is decreasing on $[2.8,\infty)$, and $\chi(\rho)\le\chi(2.8)=0.38266328\ldots<12/25$. So $8h_s(\rho)-U(\rho)\ge\frac52-\frac{25}8\cdot\frac{12}{25}=1$.
+With $u=\rho^2/2\ge3.92$, $\chi(\rho)=e^{-u}(u+u^2)$, and $e^u\ge\sum_{i\le5}u^i/i!\ge\frac{25}{12}(u+u^2)$, the last inequality because $120-130u-190u^2+20u^3+5u^4+u^5\ge0$ for $u\ge3.92$; so $\chi(\rho)\le12/25$. So $8h_s(\rho)-U(\rho)\ge\frac52-\frac{25}8\cdot\frac{12}{25}=1$.
 
 (b) Let $0\le\rho<2.8$. On a cell $[j/10,(j+1)/10)$ the step $s=s_j$ is a constant rational number in $(0,1)$, and $h_s$ is nondecreasing on $[0,\infty)$, both of its factors being so. Hence on a subinterval $[\ell,\ell']$ of the cell, $8h_s(\rho)-U(\rho)\ge8h_s(\ell)-8e^{\ell'^2/2}$. With $e_N$, $\bar e_N$ and $\ch_N$ as in Computation~\ref{comp:drift}, $e_N(v)\le e^v$ for $v\ge0$, $\ch_N(v)\le\cosh\sqrt v$ for $v\ge0$, and $e^v\le\bar e_N(v)$ for $0\le v<N+2$, since the tail of the exponential series is at most its first term times a geometric series of ratio $v/(N+2)$. So $8h_s(\rho)-U(\rho)-1$ is at least the rational number \eqref{eq:driftnum} on $[\ell,\ell']$, and Computation~\ref{comp:drift} gives, with $N=14$, a subdivision of each of the $28$ cells into subintervals on which this number is nonnegative. This is \lname{RegretKappa.LowerSharp.drift} in the formalization.
 \end{proof}
@@ -790,15 +789,14 @@ The drift alone does not bound the hitting time: the chain must also stay where 
 \begin{lemma}[the overshoot]\label{lem:overshoot}
 \leanmap{RegretKappa.LowerSharp.abs_sst_le, RegretKappa.LowerSharp.abs_rhoS_le,
   RegretKappa.LowerSharp.exp_aP_sq_le, RegretKappa.LowerSharp.U_le_G}
-\codemap{code/lean-upper-sharp/lsharp_margins.gp > code/lean-upper-sharp/out/lsharp_margins.txt}
 Let $L\ge14.5$, $a=\sqrt L$, $a_+=a+\sqrt{5/8}\,e^{-L/4}$ and $U(\rho)=8e^{\rho^2/2}$. If $|\rho|\le a_+$, both moves of the stopped chain of Lemma~\ref{lem:chain} from $\rho$ lead to points of $[-a_+,a_+]$, and $U(\rho)\le G:=8.8\,e^{L/2}$.
 \end{lemma}
 
 \begin{proof}
-If $\rho^2\ge L$ the chain stays at $\rho$. Otherwise $|\rho|<a$, and a move leads to $\rho'$ with $|\rho'|\le|\rho|\sqrt{1-s}+\sqrt s\le|\rho|+\sqrt{s(\rho)}$. If $|\rho|<2.8$ this is at most $2.8+\sqrt{0.6242}<3.6<\sqrt{14.5}\le a$. If $2.8\le|\rho|<a$, it is $|\rho|+\sqrt{5/8}\,e^{-\rho^2/4}$, and $v\mapsto v+\sqrt{5/8}\,e^{-v^2/4}$ is increasing, because its derivative is at least $1-\sqrt{5/8}\max_v\frac v2e^{-v^2/4}=1-\sqrt{5/8}\,e^{-1/2}/\sqrt2>0$; so it is at most $a+\sqrt{5/8}\,e^{-a^2/4}=a_+$. Since $U$ increases with $|\rho|$, $U(\rho)\le8e^{a_+^2/2}$ for $|\rho|\le a_+$, and $a_+^2/2=L/2+\sqrt{5L/8}\,e^{-L/4}+\frac5{16}e^{-L/2}$, where the sum of the last two terms is decreasing for $L\ge2$ and equals $0.08044633\ldots\le\log1.1$ at $L=14.5$.
+If $\rho^2\ge L$ the chain stays at $\rho$. Otherwise $|\rho|<a$, and a move leads to $\rho'$ with $|\rho'|\le|\rho|\sqrt{1-s}+\sqrt s\le|\rho|+\sqrt{s(\rho)}$. If $|\rho|<2.8$ this is less than $2.8+0.8<\sqrt{14.5}\le a$, as $s(\rho)\le s_0=0.6242$. If $2.8\le|\rho|<a$, it is $|\rho|+\sqrt{5/8}\,e^{-\rho^2/4}$, and $v\mapsto v+\sqrt{5/8}\,e^{-v^2/4}$ is increasing, because its derivative is at least $1-\sqrt{5/8}\max_v\frac v2e^{-v^2/4}=1-\sqrt{5/8}\,e^{-1/2}/\sqrt2>0$; so it is at most $a+\sqrt{5/8}\,e^{-a^2/4}=a_+$. Since $U$ increases with $|\rho|$, $U(\rho)\le8e^{a_+^2/2}$ for $|\rho|\le a_+$, and $a_+^2/2=L/2+\sqrt{5L/8}\,e^{-L/4}+\frac5{16}e^{-L/2}$, where the sum of the last two terms is at most $\frac45\cdot\frac19+\frac5{16}\cdot\frac1{36^2}\le0.09\le\log1.1$: indeed $\sqrt{5/8}\le4/5$, and $e^{L/4}\ge e^{29/8}\bigl(1+(L-14.5)/4\bigr)\ge36+9(L-14.5)$, which is at least $36$ and at least $9\sqrt L$, as $\sqrt L\le4+(L-14.5)$ for $L\ge14.5$. The first claim is \lname{RegretKappa.LowerSharp.abs_sst_le} in the formalization.
 \end{proof}
 
-Together, the drift and the bound on $U$ give a geometric tail for the time the chain takes to reach the level $L$.
+Together, the drift and the bound on $U$ give a geometric tail for the time the chain takes to reach the level $L$, which is part (1) of Lemma~\ref{lem:phase1}.
 
 \begin{lemma}[a geometric tail]\label{lem:FL}
 \leanmap{RegretKappa.LowerSharp.lyap_add_mul_leS, RegretKappa.LowerSharp.ex_U_le, RegretKappa.LowerSharp.ex_below_pt, RegretKappa.LowerSharp.ex_below_pow}
@@ -806,21 +804,21 @@ Let $L\ge14.5$, $G=8.8\,e^{L/2}$ and $a_+=\sqrt L+\sqrt{5/8}\,e^{-L/4}$, and let
 \end{lemma}
 
 \begin{proof}
-By Lemma~\ref{lem:overshoot} the chain stays in $[-a_+,a_+]$, where $0\le U\le G$. While $\rho_l^2<L$ the chain moves with the step $s(\rho_l)$, so Lemma~\ref{lem:drift} gives $\E[U(\rho_{l+1})\mid\rho_l]\ge U(\rho_l)+1$; once $\rho_l^2\ge L$ it stays. Hence $\E\,U(\rho_n)\ge U(\rho_0)+\E\,\#\{l<n:\rho_l^2<L\}$. Since the chain stays once $\rho^2\ge L$, the event $\{\rho_n^2<L\}$ implies $\rho_l^2<L$ for all $l\le n$, so $\#\{l<n:\rho_l^2<L\}\ge n\mathbf 1\{\rho_n^2<L\}$, and $n\Prob(\rho_n^2<L)\le\E\,U(\rho_n)\le G$. This holds for every starting point in $[-a_+,a_+]$, and the probability is $0$ when $\rho_0^2\ge L$; so $\Prob_\rho(\rho_n^2<L)\le(G/n)\mathbf 1\{\rho^2<L\}$ for $|\rho|\le a_+$. By the Markov property at time $jn$, $\Prob(\rho_{(j+1)n}^2<L)=\E\,\Prob_{\rho_{jn}}(\rho_n^2<L)\le(G/n)\Prob(\rho_{jn}^2<L)$, and induction on $j$ concludes.
+By Lemma~\ref{lem:overshoot} the chain stays in $[-a_+,a_+]$, where $0\le U\le G$. While $\rho_l^2<L$ the chain moves with the step $s(\rho_l)$, so Lemma~\ref{lem:drift} gives $\E[U(\rho_{l+1})\mid\rho_l]\ge U(\rho_l)+1$; once $\rho_l^2\ge L$ it stays. Hence $\E\,U(\rho_n)\ge U(\rho_0)+\E\,\#\{l<n:\rho_l^2<L\}$. Since the chain stays once $\rho^2\ge L$, the event $\{\rho_n^2<L\}$ implies $\rho_l^2<L$ for all $l\le n$, so $\#\{l<n:\rho_l^2<L\}\ge n\mathbf 1\{\rho_n^2<L\}$, and $n\Prob(\rho_n^2<L)\le\E\,U(\rho_n)\le G$. This holds for every starting point in $[-a_+,a_+]$, and the probability is $0$ when $\rho_0^2\ge L$; so $\Prob_\rho(\rho_n^2<L)\le(G/n)\mathbf 1\{\rho^2<L\}$ for $|\rho|\le a_+$. By the Markov property at time $jn$, $\Prob(\rho_{(j+1)n}^2<L)=\E\,\Prob_{\rho_{jn}}(\rho_n^2<L)\le(G/n)\Prob(\rho_{jn}^2<L)$, and induction on $j$ concludes. This is \lname{RegretKappa.LowerSharp.ex_below_pow} in the formalization.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lem:phase1}]
-By Lemma~\ref{lem:chain}, $\rho_1,\dots,\rho_{T_1}$ are $T_1-1$ steps of the stopped chain started at $\rho_1=\pm1$, and $|\rho_1|=1\le a_+$. (1) Let $G=8.8e^{L/2}$ and $n=\lceil eG\rceil\le eG+1$; then $j_0n\le T_1-1$ by (C2). Since the chain stays once $\rho^2\ge L$, $\Prob(\rho_{T_1}^2<L)$ is at most the probability that $\rho^2<L$ after $j_0n$ steps, which is at most $(G/n)^{j_0}\le e^{-j_0}$ by Lemma~\ref{lem:FL}. (2) This is Lemma~\ref{lem:overshoot} and the definition of $\Succ$. (3) Fix $t\le T_1$. The prediction $\yh_t$ is a function of $\xi_1,\dots,\xi_{t-1}$, because the features and outcomes before round $t$ and the feature $x_t$ are. The outcome $y_t=\xi_t$ is independent of them, so $\E(\yh_t^2-2\yh_ty_t)=\E\,\yh_t^2\ge0$. Sum over $t\le T_1$.
+By Lemma~\ref{lem:chain}, $\rho_1,\dots,\rho_{T_1}$ are $T_1-1$ steps of the stopped chain started at $\rho_1=\pm1$, and $|\rho_1|=1\le a_+$. (1) Let $G=8.8e^{L/2}$ and $n=\lceil eG\rceil\le eG+1$; then $j_0n\le T_1-1$ by (C2). Since the chain stays once $\rho^2\ge L$, $\Prob(\rho_{T_1}^2<L)$ is at most the probability that $\rho^2<L$ after $j_0n$ steps, which is at most $(G/n)^{j_0}\le e^{-j_0}$ by Lemma~\ref{lem:FL}. (2) This is Lemma~\ref{lem:overshoot} and the definition of $\Succ$. (3) Fix $t\le T_1$. The prediction $\yh_t$ is a function of $\xi_1,\dots,\xi_{t-1}$, because the features and outcomes before round $t$ and the feature $x_t$ are. The outcome $y_t=\xi_t$ is independent of them, so $\E(\yh_t^2-2\yh_ty_t)=\E\,\yh_t^2\ge0$. Sum over $t\le T_1$. Part (1) is \lname{RegretKappa.LowerSharp.prob_fail_le} in the formalization.
 \end{proof}
 
 \subsection{Phase 2: the van Trees inequality with the past as a prior}\label{subsec:phase2}
 This subsection proves Lemmas~\ref{lem:split} and~\ref{lem:phase2}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:split}]
-Let $V=V_{T_1}$ and $\bar y=\sum_i\alpha_iy'_i$. By Lemma~\ref{lem:chain}, $S_{T_1}=\rho\sqrt V$, so $S_T=\sqrt V(\rho+\bar y)$ and $V_T=V(1+Q)$, and $\rho_T^2=(\rho+\bar y)^2/(1+Q)$. Expanding the squares gives $\sum_i[(\yh'_i-y'_i)^2-((\rho+z)\alpha_i-y'_i)^2]=\sum_i(\yh_i'^2-2\yh'_iy'_i)-(\rho+z)^2Q+2(\rho+z)\bar y$ and $(1+Q)((\rho+\bar y)/(1+Q)-\rho-z)^2=\rho_T^2-2(\rho+z)(\rho+\bar y)+(\rho+z)^2(1+Q)$, so $\rho^2+\Delta(z)=\sum_i(\yh_i'^2-2\yh'_iy'_i)+\rho_T^2+\rho^2-z^2-2(\rho+z)\rho+(\rho+z)^2$, and the last four terms cancel. Lemma~\ref{lem:identity} concludes. Off $\Succ$, the rounds after $T_1$ have $x_t=y_t=0$, so $\rho_T=\rho_{T_1}$ and, by Lemma~\ref{lem:identity}, $\Reg(T)=\sum_{t\le T_1}(\yh_t^2-2\yh_ty_t)+\sum_{t>T_1}\yh_t^2+\rho_{T_1}^2$.
+Let $V=V_{T_1}$ and $\bar y=\sum_i\alpha_iy'_i$. By Lemma~\ref{lem:chain}, $S_{T_1}=\rho\sqrt V$, so $S_T=\sqrt V(\rho+\bar y)$ and $V_T=V(1+Q)$, and $\rho_T^2=(\rho+\bar y)^2/(1+Q)$. Expanding the squares gives $\sum_i[(\yh'_i-y'_i)^2-((\rho+z)\alpha_i-y'_i)^2]=\sum_i(\yh_i'^2-2\yh'_iy'_i)-(\rho+z)^2Q+2(\rho+z)\bar y$ and $(1+Q)((\rho+\bar y)/(1+Q)-\rho-z)^2=\rho_T^2-2(\rho+z)(\rho+\bar y)+(\rho+z)^2(1+Q)$, so $\rho^2+\Delta(z)=\sum_i(\yh_i'^2-2\yh'_iy'_i)+\rho_T^2+\rho^2-z^2-2(\rho+z)\rho+(\rho+z)^2$, and the last four terms cancel. Lemma~\ref{lem:identity} concludes. Off $\Succ$, the rounds after $T_1$ have $x_t=y_t=0$, so $\rho_T=\rho_{T_1}$ and, by Lemma~\ref{lem:identity}, $\Reg(T)=\sum_{t\le T_1}(\yh_t^2-2\yh_ty_t)+\sum_{t>T_1}\yh_t^2+\rho_{T_1}^2$. The identity on $\Succ$ is \lname{RegretKappa.LowerSharp.regret_succ} in the formalization.
 \end{proof}
 
-The next inequality is the van Trees inequality \citep[Section~2, inequality~(3)]{GL}, in the form we need, for finitely many signs.
+The proof of Lemma~\ref{lem:phase2} rests on the van Trees inequality \citep[Section~2, inequality~(3)]{GL}, in the following form for finitely many signs.
 
 \begin{lemma}[van Trees inequality]\label{lem:vT}
 \leanmap{RegretKappa.LowerSharp.vanTreesG}
@@ -836,10 +834,10 @@ The weights $P_z(y)$ are positive, since $\nu_l<1$. For each $y$, integration by
 \[
 1\le\Bigl[\sum_y\int g^2P_z(y)(\psi(y)-z)^2dz\Bigr]\Bigl[\sum_y\int P_z(y)\bigl(g\,\varsigma+2g'\bigr)^2dz\Bigr].
 \]
-Under $P_z$ the signs are independent, and $y_l\alpha_l/(1+y_l(\rho+z)\alpha_l)$ has mean $0$ and second moment $\alpha_l^2/(1-((\rho+z)\alpha_l)^2)\le\alpha_l^2/(1-\nu_l^2)$. So $\sum_yP_z\varsigma=0$ and $\sum_yP_z\varsigma^2\le\sum_l\alpha_l^2/(1-\nu_l^2)$, and the second factor is at most $\int\bigl(g^2\sum_l\alpha_l^2/(1-\nu_l^2)+4g'^2\bigr)dz=\sum_l\alpha_l^2/(1-\nu_l^2)+J_g$.
+Under $P_z$ the signs are independent, and $y_l\alpha_l/(1+y_l(\rho+z)\alpha_l)$ has mean $0$ and second moment $\alpha_l^2/(1-((\rho+z)\alpha_l)^2)\le\alpha_l^2/(1-\nu_l^2)$. So $\sum_yP_z\varsigma=0$ and $\sum_yP_z\varsigma^2\le\sum_l\alpha_l^2/(1-\nu_l^2)$, and the second factor is at most $\int\bigl(g^2\sum_l\alpha_l^2/(1-\nu_l^2)+4g'^2\bigr)dz=\sum_l\alpha_l^2/(1-\nu_l^2)+J_g$. This is \lname{RegretKappa.LowerSharp.vanTreesG} in the formalization.
 \end{proof}
 
-The prior of the adversary has the following constants.
+The proof of Lemma~\ref{lem:phase2} uses the following constants of the prior of the adversary.
 
 \begin{lemma}[the prior]\label{lem:prior}
 \leanmap{RegretKappa.LowerSharp.integral_gP_sq, RegretKappa.LowerSharp.integral_gP_deriv_sq, RegretKappa.LowerSharp.integral_sq_gP_sq, RegretKappa.LowerSharp.gP_two, RegretKappa.LowerSharp.gP_neg_two}
@@ -847,7 +845,7 @@ The function $g(z)=\cos(\pi z/4)/\sqrt2$ of Section~\ref{subsec:adversary}, whos
 \end{lemma}
 
 \begin{proof}
-With $z=2v$, $\int_{-2}^2g^2=\int_{-1}^1\cos^2(\pi v/2)\,dv=1$. Next $g'(z)=-\frac\pi{4\sqrt2}\sin(\pi z/4)$, so $\int_{-2}^24g'^2=\frac{\pi^2}8\int_{-2}^2\sin^2(\pi z/4)\,dz=\frac{\pi^2}4$. For the second moment, $\int_{-2}^2z^2g^2=\frac14\int_{-2}^2z^2(1+\cos(\pi z/2))\,dz=\frac14\bigl(\frac{16}3-\frac{32}{\pi^2}\bigr)$, since $\int_{-1}^1v^2\cos(\pi v)\,dv=-\frac2\pi\int_{-1}^1v\sin(\pi v)\,dv=-\frac4{\pi^2}$.
+With $z=2v$, $\int_{-2}^2g^2=\int_{-1}^1\cos^2(\pi v/2)\,dv=1$. Next $g'(z)=-\frac\pi{4\sqrt2}\sin(\pi z/4)$, so $\int_{-2}^24g'^2=\frac{\pi^2}8\int_{-2}^2\sin^2(\pi z/4)\,dz=\frac{\pi^2}4$. For the second moment, $\int_{-2}^2z^2g^2=\frac14\int_{-2}^2z^2(1+\cos(\pi z/2))\,dz=\frac14\bigl(\frac{16}3-\frac{32}{\pi^2}\bigr)$, since $\int_{-1}^1v^2\cos(\pi v)\,dv=-\frac2\pi\int_{-1}^1v\sin(\pi v)\,dv=-\frac4{\pi^2}$. The value of $J$ is \lname{RegretKappa.LowerSharp.integral_gP_deriv_sq} in the formalization.
 \end{proof}
 
 \begin{proof}[Proof of Lemma~\ref{lem:phase2}]
@@ -873,22 +871,26 @@ Now $2\log(1-1/k_0)\ge-2/(k_0-1)$, so the right side is at least $\frac{k_0-1}{2
 \[
 \frac{1+Q}{\Info_{k_0}}\ge\frac{1+Q}{J+2Q}=\frac12-\frac{J/2-1}{J+2Q}\ge\frac12-\frac{J-2}{4Q}\ge\frac12-\frac{J-2}{\pi^2e^2},
 \]
-the last step because $4Q=(k_0+1)/r^2\ge\pi^2e^2$ when $k_0\ge\pi^2e^2r^2$; this is the only use of that condition. Adding, $\beta(\rho)\ge\log(k_0/r^2)-\log(\pi^2)-1-\E Z^2+\frac12-\frac{J-2}{\pi^2e^2}-\frac{\log k_0}{2k_0}-\frac1{k_0}=\underline\beta(\rho)$.
+the last step because $4Q=(k_0+1)/r^2\ge\pi^2e^2$ when $k_0\ge\pi^2e^2r^2$; this is the only use of that condition. Adding, $\beta(\rho)\ge\log(k_0/r^2)-\log(\pi^2)-1-\E Z^2+\frac12-\frac{J-2}{\pi^2e^2}-\frac{\log k_0}{2k_0}-\frac1{k_0}=\underline\beta(\rho)$. The first claim is \lname{RegretKappa.LowerSharp.phase2S} in the formalization.
 \end{proof}
 
 \subsection{The side conditions and part (b) of Theorem~\ref{thm:lower}}
 This subsection proves Lemma~\ref{lem:side} and part (b) of Theorem~\ref{thm:lower}.
 
 \begin{proof}[Proof of Lemma~\ref{lem:side}]
-(C1) If $j_0\le4$, then $L\ge2\log(T_0/(80e))\ge14.5$, since $T_0\ge80\cdot4446\ge80\,e^{33/4}$; at $T_0$, where $j_0=4$, $L=14.799705\ldots$. If $j_0=j\ge5$, then $\log(3\log T)>j-1$ by the definition of $j_0$, so $2\log T>\frac23e^{j-1}$, and $L=2\log T-2\log(20ej)>\frac23e^{j-1}-2\log(20ej)$, which is increasing in $j\ge5$ and equals $25.188426\ldots$ at $j=5$. (C2) By the definition of $L$, $8.8\,e\,e^{L/2}j_0=0.44\,T$, and $0.44\,T+j_0\le T/2-3/2\le T_1-1$ because $0.06\,T\ge j_0+3/2$ for $T\ge T_0$, as $j_0<\log(3\log T)+1\le\log\log T+2.1$. (C3) Since $L\le2\log T$ and $\sqrt{5/8}\,e^{-L/4}\le1$, $(a_++2)^2\le(\sqrt{2\log T}+3)^2\le4\log T+18$, and $\pi^2e^2<74$. As $\log T\le\log T_0+(T-T_0)/T_0<13+(T-T_0)/T_0$, $74(4\log T+18)\le5180+296(T-T_0)/T_0\le T_0/2+(T-T_0)/2=T/2\le k_0$.
+(C1) If $j_0\le4$, then $L\ge2\log(T_0/(80e))\ge14.5$, since $T_0\ge80\cdot4446\ge80\,e^{33/4}$. If $j_0=j\ge5$, then $\log(3\log T)>j-1$ by the definition of $j_0$, so $2\log T>\frac23e^{j-1}$, and $L=2\log T-2\log(20ej)>\frac23e^{j-1}-2\log(20ej)\ge14.5$: indeed $2\log(20ej)\le2j+6$, as $\log20\le3$ and $\log j\le j-1$, and $\frac23e^{j-1}\ge\frac23e^4(j-4)\ge36(j-4)\ge2j+20.5$ for $j\ge5$, since $e^{j-5}\ge j-4$ and $e^4\ge54.5$. (C2) By the definition of $L$, $8.8\,e\,e^{L/2}j_0=0.44\,T$, and $0.44\,T+j_0\le T/2-3/2\le T_1-1$ because $0.06\,T\ge j_0+3/2$ for $T\ge T_0$, as $j_0<\log(3\log T)+1\le\log\log T+2.1$. (C3) Since $L\le2\log T$ and $\sqrt{5/8}\,e^{-L/4}\le1$, $(a_++2)^2\le(\sqrt{2\log T}+3)^2\le4\log T+18$, and $\pi^2e^2\le74$. As $\log T\le\log T_0+(T-T_0)/T_0\le13+(T-T_0)/T_0$, $74(4\log T+18)\le5180+296(T-T_0)/T_0\le T_0/2+(T-T_0)/2=T/2\le k_0$. Condition (C1) is \lname{RegretKappa.LowerSharp.level_ge} in the formalization.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:lower}, part (b)]
-Here $L=2\log T-2\log(20e)-2\log j_0$ with $j_0\le\log\log T+2.1$, as in the proof of (C2); $\log k_0\ge\log(T/2)$; $2\log(a+2)=\log L+2\log(1+2/a)\le\log\log T+\log2+0.85$, since $L\le2\log T$ and $2\log(1+2/\sqrt{14.5})=0.84428483\ldots$; $\log(k_0)/(2k_0)+1/k_0\le10^{-4}$; and $c_1\le3.33$. Collecting, and since $2\log(20e)+2\log2+0.85+3.33+10^{-4}\le13.59$,
+Here $L=2\log T-2\log(20e)-2\log j_0$ with $j_0\le\log\log T+2.1$, as in the proof of (C2); $\log k_0\ge\log(T/2)$; $2\log(a+2)=\log L+2\log(1+2/a)\le\log\log T+\log2+0.85$, since $L\le2\log T$ and $a\ge3.8$, so that $2\log(1+2/a)\le2\log(29/19)\le0.85$; $\log(k_0)/(2k_0)+1/k_0\le10^{-4}$; and $c_1\le3.33$. Collecting, and since $2\log(20e)+2\log2+0.85+3.33+10^{-4}\le13.59$,
 \[
 b_0\ge3\log T-\log\log T-2\log(\log\log T+2.1)-13.6 ,
 \]
-with $b_0$ as in the proof of part (a). Next, $z\mapsto z-2\log(z+2.1)$ is increasing for $z>-0.1$ and equals $-0.5248577\ldots$ at $z=\log\log T_0=2.5480285\ldots$, so for $T\ge T_0$ the right side is at least $3\log T-2\log\log T-14.2$, which is positive, because $3v-2\log v$ increases for $v\ge1$ and exceeds $14.2$ at $v=12<\log T_0$; in particular $b_0\ge0$. Since $e^{-j_0}\le1/(3\log T)$ and $b_0\le3\log T$, $b(T)=(1-e^{-j_0})b_0\ge b_0-1$, which gives the first form, and the same monotonicity, with $-0.5248577\ldots>-0.6$, gives the second.
+with $b_0$ as in the proof of part (a). Next let $z=\log\log T$. For $T\ge T_0$, $\log T\ge12.19\ge e^{2.5}$, so $z\ge2.5$, and with $\log v\le v-1$ and $2\log4.6\le3.1$,
+\[
+2\log(z+2.1)\le2\log4.6+\frac{2(z-2.5)}{4.6}\le z+0.6 .
+\]
+So the right side is at least $3\log T-2\log\log T-14.2$, which is nonnegative, as $\log\log T\le\log T-1$ and $\log T\ge12.2$; in particular $b_0\ge0$. Since $e^{-j_0}\le1/(3\log T)$ and $b_0\le3\log T$, $b(T)=(1-e^{-j_0})b_0\ge b_0-1$, which gives the first form, and the bound $2\log(z+2.1)\le z+0.6$ gives the second. This is \lname{RegretKappa.LowerSharp.lowerSharpSimplified} in the formalization.
 \end{proof}
 
 \subsection{Proof of Corollary~\ref{cor:bounded}}
@@ -896,46 +898,6 @@ with $b_0$ as in the proof of part (a). Next, $z\mapsto z-2\log(z+2.1)$ is incre
 \begin{proof}[Proof of Corollary~\ref{cor:bounded}]
 Let $(x^i,y^i,p_i)$ be the adversary of Theorem~\ref{thm:lower}(a), and $X=1+\sum_{i,t}x^i_t$, which depends on $T$ only. The new adversary plays $(x^i/X,By^i)$ with probability $p_i$; its features lie in $[0,1]$, since $x^i_t\ge0$, and its outcomes in $\{-B,0,B\}$. For a deterministic learner $\mathcal L$, let $\mathcal L'$ predict $\frac1B\mathcal L_t(x_1/X,\dots,x_t/X;By_1,\dots,By_{t-1})$; this is a learner, because $X$ depends on $T$ only. On $(x^i,y^i)$ its predictions are $1/B$ times those of $\mathcal L$ on $(x^i/X,By^i)$, and $\inf_\theta\sum_t(\theta x^i_t/X-By^i_t)^2=B^2\inf_\theta\sum_t(\theta x^i_t-y^i_t)^2$ by the substitution $\theta\mapsto XB\theta$; so the regret of $\mathcal L$ on $(x^i/X,By^i)$ is $B^2$ times the regret of $\mathcal L'$ on $(x^i,y^i)$, and $\sum_ip_i\Reg_{\mathcal L}(x^i/X,By^i)\ge B^2b(T)$ by Theorem~\ref{thm:lower}(a). For a randomized learner, this holds for each $\mathcal L^\omega$; adding $\sum_ip_i\sum_t(By^i_t)^2$ and integrating against the probability $\mu$ gives expected regret at least $B^2b(T)$, which is at least $B^2(3\log T-2\log\log T-15.2)$ by Theorem~\ref{thm:lower}(b). In the chain, the first inequality holds because, for each deterministic learner, some play of the new adversary has regret at least the weighted average; the second because $\{-B,0,B\}\subseteq[-B,B]$; and the third by the learner of Theorem~\ref{thm:upper}, whose regret is at most $B^2u(T)\le B^2(3\log T+0.37)$. This is \lname{RegretKappa.mainBoundedFeatures} in the formalization.
 \end{proof}
-
-\section{The checks in detail}\label{app:checks}
-
-\subsection{The formal proof}\label{subsec:lean}
-The formal statement defines a deterministic learner for the horizon $T$ as a sequence of maps from $x_1,\dots,x_t$ and $y_1,\dots,y_{t-1}$ to a prediction, the regret by \eqref{eq:regret}, and the minimax regret by \eqref{eq:minimax}, as an infimum of suprema in the extended real numbers, so that both are the true ones; it defines randomized learners and their expected regret as in Section~\ref{sec:proofmain}, the expectation being taken in the extended real numbers. On these definitions it states Theorem~\ref{thm:main}, Theorems~\ref{thm:upper} and~\ref{thm:lower}, Corollary~\ref{cor:bounded} and Remark~\ref{rem:rand}, with the constants of the paper, and proves them (Section~\ref{sec:checks}). Every numerical step of the proofs is an inequality between rational numbers, which Lean checks in exact arithmetic from rational bounds, proved in Lean, of the constants involved ($e$, $\pi$, square roots, logarithms and $K_0$); the one larger computation is the drift certificate of Computation~\ref{comp:drift}, whose $1128$ rational numbers Lean's kernel evaluates in about a minute. The formal proof follows the paper, with three differences of form: the upper bound works with $\Gamma/2$ in place of $\Gamma$, so with the increment $3/2$; Lemma~\ref{lem:small} is proved from polynomial bounds on $\cosh$ with a remainder, in place of its series, which lead to the same quartic $f$; and in part (iv) of the proof of Lemma~\ref{lem:phase2}, $\sum_{1\le i<k_0}\log(i/k_0)$ is bounded through $k_0^{k_0}/k_0!\le e^{k_0}$ in place of the integral of $\log$.
-
-Comparator \citep{Comparator} checks that ten of these theorems prove the statements as written again, with the definitions they use, in separate files that import only Mathlib and one another: those of Theorem~\ref{thm:main} and Corollary~\ref{cor:bounded}, each in its closed form and with the bounds of Theorems~\ref{thm:upper} and~\ref{thm:lower}, and those of Theorems~\ref{thm:upper} and~\ref{thm:lower} and of Remark~\ref{rem:rand}. Building the formal proof takes about $7$ minutes on four cores of the machine of Section~\ref{sec:checks} once Mathlib is built, and the check with Comparator about $2$ minutes.
-
-\emph{Statements written separately.} Formal statements of the same results were written separately from the text of the paper, on our formal definitions of the learners, the regret and the minimax regret, and compared with ours in Lean. Lean proves the separate statements of Theorem~\ref{thm:main}, of Theorem~\ref{thm:upper}, of parts (a) and (c) of Theorem~\ref{thm:lower} and of Corollary~\ref{cor:bounded} equivalent to ours, and ours of Theorem~\ref{thm:lower}(b) implies the separate one; the separate statement of Theorem~\ref{thm:main} in its closed form coincides with ours by definition.
-
-\emph{The definitions.} Two definitions of the regret and of the minimax regret were also written separately from ours, each with the statements that $\Regs_T(B)/(B^2\log T)$ tends to $3$, that $\Regs_T(B)\le(3+o(1))B^2\log T$ and that $\Regs_T(B)\ge(3-o(1))B^2\log T$ for every $B>0$. In the first, the minimax regret is the infimum, in the real numbers, of the levels that some learner guarantees on every play; Lean proves that it equals ours for $B\ge0$ and that the three statements are equivalent to ours. The second takes the infimum and the suprema in the real numbers, where the supremum of a set not bounded above is $0$ by convention. Lean proves that its minimax regret is $0$ for every $T$ and $B\ge0$, so that its statement of the limit is false, and that with the infimum and the suprema taken in the extended real numbers it is our minimax regret, with the three statements equivalent to ours; this is why our definitions use the extended real numbers.
-
-\emph{Measurability.} For Corollary~\ref{cor:bounded} and Remark~\ref{rem:rand}, the readings in which the integrated function is measurable are equivalent to ours or implied by them. The readings in which it need not be, through the trivial $\sigma$-algebra on the learners, the Bochner integral or the lower integral, are false, and Lean proves it. This is why the definition of Section~\ref{sec:proofmain} asks for measurability.
-
-\subsection{The programs}\label{subsec:second}
-Table~\ref{tab:checks} lists the programs that write the data of the formal proof, redo its computations separately from Lean, and compute the values quoted in the text, with their running times on the machine of Section~\ref{sec:checks}. The programs marked rational or Arb are rigorous; the SageMath program also counts its checks and stops with an error on a failed check or a missing one.
-
-\begin{table}[ht]
-\caption{The programs and their running times.}\label{tab:checks}
-\centering\small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.44\textwidth}c>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}}
-\toprule
-program & computation & arithmetic & time\\
-\midrule
-constants of the upper bound, items (1), (2), (4), (5) & \ref{comp:upper} & Arb & 10 s\\
-piece bounds, item (3) & \ref{comp:upper} & rational & under 1 s\\
-rational constants of the formal proof of Lemma~\ref{lem:small} and bounds of $K_0$ & \ref{comp:upper} & rational & under 1 s\\
-subdivisions of the drift certificate, written for Lean & \ref{comp:drift} & rational & under 1 s\\
-drift certificate, $N=40$, $1128$ subintervals & \ref{comp:drift} & rational & 3 s\\
-constants of the lower bound & Section~\ref{sec:lower} & 60 digits & under 1 s\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\emph{Coverage.} For the upper bound, a SageMath program computes the values quoted with an ellipsis in Section~\ref{sec:upper} and Appendix~\ref{app:upper} in Arb ball arithmetic \citep{Sage,Arb}, checks items (1), (2), (4) and (5) of Computation~\ref{comp:upper} for the whole balls, and checks the bound $2.7053$ of Lemma~\ref{lem:large} on another subdivision, twenty equal pieces of $[0,(1+\sqrt3)/\sqrt2]$. PARI/GP programs compute in exact rational arithmetic, with the same rational inputs as Lean, the piece bounds (3), from the roundings of the proof of Lemma~\ref{lem:large}, with the largest, $2.6942861\ldots$, and the rational constants of the formal proof of Lemma~\ref{lem:small} and its bounds of $K_0$. For the drift inequality of Lemma~\ref{lem:drift}, a PARI/GP program writes the subdivisions of Computation~\ref{comp:drift} into the Lean module whose $1128$ rational numbers the kernel evaluates, and another PARI/GP program redoes the certificate separately from Lean, on all $28$ cells: it certifies $[0,2.8)$ with $N=40$ on the same $1128$ subintervals, with smallest margin $7.23999\times10^{-4}$. For the constants of Section~\ref{sec:lower} and Appendix~\ref{app:lower}, a PARI/GP program evaluates the numbers of the proofs to $60$ digits, without error bounds; Lean proves the inequalities between them.
-
-\emph{Negative controls.} The programs were run on corrupted inputs, which they must reject, and they do. The PARI/GP drift program rejects the move tables in which $s_{16}$ is replaced by $0.1852$ or $s_{27}$ by $0.0050$. The programs of the upper bound reject a failing check, a crashing check and a forged output. Comparator rejects two altered statements: one in which the term $-1/k_0$ of $b(T)$, in the statement of Theorem~\ref{thm:lower}, is replaced by $-2/k_0$, and one in which the constant $0.37$ of Theorem~\ref{thm:main} is replaced by $0.36$.
-
-\subsection{What the checks rely on}
-The formal part relies on the kernel of Lean and on nanoda, on the three axioms, and on the definitions of the formal statements, which transcribe Sections~\ref{sec:intro}, \ref{sec:setting} and~\ref{sec:proofmain} and the statements of Theorems~\ref{thm:main}, \ref{thm:upper} and~\ref{thm:lower}, Corollary~\ref{cor:bounded} and Remark~\ref{rem:rand}; Section~\ref{subsec:lean} compares them with formal statements written separately. The programs rely on the exact rational arithmetic of PARI/GP and SageMath and on the ball arithmetic of Arb.
 
 \bibliographystyle{plainnat}
 \bibliography{refs}

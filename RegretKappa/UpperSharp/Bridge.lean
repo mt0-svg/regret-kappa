@@ -2,7 +2,7 @@ import RegretKappa.UpperSharp.Statement
 import RegretKappa.Upper.Gamma
 
 /-!
-# Theorem 3.1 with the paper's constants: the learner in the units of `Upper`
+# The upper bound with the paper's constants: the learner in the units of `Upper`
 
 `Γ = 2G` (`Gam_eq`), and the prediction `predU` of the statement is the prediction
 `Upper.pred (λ/2)` of the library `Upper` at the level `λ/2` (`predU_eq`): the factor `2` cancels

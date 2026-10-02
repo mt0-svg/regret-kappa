@@ -1,7 +1,7 @@
 import RegretKappa.UpperSharp.Consts
 
 /-!
-# Theorem 3.1 with the paper's constants: Gaussian moments on `(1, ∞)`
+# The upper bound with the paper's constants: Gaussian moments on `(1, ∞)`
 
 * `K0 = ∫_1^∞ e^{-θ²/2}/θ dθ` (`= E₁(1/2)/2`, the paper's `K₀`) and its enclosure
   `0.2798867 ≤ K0 ≤ 0.2798869` (`K0_ge`, `K0_le`): `R = √32`, the alternating Taylor polynomials of

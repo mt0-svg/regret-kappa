@@ -4,14 +4,14 @@ import RegretKappa.Lower.Hitting
 /-!
 # Sharp lower bound: the move rule and the drift
 
-The paper, Section 4.2 (the move rule) and Lemma B.1 (drift). The move is `s(ρ) = s_j` on
+The move rule and its drift. The move is `s(ρ) = s_j` on
 `|ρ| ∈ [j/10, (j+1)/10)` for `j < 28` (the table `stab` of `DriftCells`) and
 `(5/8) e^{-ρ²/2}` for `|ρ| ≥ 2.8` (`smove`); one step of the chain from `ρ` with sign `b` is
 `ρ √(1 - s) + sgn b √s` (`stepS`), and `U(ρ) = 8 e^{ρ²/2}`.
 
 `drift`: `U(ρ) + 1 ≤ (U(ρ⁺) + U(ρ⁻))/2` for every `ρ`. The average is `8 h_s(ρ)` (`avg_U_stepS`),
 so the claim is `0 ≤ driftGap s ρ`; both sides are even in `ρ`; on `[0, 2.8)` it is the kernel
-certificate `drift_table`, on `[2.8, ∞)` part (a) of the paper (`driftGap_large`, through
+certificate `drift_table`, on `[2.8, ∞)` the bound of the paper for large `ρ` (`driftGap_large`, through
 `drift_core` of `Lower/Drift.lean` and `χ(ρ) ≤ 12/25`).
 
 The chain stopped at level `L` (`ssm`, `sst`): the move is `0` once `ρ² ≥ L`, and the state stays
@@ -97,7 +97,7 @@ theorem avg_U_stepS {s : ℝ} (hs0 : 0 ≤ s) (hs1 : s ≤ 1) (ρ : ℝ) :
   simp only [U, driftGap, hp, hn]
   linear_combination 8 * hc
 
-/-- `χ(ρ) = e^{-ρ²/2} (ρ²/2 + ρ⁴/4) ≤ 12/25` for `ρ ≥ 2.8` (the paper, Lemma B.1 (a)). -/
+/-- `χ(ρ) = e^{-ρ²/2} (ρ²/2 + ρ⁴/4) ≤ 12/25` for `ρ ≥ 2.8`. -/
 theorem chi_le {ρ : ℝ} (h : 28 / 10 ≤ ρ) :
     exp (-ρ ^ 2 / 2) * (ρ ^ 2 / 2 + ρ ^ 4 / 4) ≤ 12 / 25 := by
   set u := ρ ^ 2 / 2 with hu_def
@@ -150,7 +150,7 @@ theorem chi_le {ρ : ℝ} (h : 28 / 10 ≤ ρ) :
   rw [h_goal_eq]
   exact h_target
 
-/-- Lemma B.1 (a): the drift for `ρ ≥ 2.8`. -/
+/-- The drift for `ρ ≥ 2.8`. -/
 theorem driftGap_large {ρ : ℝ} (h : 28 / 10 ≤ ρ) :
     0 ≤ driftGap (5 / 8 * exp (-ρ ^ 2 / 2)) ρ := by
   set s := 5 / 8 * exp (-ρ ^ 2 / 2) with hs
@@ -182,7 +182,7 @@ theorem driftGap_smove (ρ : ℝ) : 0 ≤ driftGap (smove ρ) ρ := by
   · exact drift_table ρ hρ h
   · exact driftGap_large (not_lt.1 h)
 
-/-- **Lemma B.1 (drift).** -/
+/-- **The drift.** -/
 theorem drift (ρ : ℝ) :
     U ρ + 1 ≤ (U (stepS (smove ρ) ρ true) + U (stepS (smove ρ) ρ false)) / 2 := by
   rw [avg_U_stepS (smove_pos ρ).le (by linarith [smove_le ρ])]

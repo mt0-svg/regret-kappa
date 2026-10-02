@@ -6,16 +6,16 @@ import RegretKappa.Corollaries.Explicit
 /-!
 # The main theorem
 
-`RegretKappa.main : RegretKappa.MainTheorem` and its companion for the paper's Corollary 5.1,
+`RegretKappa.main : RegretKappa.MainTheorem` and its companion for bounded features,
 `RegretKappa.mainBoundedFeatures : RegretKappa.MainBoundedFeatures`, follow from the forms with
-the bounds of Theorems 4.1 and 3.1, `RegretKappa.mainChain` and
+the explicit lower and upper bounds, `RegretKappa.mainChain` and
 `RegretKappa.mainBoundedFeaturesChain`, and from `U(T) ≤ 3 log T + 0.37` for `T ≥ 355713`
 (`boundU_le`). These come from
 
-* the paper, Theorem 4.1: `LowerSharp.lowerSharpBound` (one play, every `B > 0`),
+* the lower bound: `LowerSharp.lowerSharpBound` (one play, every `B > 0`),
   `LowerSharp.lowerSharpAdv` (the finite adversary, `B = 1`) and `LowerSharp.lowerSharpSimplified`
   (the simplified forms of `b(T)`);
-* the paper, Theorem 3.1: `Corollaries.regret_rescale_learnerU_le` (the learner of `UpperSharp`
+* the upper bound: `Corollaries.regret_rescale_learnerU_le` (the learner of `UpperSharp`
   rescaled to outcomes in `[-B, B]`), `Corollaries.boundedFeaturesUpperUI` and, for the second
   form of `U(T)`, `UpperSharp.ulog_bound`;
 * the transfer to bounded features: `Corollaries.boundedFeatures_of_mixture`.
@@ -24,8 +24,8 @@ The limit `KappaEqThree` follows from the closed bounds (`closedBounds`) by the 
 paper: `2 log log T + 15.2 = o(log T)` (`eventually_lower`) and `0.37 = o(log T)`
 (`eventually_upper`) give the two halves `UpperBound` and `LowerBound` of
 `RegretKappa/Statement.lean`, and its bridge `kappaEqThree_of_bounds` gives the limit
-(`kappaEqThree_squeeze`). The paper's Remark 5.2, `Corollaries.RandLowerBound`, follows from
-Corollary 5.1 (`randLowerBound`): some play of the adversary does at least as well as the
+(`kappaEqThree_squeeze`). The randomized lower bound `Corollaries.RandLowerBound` follows from
+the bounded-features theorem (`randLowerBound`): some play of the adversary does at least as well as the
 adversary.
 -/
 
@@ -42,7 +42,7 @@ theorem boundL_le_bT {B : ℝ} {T : ℕ} (hT : LowerSharp.T0 ≤ T) :
   exact EReal.coe_le_coe_iff.2
     (mul_le_mul_of_nonneg_left (by unfold boundL; linarith) (sq_nonneg B))
 
-/-- The bounds of Theorems 4.1 and 3.1: for `B > 0` and `T ≥ 355713`,
+/-- The explicit lower and upper bounds: for `B > 0` and `T ≥ 355713`,
 `B² (3 log T - 2 log log T - 15.2) ≤ B² b(T) ≤ Reg*_T(B) ≤ B² U(T)`. -/
 theorem chainBounds (B : ℝ) (hB : 0 < B) (T : ℕ) (hT : LowerSharp.T0 ≤ T) :
     ((B ^ 2 * boundL T : ℝ) : EReal) ≤ ((B ^ 2 * LowerSharp.bT T : ℝ) : EReal) ∧
@@ -53,7 +53,7 @@ theorem chainBounds (B : ℝ) (hB : 0 < B) (T : ℕ) (hT : LowerSharp.T0 ≤ T) 
   · exact minimaxRegret_le_of_learner (Lower.rescale (UpperSharp.learnerU T) B⁻¹)
       fun x y hy => Corollaries.regret_rescale_learnerU_le hB T x y hy
 
-/-- **The paper, Corollary 5.1, with the bounds of Theorems 4.1 and 3.1**
+/-- **Bounded features, with the explicit lower and upper bounds**
 (`RegretKappa.MainBoundedFeaturesChain`). -/
 theorem mainBoundedFeaturesChain : MainBoundedFeaturesChain.{u} := by
   intro B hB T hT
@@ -148,13 +148,13 @@ theorem lowerBound_squeeze : LowerBound := by
 theorem kappaEqThree_squeeze : KappaEqThree :=
   kappaEqThree_of_bounds upperBound_squeeze lowerBound_squeeze
 
-/-- **The main theorem with the bounds of Theorems 4.1 and 3.1** (`RegretKappa.MainTheoremChain`). -/
+/-- **The main theorem with the explicit lower and upper bounds** (`RegretKappa.MainTheoremChain`). -/
 theorem mainChain : MainTheoremChain := ⟨chainBounds, kappaEqThree_squeeze⟩
 
 /-- **The main theorem** (`RegretKappa.MainTheorem`). -/
 theorem main : MainTheorem := ⟨closedBounds, kappaEqThree_squeeze⟩
 
-/-- **The paper, Corollary 5.1, with the bounds of the main theorem**
+/-- **Bounded features, with the bounds of the main theorem**
 (`RegretKappa.MainBoundedFeatures`). -/
 theorem mainBoundedFeatures : MainBoundedFeatures.{u} := by
   intro B hB T hT
@@ -164,7 +164,7 @@ theorem mainBoundedFeatures : MainBoundedFeatures.{u} := by
     hLb.trans hbBF, hBFI,
     hU.trans (EReal.coe_le_coe_iff.2 (mul_le_mul_of_nonneg_left (boundU_le hT) (sq_nonneg B)))⟩
 
-/-- **The paper, Remark 5.2** (`Corollaries.RandLowerBound`), from Corollary 5.1: against a
+/-- **The randomized lower bound** (`Corollaries.RandLowerBound`), from bounded features: against a
 randomized learner, some play of the adversary of `mainBoundedFeatures` does at least as well as
 the adversary, and its outcomes lie in `{-B, 0, B}`. -/
 theorem randLowerBound : Corollaries.RandLowerBound.{u} := by

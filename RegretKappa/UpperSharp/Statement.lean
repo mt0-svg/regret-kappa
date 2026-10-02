@@ -1,9 +1,9 @@
 import RegretKappa.Statement
 
 /-!
-# The statement of Theorem 3.1 with its constants
+# The statement of the upper bound with its constants
 
-The paper, Theorem 3.1, for outcomes in `[-1, 1]` (`B = 1`), on the model of
+The upper bound of the paper, for outcomes in `[-1, 1]` (`B = 1`), on the model of
 `RegretKappa/Statement.lean` (`Learner`, `regret`). The learner is the one of the paper, written
 from its formula, with `β = 3`, `C = (√T + 1)/√(2π)`, `λ₀ = e²/C` and the potential
 
@@ -19,7 +19,7 @@ current feature `x = x_t`, and predicts (`predU`)
 `ε clip_{[-1,1]}(½ log((λ + Γ(ρ √(1-s) + √s)) / (λ + Γ(ρ √(1-s) - √s))))`, `λ = λ₀ + β (T - t - 1)`,
 
 with `ρ = S/√V` (`0` if `V = 0`), `s = x²/(V + x²)` (`0` if `V + x² = 0`), `ε = sign x` (`1` if
-`x = 0`): the conventions of the paper, Section 2.1, written out (they do not rely on Lean's
+`x = 0`): the conventions of the paper for the state, written out (they do not rely on Lean's
 `a / 0 = 0`). For `t < T` the level `λ` is at least `λ₀ > 0`, so both arguments of the ratio are
 positive.
 
@@ -51,7 +51,7 @@ noncomputable def lam0 (T : ℕ) : ℝ := exp 2 / Cst T
 /-- Clipping to `[-1, 1]`. -/
 noncomputable def clip (z : ℝ) : ℝ := max (-1) (min 1 z)
 
-/-- The prediction of the learner of Theorem 3.1 in round `t` (0-indexed) of a game of horizon `T`,
+/-- The prediction of the potential learner in round `t` (0-indexed) of a game of horizon `T`,
 from `S = ∑_{i<t} x_i y_i`, `V = ∑_{i<t} x_i²` and the current feature `x`. -/
 noncomputable def predU (T t : ℕ) (S V x : ℝ) : ℝ :=
   let lam := lam0 T + beta * ((T : ℝ) - t - 1)
@@ -60,19 +60,19 @@ noncomputable def predU (T t : ℕ) (S V x : ℝ) : ℝ :=
   let ε : ℝ := if x < 0 then -1 else 1
   ε * clip (log ((lam + Gam (ρ * √(1 - s) + √s)) / (lam + Gam (ρ * √(1 - s) - √s))) / 2)
 
-/-- The learner of Theorem 3.1, for outcomes in `[-1, 1]`. -/
+/-- The potential learner, for outcomes in `[-1, 1]`. -/
 noncomputable def learnerU (T : ℕ) : Learner T where
   predict t xs ys := predU T t (∑ i : Fin t, xs (Fin.castSucc i) * ys i)
     (∑ i : Fin t, xs (Fin.castSucc i) ^ 2) (xs (Fin.last t))
 
-/-- **The paper, Theorem 3.1**, first form: on every play with outcomes in `[-1, 1]`,
+/-- **The upper bound**, first form: on every play with outcomes in `[-1, 1]`,
 `Regret_T ≤ 2 log(e² + (√T + 1)(3T + 2e^{-1/2})/√(2π))`, for every horizon `T`. -/
 def TheoremU : Prop :=
   ∀ (T : ℕ) (x y : Fin T → ℝ), (∀ t, |y t| ≤ 1) →
     regret (learnerU T) x y ≤
       2 * log (exp 2 + (√(T : ℝ) + 1) * (3 * T + 2 * exp (-1 / 2)) / √(2 * π))
 
-/-- **The paper, Theorem 3.1**, second form, for `T ≥ 1`:
+/-- **The upper bound**, second form, for `T ≥ 1`:
 `Regret_T ≤ 3 log T + 2 log(3/√(2π)) + 2/√T + 0.81/T + 12.35/T^{3/2}`. -/
 def TheoremULog : Prop :=
   ∀ (T : ℕ), 1 ≤ T → ∀ (x y : Fin T → ℝ), (∀ t, |y t| ≤ 1) →

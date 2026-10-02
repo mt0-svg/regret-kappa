@@ -1,55 +1,33 @@
-# clean_build.sh at 2026-10-02 12:51 UTC
+# clean_build.sh at 2026-10-02 17:00 UTC
 # Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
 # Lake version 5.0.0-src+5045d00 (Lean version 4.34.1)
 # machine: AMD Ryzen 9 5900X 12-Core Processor, 24 logical CPUs, 60.7 GiB RAM
-# package: 78 modules; sources sha256 d6769b89e2df9cca503e1a95ddec99691061df1acaa40d29ebdf22db0169a1df; RegretKappa a62c2476d870ea17baadf5f990d31b2912363340a6345be35fe7c59bc71f77f2, lakefile.toml 58b972de6ad3410e7061c4ad4f9547649340478e33ad5315416b078f3cdca4a1, lake-manifest.json bc3b672f9e22c9dcfcc44e58af74bb699f36b31e291979877a5f9e7b0df67b36
+# package: 56 modules; sources sha256 7b8dd470e885c2518c14c07f5b55ec1cedc3f5f8a60214d89b4ff4251cde9119; RegretKappa 426afa92a44488ba2ff0a23d8677c07bfca81679fe1fdbc501a9da9172604f8f, lakefile.toml ff99e700b9d1600dc6cac8b604d3c0df4545a490d9d1c75d16c132d47cfb3f0c, lake-manifest.json bc3b672f9e22c9dcfcc44e58af74bb699f36b31e291979877a5f9e7b0df67b36
 # (sha256 of a set of files: that of the sha256sum listing of the files, paths from the package root in LC_ALL=C order; RegretKappa: the .lean files of RegretKappa/, and RegretKappa.lean if present)
 # settings: HB=1 LB=4 PEAK_HEAVY=7G PEAK_LIGHT=6G MEM_MARGIN=4G MEM_POLL=60 MEM_LOWER=600 MIN_DISK_GB=8; RUN_WRAP: cap -m 10G -c 4 -t 2h; lock: none
 # memory peak per call: memory.peak of the cgroup of RUN_WRAP (all processes of the call)
-# at start: MemAvailable 51.9 GiB, load average 6.22 5.96 4.02
+# at start: MemAvailable 41.8 GiB, load average 25.08 24.28 19.57
 # .lake/build moved to .lake/build.prev
-ok 9 s, peak 3.1 GiB: RegretKappa.Challenge.Statement RegretKappa.Lower.Basic RegretKappa.Lower.ClosedForm RegretKappa.Statement
-ok 8 s, peak 1.6 GiB: RegretKappa.Upper.Defs RegretKappa.UpperSharp.Consts
-ok 9 s, peak 1.0 GiB: RegretKappa.LowerSharp.DriftCheck
-ok 6 s, peak 1.0 GiB: RegretKappa.StatementCheck.Indep
-ok 6 s, peak 1.0 GiB: RegretKappa.StatementCheck.Indep2
-ok 41 s, peak 2.0 GiB: RegretKappa.LowerSharp.DriftCells
-ok 5 s, peak 0.9 GiB: RegretKappa.UpperSharpCheck.IndepU
-ok 7 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Junk
-ok 5 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep51u
-ok 7 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep51c
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep51b
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep51a
-ok 7 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep42c
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep42b
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep42a
-ok 7 s, peak 1.0 GiB: RegretKappa.StatementCheck.Equiv
-ok 10 s, peak 3.1 GiB: RegretKappa.Challenge.UpperSharp RegretKappa.Challenge.LowerSharp RegretKappa.Challenge.Corollaries RegretKappa.Lower.Model
-ok 12 s, peak 3.0 GiB: RegretKappa.Lower.Drift RegretKappa.UpperSharp.Statement RegretKappa.Upper.Identity RegretKappa.LowerSharp.Statement
-ok 12 s, peak 3.1 GiB: RegretKappa.Lower.Identity RegretKappa.Corollaries.Statement RegretKappa.Corollaries.Scaling RegretKappa.Upper.Gamma
-ok 15 s, peak 3.1 GiB: RegretKappa.UpperSharp.Moments RegretKappa.Challenge RegretKappa.Lower.VanTrees RegretKappa.Lower.Hitting
-ok 15 s, peak 3.0 GiB: RegretKappa.Upper.Sums RegretKappa.LowerSharp.ClosedForm RegretKappa.MainStatement RegretKappa.Corollaries.Expectation
-ok 22 s, peak 3.1 GiB: RegretKappa.Corollaries.Transfer RegretKappa.UpperSharp.Bridge RegretKappa.Upper.SmallSteps RegretKappa.Upper.Mixability
-ok 16 s, peak 2.1 GiB: RegretKappa.UpperSharp.Weights RegretKappa.UpperSharp.Terminal
-ok 6 s, peak 0.9 GiB: RegretKappa.UpperSharpCheck.EquivU
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv42b
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv42a
-ok 6 s, peak 1.0 GiB: RegretKappa.LowerSharpCheck.IndepM
-ok 7 s, peak 1.0 GiB: RegretKappa.LowerSharpCheck.IndepL
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv51u
-ok 7 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv51b
-ok 7 s, peak 1.0 GiB: RegretKappa.StatementCheck.Equiv2
-ok 6 s, peak 1.0 GiB: RegretKappa.LowerSharpCheck.EquivM
-ok 7 s, peak 1.0 GiB: RegretKappa.LowerSharpCheck.EquivL
-ok 7 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv51c
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv51a
-ok 6 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv42c
-ok 11 s, peak 3.1 GiB: RegretKappa.LowerSharp.VanTrees RegretKappa.Lower.Phase2 RegretKappa.LowerSharp.Move RegretKappa.Corollaries.Explicit
-ok 39 s, peak 3.2 GiB: RegretKappa.UpperSharp.SmallSteps RegretKappa.UpperSharp.LargeSteps RegretKappa.LowerSharp.Prior RegretKappa.LowerSharp.Chain
-ok 16 s, peak 2.4 GiB: RegretKappa.UpperSharp.Step RegretKappa.LowerSharp.Phase2 RegretKappa.LowerSharp.Hitting RegretKappa.UpperSharp.Assembly
-ok 28 s, peak 2.6 GiB: RegretKappa.LowerSharp.Side RegretKappa.LowerSharp.Adversary RegretKappa.UpperSharp.Main RegretKappa.LowerSharp.Assembly
-ok 13 s, peak 1.0 GiB: RegretKappa.Corollaries.UpperU RegretKappa.Main RegretKappa.Solution
-# done in 7 min: 78 modules, 41 batches (27 heavy, 14 light), 41 lake calls, 0 modules failed
+ok 15 s, peak 3.0 GiB: RegretKappa.Challenge.Statement RegretKappa.Lower.Basic RegretKappa.Lower.ClosedForm RegretKappa.Statement
+ok 12 s, peak 1.6 GiB: RegretKappa.Upper.Defs RegretKappa.UpperSharp.Consts
+ok 13 s, peak 1.0 GiB: RegretKappa.LowerSharp.DriftCheck
+ok 58 s, peak 2.0 GiB: RegretKappa.LowerSharp.DriftCells
+ok 10 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Junk
+ok 10 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Indep42b
+ok 15 s, peak 3.0 GiB: RegretKappa.Challenge.UpperSharp RegretKappa.Challenge.LowerSharp RegretKappa.Challenge.Corollaries RegretKappa.Lower.Model
+ok 19 s, peak 3.0 GiB: RegretKappa.Lower.Drift RegretKappa.UpperSharp.Statement RegretKappa.Upper.Identity RegretKappa.LowerSharp.Statement
+ok 17 s, peak 3.0 GiB: RegretKappa.Lower.Identity RegretKappa.Corollaries.Statement RegretKappa.Corollaries.Scaling RegretKappa.Upper.Gamma
+ok 20 s, peak 3.1 GiB: RegretKappa.UpperSharp.Moments RegretKappa.Challenge RegretKappa.Lower.VanTrees RegretKappa.Lower.Hitting
+ok 24 s, peak 2.9 GiB: RegretKappa.Upper.Sums RegretKappa.LowerSharp.ClosedForm RegretKappa.MainStatement RegretKappa.Corollaries.Expectation
+ok 29 s, peak 3.1 GiB: RegretKappa.Corollaries.Transfer RegretKappa.UpperSharp.Bridge RegretKappa.Upper.SmallSteps RegretKappa.Upper.Mixability
+ok 25 s, peak 2.0 GiB: RegretKappa.UpperSharp.Weights RegretKappa.UpperSharp.Terminal
+ok 14 s, peak 1.0 GiB: RegretKappa.CorollariesCheck.Equiv42b
+ok 23 s, peak 3.1 GiB: RegretKappa.LowerSharp.VanTrees RegretKappa.Lower.Phase2 RegretKappa.LowerSharp.Move RegretKappa.Corollaries.Explicit
+ok 51 s, peak 3.2 GiB: RegretKappa.UpperSharp.SmallSteps RegretKappa.UpperSharp.LargeSteps RegretKappa.LowerSharp.Prior RegretKappa.LowerSharp.Chain
+ok 23 s, peak 2.4 GiB: RegretKappa.UpperSharp.Step RegretKappa.LowerSharp.Phase2 RegretKappa.LowerSharp.Hitting RegretKappa.UpperSharp.Assembly
+ok 38 s, peak 2.5 GiB: RegretKappa.LowerSharp.Side RegretKappa.LowerSharp.Adversary RegretKappa.UpperSharp.Main RegretKappa.LowerSharp.Assembly
+ok 21 s, peak 1.0 GiB: RegretKappa.Corollaries.UpperU RegretKappa.Main RegretKappa.Solution
+# done in 7 min: 56 modules, 19 batches (5 heavy, 14 light), 19 lake calls, 0 modules failed
 # .lake/build.prev removed
-# size of .lake/build: 544.7 MiB in all, setup.json 471.1 MiB, olean 71.1 MiB, ilean 1.8 MiB, c 0.4 MiB, trace 0.2 MiB, olean.hash 0.0 MiB, ilean.hash 0.0 MiB, c.hash 0.0 MiB
-# result: ok, all 78 modules built
+# size of .lake/build: 407.4 MiB in all, setup.json 338.3 MiB, olean 67.1 MiB, ilean 1.6 MiB, c 0.3 MiB, trace 0.2 MiB, olean.hash 0.0 MiB, ilean.hash 0.0 MiB, c.hash 0.0 MiB
+# result: ok, all 56 modules built

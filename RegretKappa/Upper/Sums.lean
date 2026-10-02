@@ -5,7 +5,7 @@ import RegretKappa.Upper.Identity
 
 A play on `Fin T` extended by `0` to `ℕ` (`ext`), the partial sums `S_n = ∑_{i<n} x_i y_i` and
 `V_n = ∑_{i<n} x_i²` (`Ssum`, `Vsum`), and the bound `ρ_n² ≤ n` on the state `ρ_n = S_n/√V_n`
-for outcomes in `[-1, 1]` (`rho_sq_le`, the paper, Lemma 2.3 (a)). The learner of Theorem 3.1
+for outcomes in `[-1, 1]` (`rho_sq_le`). The learner of the upper bound
 (`RegretKappa/UpperSharp/Assembly.lean`) is written with them.
 -/
 

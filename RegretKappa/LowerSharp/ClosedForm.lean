@@ -4,7 +4,7 @@ import RegretKappa.LowerSharp.Statement
 /-!
 # Sharp lower bound: the closed form of the phase-2 sum
 
-The paper, Lemma 4.6 (iv), with the prior information `J` as a parameter (`wInfoJ`; Lower's
+Step (iv) of the phase-2 bound, with the prior information `J` as a parameter (`wInfoJ`; Lower's
 `wInfo` is the case `J = 5/2`), in the indexing of Lean (round `i = 0, ..., k - 1` here is round
 `i + 1` of the paper; `ε_i = eps k r i`, `ν_i² = nu2 k i`).
 
@@ -282,7 +282,7 @@ theorem comparator_closed {J : ℝ} (hJ : 2 ≤ J) {k : ℕ} (hk : 1 ≤ k) {r :
   rw [hA_def, hW_def]
   exact h_goal
 
-/-- **Lemma 4.6 (iv)**: `β(ρ, k) ≥ log(k/r²) - c₁ - log k/(2k) - 1/k` for `k ≥ π² e² r²`. -/
+/-- **The phase-2 bound, step (iv)**: `β(ρ, k) ≥ log(k/r²) - c₁ - log k/(2k) - 1/k` for `k ≥ π² e² r²`. -/
 theorem beta_ge {k : ℕ} {r : ℝ} (hr : 2 ≤ r) (hk : π ^ 2 * exp 2 * r ^ 2 ≤ k) :
     log (k / r ^ 2) - c1 - log k / (2 * k) - 1 / k ≤
       -(4 / 3 - 8 / π ^ 2) + ∑ i ∈ range k, eps k r i ^ 2 / wInfoJ Jc k r i +

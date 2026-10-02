@@ -3,15 +3,15 @@ import RegretKappa.LowerSharp.DriftCheck
 /-!
 # The drift certificate
 
-The paper, Lemma B.1 (b) and Computation B.2: one kernel check per cell `[j/10, (j+1)/10)`,
+The drift on `[0, 2.8)` and its certificate: one kernel check per cell `[j/10, (j+1)/10)`,
 with the order N = 14 of the partial sums, and `drift_table`, the inequality on `[0, 2.8)`.
-Written by `code/lean-upper-sharp/drift_cells.gp` (the trees: `drift_tree_lib.gp`). Each cell
+Written by `code/drift-cells/drift_cells.gp` (the trees: `drift_tree_lib.gp`). Each cell
 is its own declaration, since the kernel cost of one declaration grows faster than linearly.
 -/
 
 namespace RegretKappa.LowerSharp
 
-/-- The move table of the paper (Section 4.2): `s_j` on the cell `[j/10, (j+1)/10)`, the values
+/-- The move table of the paper: `s_j` on the cell `[j/10, (j+1)/10)`, the values
 of `(5/8) e^{-m²/2}` at the midpoints `m` rounded to four decimals. -/
 def stab : ℕ → ℚ
   | 0 => 3121/5000
@@ -352,7 +352,7 @@ theorem drift_cell27 (ρ : ℝ) (h1 : (27 : ℝ) / 10 ≤ ρ) (h2 : ρ ≤ (28 :
   check_sound 14 (by norm_num [stab]) (by norm_num [stab]) 8 _ _ _ cell27_check (by norm_num)
     (by norm_num) (by norm_num) ρ (by push_cast; linarith) (by push_cast; linarith)
 
-/-- **The paper, Lemma B.1 (b).** On `[0, 2.8)`, with `s = s_j` on the cell `j = ⌊10 ρ⌋`, the
+/-- **The drift on `[0, 2.8)`.** With `s = s_j` on the cell `j = ⌊10 ρ⌋`, the
 drift `8 h_s(ρ) - 8 e^{ρ²/2}` is at least `1`. -/
 theorem drift_table (ρ : ℝ) (h0 : 0 ≤ ρ) (h1 : ρ < 28 / 10) :
     0 ≤ driftGap ((stab ⌊10 * ρ⌋₊ : ℚ) : ℝ) ρ := by

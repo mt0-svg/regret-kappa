@@ -2,18 +2,14 @@ import RegretKappa.CorollariesCheck.Junk
 import RegretKappa.CorollariesCheck.Indep42b
 
 /-!
-# The second separate formalization of Remark 5.2 (randomized learners on one play): refuted
-
-`Indep42b` calls it Corollary 4.2, its number in the text it was written from.
+# The randomized lower bound with the Bochner integral and no measurability: false
 
 `Indep42b` models a randomized learner as a probability space with a family of learners, with no
 measurability condition, and its expected regret as the Bochner integral of the regret, which is
 the junk value `0` for a regret that is not integrable. The family `famBot T` on `BoolBot` has a
 regret that is not constant in `ω` on every play with at least one round and outcomes in
 `[-1, 1]`, so it is not integrable and its expected regret is `0` there (`integral_famBot`). Hence
-`Indep42b.RandLowerBound` is false (`not_randLowerBound`). A learner whose first prediction has a
-heavy-tailed law (infinite second moment) on a standard probability space gives the same
-conclusion, with a measurable family.
+`Indep42b.RandLowerBound` is false (`not_randLowerBound`).
 -/
 
 namespace RegretKappa.CorollariesCheck.V42b

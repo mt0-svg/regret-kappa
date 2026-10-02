@@ -7,14 +7,14 @@ open RegretKappa
 namespace Indep42b
 
 /-!
-# Corollary 4.2 for randomized learners (asymptotic form)
+# The randomized lower bound with the Bochner integral and no measurability
 
 Restricted to adversaries that play a fixed pair of sequences `(x, y)` (each such pair is
 an adaptive adversary that ignores the predictions), in asymptotic form:
 `B^2 b(T)` is replaced by `(3 - ε) B^2 log T`, and "for every `T ≥ T_0`" by
 "for every `ε > 0`, for every large `T`".
 
-We model a randomized learner as a probability space `Ω` and a measurable map from `Ω` to
+We model a randomized learner as a probability space `Ω` and a map from `Ω` to
 deterministic learners (`RegretKappa.Learner T`).  Conditionally on the realized `ω`, the learner
 is deterministic.  The expected regret on a play `(x, y)` is the Bochner integral of the regret
 over `Ω` with respect to the probability measure.
@@ -39,7 +39,7 @@ Since the regret is real-valued, the integral is defined as a real number
 noncomputable def RandLearner.expectedRegret {T : ℕ} (L : RandLearner T) (x y : Fin T → ℝ) : ℝ :=
   ∫ ω, regret (L.learner ω) x y ∂(L.μ)
 
-/-- The randomized lower bound (Corollary 4.2, asymptotic form).
+/-- The randomized lower bound, read with the Bochner integral.
 For every `B > 0` and `ε > 0`, for every sufficiently large horizon `T`,
 every randomized learner has a play `(x, y)` with `|y t| ≤ B` for all `t`
 on which its expected regret is at least `(3 - ε) B ^ 2 log T`. -/

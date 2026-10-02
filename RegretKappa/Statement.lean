@@ -3,15 +3,15 @@ import Mathlib
 /-!
 # The statement
 
-Online linear regression in dimension one with features revealed one at a time (Section 2 of the
-paper). The horizon `T` and the bound `B > 0` on the outcomes are known to the learner. In round
+Online linear regression in dimension one with features revealed one at a time, the game of the
+paper. The horizon `T` and the bound `B > 0` on the outcomes are known to the learner. In round
 `t` the adversary reveals a feature `x t : ℝ` (no bound), the learner predicts, then the adversary
 reveals an outcome `y t` with `|y t| ≤ B`. Rounds are indexed by `Fin T`: round `t` here is round
 `t + 1` of the paper.
 
 A learner is deterministic and causal by construction: its prediction in round `t` is a function of
 `x 0, ..., x t` and `y 0, ..., y (t - 1)`. Against a deterministic learner an adaptive adversary is
-no stronger than the worst fixed pair of sequences `(x, y)` (Section 2.1 of the paper), so the
+no stronger than the worst fixed pair of sequences `(x, y)`, as the paper shows, so the
 minimax regret quantifies over pairs. Randomized learners are defined in
 `RegretKappa/Corollaries/Statement.lean`.
 
@@ -25,11 +25,9 @@ lattice, and is finite for `B ≥ 0` (`minimaxRegret_nonneg`, `minimaxRegret_le`
 * `LowerBound`: for every `B > 0` and `ε > 0`, for every large `T` every learner has regret at
   least `(3 - ε) B ^ 2 log T` on some play with outcomes bounded by `B`;
 * `KappaEqThree`: for every `B > 0`, `minimaxRegret T B / (B ^ 2 log T)` tends to `3` in `EReal`,
-  the limit of Theorem 1.1 of the paper.
+  the limit of the paper's main theorem.
 
-`kappaEqThree_iff` proves `KappaEqThree ↔ UpperBound ∧ LowerBound`. The modules
-`RegretKappa.StatementCheck.*` compare this file with two formalizations written separately
-(Appendix C.1 of the paper).
+`kappaEqThree_iff` proves `KappaEqThree ↔ UpperBound ∧ LowerBound`.
 -/
 
 namespace RegretKappa

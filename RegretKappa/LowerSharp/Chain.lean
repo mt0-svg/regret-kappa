@@ -3,7 +3,7 @@ import RegretKappa.LowerSharp.Move
 /-!
 # Sharp lower bound: the phase-1 chain
 
-The paper, Lemma 4.2 (the chain), for the move rule of `LowerSharp/Move.lean` stopped at level
+The chain of phase 1, for the move rule of `LowerSharp/Move.lean` stopped at level
 `L`. Signs `ζ`; round `0` plays the feature `1` and the outcome `sgn ζ₀`; round `t + 1`, with
 `s = ssm L ρ_t`, plays the feature `√(V_t s / (1 - s))` and the outcome `sgn ζ_{t+1}`. Then
 `V_{t+1} = V_t / (1 - s)` and `ρ_{t+1} = sst L ρ_t ζ_{t+1}`: `V_t = ∑_{s ≤ t} x_s²` (`sum_xS_sq`)
@@ -55,7 +55,7 @@ theorem sum_xS_sq (L : ℝ) (ζ : ℕ → Bool) (t : ℕ) :
     field_simp
     ring
 
-/-- Lemma 4.2 of the paper: `S_t = ρ_t √V_t`. -/
+/-- The chain of phase 1: `S_t = ρ_t √V_t`. -/
 theorem sum_xS_mul (L : ℝ) (ζ : ℕ → Bool) (t : ℕ) :
     ∑ s ∈ range (t + 1), xS L ζ s * sgn (ζ s) = rhoS L ζ t * √(VS L ζ t) := by
   induction t with

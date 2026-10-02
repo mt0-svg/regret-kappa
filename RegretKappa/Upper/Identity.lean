@@ -3,9 +3,8 @@ import RegretKappa.Statement
 /-!
 # Upper bound: the regret identity
 
-The paper, Lemma 2.2 and Lemma 2.3 (a). The closed form of the loss of the best
-linear predictor is `RegretKappa.StatementCheck.bestLinearLoss_eq` (StatementCheck/Equiv2.lean),
-proved again here so that the upper bound does not import the statement checks; with it,
+The regret identity and the bound `|ρ_t| ≤ √t`. With the closed form of the loss of the best
+linear predictor,
 `∑ y² - bestLinearLoss = (S/√V)²`, and `bestLinearLoss` scales by `B²` with the outcomes.
 -/
 
@@ -19,7 +18,7 @@ theorem linearLoss_expand {T : ℕ} (θ : ℝ) (x y : Fin T → ℝ) :
   rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
   exact Finset.sum_congr rfl fun t _ => by ring
 
-/-- The paper, Lemma 2.2: the infimum over `θ` in closed form. -/
+/-- The regret identity: the infimum over `θ` in closed form. -/
 theorem bestLinearLoss_closed {T : ℕ} (x y : Fin T → ℝ) :
     bestLinearLoss x y =
       if ∑ t, x t ^ 2 = 0 then ∑ t, y t ^ 2
@@ -74,7 +73,7 @@ theorem bestLinearLoss_mul {T : ℕ} (x y : Fin T → ℝ) (B : ℝ) :
   · rw [h1, h2]
     ring
 
-/-- Cauchy-Schwarz for outcomes in `[-1, 1]`: `S_n² ≤ n V_n` (Lemma 2.3 (a) of the paper). -/
+/-- Cauchy-Schwarz for outcomes in `[-1, 1]`: `S_n² ≤ n V_n`. -/
 theorem sq_sum_mul_le (X Y : ℕ → ℝ) (hY : ∀ i, |Y i| ≤ 1) (n : ℕ) :
     (∑ i ∈ range n, X i * Y i) ^ 2 ≤ n * ∑ i ∈ range n, X i ^ 2 := by
   have hY2 : ∑ i ∈ range n, Y i ^ 2 ≤ n := by

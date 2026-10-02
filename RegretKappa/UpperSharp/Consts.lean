@@ -1,10 +1,10 @@
 import Mathlib
 
 /-!
-# Theorem 3.1 with the paper's constants: rational enclosures of the constants
+# The upper bound with the paper's constants: rational enclosures of the constants
 
 `e^{-1/2}`, `e^{-1/6}`, `log 3`, `√(2π)` between rationals, and the chord bound of `-log(1 - s)` on
-`[0, 2/3]` (the paper, proof of Lemma A.7).
+`[0, 2/3]` (the proof of the small-step bound).
 -/
 
 namespace RegretKappa.UpperSharp

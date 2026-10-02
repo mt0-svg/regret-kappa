@@ -1,11 +1,11 @@
 import RegretKappa.UpperSharp.Assembly
 
 /-!
-# Theorem 3.1 with the paper's constants: the two targets
+# The upper bound with the paper's constants: the two targets
 
 The proofs of the targets of `RegretKappa/UpperSharp/Statement.lean`. `theoremU` is
-`Regret_T ≤ Φ_T(0)` (`regret_leU`, `PhiU_T_zero`). For `theoremULog` (the paper, proof of
-Theorem 3.1), with `X = 3T^{3/2}/√(2π)`, the argument of the logarithm is at most
+`Regret_T ≤ Φ_T(0)` (`regret_leU`, `PhiU_T_zero`). For `theoremULog` (the proof of the second
+form), with `X = 3T^{3/2}/√(2π)`, the argument of the logarithm is at most
 `X (1 + T^{-1/2})(1 + Γ(0)/(3T))(1 + e²/X)` (`arg_le`), `2 log X = 3 log T + 2 log(3/√(2π))`
 (`log_X_eq`), `log(1 + a) ≤ a` three times, `4e^{-1/2}/3 ≤ 0.81` and `2√(2π)e²/3 ≤ 12.35`
 (`const_c_le`).
@@ -198,13 +198,13 @@ theorem ulog_bound {T : ℝ} (hT : 1 ≤ T) :
     _ ≤ (3 * log T + 2 * log (3 / √(2 * π))) + 2 / √T + 0.81 / T + 2 * c := by nlinarith
     _ ≤ (3 * log T + 2 * log (3 / √(2 * π))) + 2 / √T + 0.81 / T + 12.35 / (T * √T) := by nlinarith
 
-/-- **The paper, Theorem 3.1**, first form. -/
+/-- **The upper bound**, first form. -/
 theorem theoremU : TheoremU := by
   intro T x y hy
   rw [← PhiU_T_zero]
   exact regret_leU x y hy
 
-/-- **The paper, Theorem 3.1**, second form. -/
+/-- **The upper bound**, second form. -/
 theorem theoremULog : TheoremULog := by
   intro T hT x y hy
   exact (theoremU T x y hy).trans (ulog_bound (by exact_mod_cast hT))

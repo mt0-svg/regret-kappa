@@ -4,19 +4,19 @@ import RegretKappa.Corollaries.Statement
 /-!
 # The statement of the main theorem
 
-The paper's main theorem (Theorem 1.1) in one proposition, on the model of
+The paper's main theorem in one proposition, on the model of
 `RegretKappa/Statement.lean` (`Learner`, `regret`, `minimaxRegret`, `KappaEqThree`): features
 in `ℝ` with no bound known in advance, no bound on the comparator, outcomes in `[-B, B]`. For
 every `B > 0` and every `T ≥ 355713`,
 
 `B² (3 log T - 2 log log T - 15.2) ≤ minimaxRegret T B ≤ B² (3 log T + 0.37)`,
 
-and `minimaxRegret T B / (B² log T) → 3` (`MainTheorem`). Between the two bounds lie those of the
-paper's Theorems 4.1 and 3.1: `B² b(T)`, with `b(T)` of `RegretKappa/LowerSharp/Statement.lean`,
+and `minimaxRegret T B / (B² log T) → 3` (`MainTheorem`). Between the two bounds lie the explicit
+lower and upper bounds of the paper: `B² b(T)`, with `b(T)` of `RegretKappa/LowerSharp/Statement.lean`,
 and `B² U(T)`, with `U(T) = 2 log(e² + (√T + 1)(3T + 2e^{-1/2})/√(2π))` as in
 `RegretKappa.UpperSharp.TheoremU` (`MainTheoremChain`).
 
-The companion for the paper's Corollary 5.1, in the same two forms (`MainBoundedFeatures`,
+The companion for bounded features, in the same two forms (`MainBoundedFeatures`,
 `MainBoundedFeaturesChain`): an adversary with features in `[0, 1]` and outcomes in `{-B, 0, B}`
 that forces expected regret `B² (3 log T - 2 log log T - 15.2)`, respectively `B² b(T)`, on every
 randomized learner (`RegretKappa.Corollaries.advRegret`), and the same bounds for the minimax
@@ -46,7 +46,7 @@ def MainTheorem : Prop :=
       minimaxRegret T B ≤ ((B ^ 2 * (3 * log T + 0.37) : ℝ) : EReal)) ∧
   KappaEqThree
 
-/-- **The main theorem with the bounds of Theorems 4.1 and 3.1.** For every `B > 0` and
+/-- **The main theorem with the explicit lower and upper bounds.** For every `B > 0` and
 `T ≥ 355713`, `B² (3 log T - 2 log log T - 15.2) ≤ B² b(T) ≤ minimaxRegret T B ≤ B² U(T)`, in
 `EReal`; and `minimaxRegret T B / (B² log T)` tends to `3`. -/
 def MainTheoremChain : Prop :=
@@ -56,7 +56,7 @@ def MainTheoremChain : Prop :=
       minimaxRegret T B ≤ ((B ^ 2 * boundU T : ℝ) : EReal)) ∧
   KappaEqThree
 
-/-- **The paper, Corollary 5.1, with the bounds of the main theorem.** For every `B > 0` and
+/-- **Bounded features, with the bounds of the main theorem.** For every `B > 0` and
 `T ≥ 355713`: there is an adversary that ignores the predictions and plays `(x i, y i)` with
 probability `w i`, `i` in a finite type, every play with features in `[0, 1]` and outcomes in
 `{-B, 0, B}`, against which every randomized learner has expected regret at least
@@ -75,7 +75,7 @@ def MainBoundedFeatures : Prop :=
     Corollaries.minimaxRegretBF T B ≤ Corollaries.minimaxRegretBFI T B ∧
     Corollaries.minimaxRegretBFI T B ≤ ((B ^ 2 * (3 * log T + 0.37) : ℝ) : EReal)
 
-/-- **The paper, Corollary 5.1, with the bounds of Theorems 4.1 and 3.1.** For every `B > 0` and
+/-- **Bounded features, with the explicit lower and upper bounds.** For every `B > 0` and
 `T ≥ 355713`: there is an adversary that ignores the predictions and plays `(x i, y i)` with
 probability `w i`, `i` in a finite type, every play with features in `[0, 1]` and outcomes in
 `{-B, 0, B}`, against which every randomized learner has expected regret at least `B² b(T)`; and

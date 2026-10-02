@@ -3,13 +3,13 @@ import RegretKappa.Upper.Gamma
 /-!
 # Upper bound: mixability of the square loss on the mixtures
 
-The paper, Sections 3.3 and 3.4. For `|η| ≤ 1` the two-point
+Mixability of the square loss for two outcomes. For `|η| ≤ 1` the two-point
 inequality `(1 + η) e^{x - η} + (1 - η) e^{-(x - η)} ≤ 2 e^{x²/2 - η²/2}` (Hoeffding's lemma for
-a two-point law, the paper's Lemma A.3) holds for every real `x`; integrated against the mixture it
+a two-point law) holds for every real `x`; integrated against the mixture it
 gives `(1 + η) e^{-η} A₊ + (1 - η) e^{η} A₋ ≤ 2 e^{-η²/2} Z` with `A_± = λ + G(a ± b)` and
 `Z = λ + Ghat a b`, and the learner's clipped `η` then makes both terms at most `e^{-η²/2} Z`
-(Lemma A.4 and Corollary A.5). Convexity of `exp` reduces an outcome `y ∈ [-1, 1]` to the
-endpoints (Lemma A.2).
+(`mix_alg`, `mix_small`, `mix_large`). Convexity of `exp` reduces an outcome `y ∈ [-1, 1]` to the
+endpoints (`G_convex`).
 -/
 
 namespace RegretKappa.Upper
@@ -398,7 +398,7 @@ theorem two_point_zero {η : ℝ} (hη : |η| ≤ 1) :
   have := two_point hη 0
   simpa [neg_div] using this
 
-/-- Mixability (Corollary A.5 of the paper). -/
+/-- Mixability for small steps. -/
 theorem mix_small {lam a b y : ℝ} (hlam : 0 < lam) (hy : |y| ≤ 1) (hb : b ^ 2 < 1) :
     exp (eta lam a b ^ 2 / 2 - eta lam a b * y) * (lam + G (a + b * y)) ≤ lam + Ghat a b := by
   refine mix_step hlam hy fun η hη => ?_

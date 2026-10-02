@@ -5,16 +5,16 @@ import RegretKappa.Lower.Basic
 
 Phase 2 draws signs `η : Fin n → Bool`, coordinate `l` equal to `true` with probability
 `(1 + a_l(z)) / 2`, independently, where `a_l(z) = α_l + β_l z` is affine in the prior variable
-`z` (the paper, Section 4.2: `a_l = θ* x_l = (ρ + z) ε_l` in normalized coordinates).
+`z` (the adversary of the paper: `a_l = θ* x_l = (ρ + z) ε_l` in normalized coordinates).
 
 * `lik α β η z`, the probability of `η` given `z`, a polynomial in `z`;
 * `score α β η z = ∂_z log lik`, so that `lik · score` is the derivative of `lik` (`hasDerivAt_lik`);
 * `sum_lik_mul_coord`, the one rule behind every computation here: a factor that depends on
   coordinate `l` only is averaged against `(1 ± a_l)/2` and leaves the rest of the sum unchanged
   (independence of the coordinates, by the flip of coordinate `l`);
-* the total mass `1`, the mean score `0`, the Fisher information `∑ β_l² / (1 - a_l²)` (Lemma 4.6
-  (ii) of the paper: informations add over independent outcomes);
-* `sum_lik_round`, step (i) of Lemma 4.6: given the past, the excess loss of round `i` over the
+* the total mass `1`, the mean score `0`, the Fisher information `∑ β_l² / (1 - a_l²)` (step (ii)
+  of the phase-2 bound: informations add over independent outcomes);
+* `sum_lik_round`, step (i) of the phase-2 bound: given the past, the excess loss of round `i` over the
   comparator `a_i` averages to `(ŷ - a_i)²`;
 * `sum_lik_cut`, marginalization: a function of the first `i` coordinates sees only the model of
   those coordinates (parameters after `i` set to `0`), so the van Trees bound of round `i` uses the
@@ -378,7 +378,7 @@ theorem sum_lik_sgn_mul {n : ℕ} (α β : Fin n → ℝ) (z : ℝ) (i : Fin n) 
 
 -- TARGET
 
-/-- Step (i) of Lemma 4.6: a prediction `yh` that ignores coordinate `i` has average excess loss
+/-- Step (i) of the phase-2 bound: a prediction `yh` that ignores coordinate `i` has average excess loss
 `(yh - a_i)²` over the comparator `a_i`. -/
 theorem sum_lik_round {n : ℕ} (α β : Fin n → ℝ) (z : ℝ) (i : Fin n) (yh : (Fin n → Bool) → ℝ)
     (hyh : ∀ η, yh (flipAt i η) = yh η) :

@@ -1,7 +1,7 @@
 import RegretKappa.UpperSharp.Weights
 
 /-!
-# Theorem 3.1 with the paper's constants: large steps (the paper, Lemma A.8)
+# The upper bound with the paper's constants: large steps
 
 In the units of `Upper` (`G = Γ/2`): for `2/3 ≤ b² ≤ 1` and every `ρ`,
 `max (G (ρ c + b)) (G (ρ c - b)) ≤ G ρ + 2.7053/2` with `c = √(1 - b²)` (`large_step_sharp`).
@@ -13,8 +13,7 @@ In the units of `Upper` (`G = Γ/2`): for `2/3 ≤ b² ≤ 1` and every `ρ`,
 * on `[0, 2]`, the paper's 22 pieces `[(i-1)/11, i/11]` (its step (iv)): on each,
   `G √(m2 ρ) - G ρ ≤ q_i Dg(x_i)` by the convexity of `g` (`G_sqrt_sub_le`), with
   `q_i ≥ m2((i-1)/11) - ((i-1)/11)²` and `x_i ≥ m2(i/11)` rational, and
-  `q_i (gpN 30 x_i + tailN 30 x_i) ≤ 2.7053` (`piece_1` to `piece_22`, data and margins in
-  `code/lean-upper-sharp/out/pieces_lean.txt`; the largest bound is `2.6942861`, on piece 14).
+  `q_i (gpN 30 x_i + tailN 30 x_i) ≤ 2.7053` (`piece_1` to `piece_22`).
 -/
 
 namespace RegretKappa.UpperSharp
@@ -583,7 +582,7 @@ theorem psi_le {ρ : ℝ} (hρ : 0 ≤ ρ) : Upper.G √(m2 ρ) - Upper.G ρ ≤
     exact (Real.sqrt_le_left hρ).2 (m2_le_sq h2)
   linarith
 
-/-- **Large steps** (the paper, Lemma A.8, in the units of `G`): for `2/3 ≤ b² ≤ 1`,
+/-- **Large steps** (in the units of `G`): for `2/3 ≤ b² ≤ 1`,
 `max (G (ρ c + b)) (G (ρ c - b)) ≤ G ρ + 2.7053/2` with `c = √(1 - b²)`. -/
 theorem large_step_sharp (ρ : ℝ) {b : ℝ} (hb1 : 2 / 3 ≤ b ^ 2) (hb2 : b ^ 2 ≤ 1) :
     max (Upper.G (ρ * √(1 - b ^ 2) + b)) (Upper.G (ρ * √(1 - b ^ 2) - b)) ≤

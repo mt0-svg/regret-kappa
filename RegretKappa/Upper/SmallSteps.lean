@@ -3,7 +3,7 @@ import RegretKappa.Upper.Gamma
 /-!
 # Upper bound: small steps, `b² ≤ 3/4`
 
-The paper, Lemmas A.6 and A.7, with a cruder constant. With `c = √(1 - b²)`, the
+The substitution and the small-step bound, with a cruder constant. With `c = √(1 - b²)`, the
 substitution `u = c θ` turns `Ghat (ρ c) b` into `∫_c^∞ cosh(u ρ) e^{-u²/2} (1/u + 2c²/u³) du`
 (the scale invariance of the weight `1/θ`); the part on `(c, 1]` is the cutoff drift, the part
 on `(1, ∞)` differs from `G ρ` by `-2 b² J(ρ)`. Instead of the power series of the paper, the
@@ -249,7 +249,7 @@ theorem integrableOn_h (ρ : ℝ) {c : ℝ} (hc : 0 < c) :
         ≤ exp (ρ ^ 2) * exp (-(1 / 4) * u ^ 2) * (3 / c) := mul_le_mul hce hW hW0 (by positivity)
       _ = 3 / c * exp (ρ ^ 2) * exp (-(1 / 4) * u ^ 2) := by ring
 
-/-- Lemma A.6 of the paper, first half: the substitution `u = c θ`. -/
+/-- The substitution `u = c θ`. -/
 theorem Ghat_subst (ρ : ℝ) {b c : ℝ} (hc : 0 < c) (hcb : c ^ 2 + b ^ 2 = 1) :
     Ghat (ρ * c) b = ∫ u in Ioi c, cosh (u * ρ) * exp (-u ^ 2 / 2) * (1 / u + 2 * c ^ 2 / u ^ 3) := by
   have hc_ne : c ≠ 0 := by linarith
@@ -529,7 +529,7 @@ theorem exp_neg_half_ge : 3 / 5 ≤ exp (-1 / 2 : ℝ) := by
   rw [← h_inv]
   simpa using (one_div_le_one_div h_5_3_pos hpos).mpr h_le
 
-/-- The real inequality that closes Lemma A.7. -/
+/-- The real inequality that closes the small-step bound. -/
 theorem small_alg (ρ : ℝ) {c : ℝ} (hc0 : 1 / 2 ≤ c) (hc1 : c ≤ 1) :
     (-log c + (1 - c ^ 2)) + ρ ^ 2 / 2 * ((1 - c ^ 2) / 2 - 2 * c ^ 2 * log c) +
         Rf ρ * exp (-c ^ 2 / 2) * ((1 - c ^ 4) / 4 + c ^ 2 * (1 - c ^ 2)) +
@@ -592,7 +592,7 @@ theorem small_alg (ρ : ℝ) {c : ℝ} (hc0 : 1 / 2 ≤ c) (hc1 : c ≤ 1) :
     _ ≤ 12 := by
       nlinarith
 
-/-- Lemma A.7 of the paper (constant `12`): for `b² ≤ 3/4`, `Ghat (ρ √(1 - b²)) b ≤ G ρ + 12`. -/
+/-- The small-step bound with the constant `12`: for `b² ≤ 3/4`, `Ghat (ρ √(1 - b²)) b ≤ G ρ + 12`. -/
 theorem small_step (ρ : ℝ) {b : ℝ} (hb : b ^ 2 ≤ 3 / 4) : Ghat (ρ * √(1 - b ^ 2)) b ≤ G ρ + 12 := by
   have hb0 : 0 ≤ 1 - b ^ 2 := by nlinarith [sq_nonneg b]
   have hc2 : √(1 - b ^ 2) ^ 2 = 1 - b ^ 2 := Real.sq_sqrt hb0

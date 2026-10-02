@@ -8,8 +8,8 @@ import RegretKappa.Corollaries.Statement
 The learner of `RegretKappa.UpperSharp`, run on the outcomes divided by `B` with its predictions
 multiplied by `B` (`Lower.rescale (learnerU T) B⁻¹`), has regret `B ^ 2` times that of
 `learnerU T` on outcomes in `[-1, 1]` (`regret_rescale_inv`), so at most `B ^ 2 U(T)` on every
-play with `|y t| ≤ B` and any real features (`regret_rescale_learnerU_le`, the paper, Theorem 3.1,
-last sentence). In particular this holds on the plays with features in `[0, 1]` and outcomes in
+play with `|y t| ≤ B` and any real features (`regret_rescale_learnerU_le`, the upper bound for
+outcomes in `[-B, B]`). In particular this holds on the plays with features in `[0, 1]` and outcomes in
 `[-B, B]` (`boundedFeaturesUpperUI`) or in `{-B, 0, B}` (`boundedFeaturesUpperU`).
 -/
 
@@ -17,7 +17,7 @@ namespace RegretKappa.Corollaries
 
 open Real RegretKappa.Lower
 
-/-- **The paper, Theorem 3.1, last sentence.** The learner of `UpperSharp` rescaled to outcomes in
+/-- **The upper bound for outcomes in `[-B, B]`.** The learner of `UpperSharp` rescaled to outcomes in
 `[-B, B]` has regret at most `B ^ 2 U(T)` on every play with `|y t| ≤ B`. -/
 theorem regret_rescale_learnerU_le {B : ℝ} (hB : 0 < B) (T : ℕ) (x y : Fin T → ℝ)
     (hy : ∀ t, |y t| ≤ B) :

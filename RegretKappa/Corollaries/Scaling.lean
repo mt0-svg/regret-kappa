@@ -7,7 +7,7 @@ For `M ≠ 0`, the learner `scaleX M L` divides the features by `M` before it pa
 Its regret on a play `(x, y)` is the regret of `L` on `(x / M, y)` (`regret_scaleX`): the
 predictions agree, and the best linear loss does not change when the features are divided by `M`
 (`bestLinearLoss_div`, by the substitution `θ ↦ θ M`). This is the rescaling step of the paper's
-proof of Corollary 5.1.
+proof of the bounded-features theorem.
 -/
 
 namespace RegretKappa.Corollaries

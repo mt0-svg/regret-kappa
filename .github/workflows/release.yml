@@ -2,9 +2,9 @@ name: Release
 
 # On a tag v* (or by hand for a given tag): the GitHub release of the tagged commit, from the green CI run of
 # that commit. Nothing is compiled again: the Lake build that CI built and checked (build, source scan, axioms,
-# Comparator and its controls, the computation jobs) is packed as it is, with the PDF and the outputs of every check
-# of that run. It takes the green CI run started by hand on the tagged commit; with none, the release stops: run
-# ci.yml on it first, then start this workflow by hand with the tag.
+# Comparator and its controls) is packed as it is, with the PDF and the outputs of every check of that run. It takes
+# the green CI run started by hand on the tagged commit; with none, the release stops: run ci.yml on it first, then
+# start this workflow by hand with the tag.
 on:
   push:
     tags: ["v*"]

@@ -3,7 +3,7 @@ import RegretKappa.Lower.Model
 /-!
 # Lower bound: the van Trees inequality for the phase-2 model
 
-The paper, Lemma B.5 (van Trees, finite sample space), for the model of
+The van Trees inequality on a finite sample space, for the model of
 `Lower/Model.lean` and one fixed prior on `[-2, 2]`.
 
 Departure from the paper (simpler, constants only): the prior is the polynomial density

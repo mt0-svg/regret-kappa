@@ -3,13 +3,13 @@ import RegretKappa.UpperSharp.Terminal
 import RegretKappa.Upper.Sums
 
 /-!
-# Theorem 3.1 with the paper's constants: the potential along the play
+# The upper bound with the paper's constants: the potential along the play
 
-The supersolution argument of Lemma 3.3 of the paper for the learner `learnerU` of the
+The supersolution argument of the paper for the learner `learnerU` of the
 statement, with `Φ_k(ρ) = 2 log(C (λ₀ + 3k + Γ(ρ)))` (`PhiU`): along the play the learner's
 partial loss plus `Φ_{T-n}(ρ_n)` does not increase (`potential_leU`, from `step_paper`); with the
 regret identity (`regret_eqU`) and the terminal condition (`terminal_sharp`),
-`Regret_T ≤ Φ_T(0)` (`regret_leU`), and `Φ_T(0)` is the bound of Theorem 3.1 (`PhiU_T_zero`, by
+`Regret_T ≤ Φ_T(0)` (`regret_leU`), and `Φ_T(0)` is the upper bound (`PhiU_T_zero`, by
 `Γ(0) = 2e^{-1/2}`). The state `Ssum`, `Vsum` and the extension `ext` are those of `Upper`.
 -/
 
@@ -121,7 +121,7 @@ theorem potential_leU {T : ℕ} (x y : Fin T → ℝ) (hy : ∀ t, |y t| ≤ 1) 
     unfold yhatU
     linarith
 
-/-- `Regret_T ≤ Φ_T(0)` for outcomes in `[-1, 1]` (the paper, proof of Theorem 3.1). -/
+/-- `Regret_T ≤ Φ_T(0)` for outcomes in `[-1, 1]` (the proof of the upper bound). -/
 theorem regret_leU {T : ℕ} (x y : Fin T → ℝ) (hy : ∀ t, |y t| ≤ 1) :
     regret (learnerU T) x y ≤ PhiU T T 0 := by
   have h1 := potential_leU x y hy T le_rfl
@@ -132,7 +132,7 @@ theorem regret_leU {T : ℕ} (x y : Fin T → ℝ) (hy : ∀ t, |y t| ≤ 1) :
   rw [regret_eqU]
   linarith
 
-/-- `Φ_T(0) = 2 log(e² + (√T + 1)(3T + 2e^{-1/2})/√(2π))`, the bound of Theorem 3.1. -/
+/-- `Φ_T(0) = 2 log(e² + (√T + 1)(3T + 2e^{-1/2})/√(2π))`, the upper bound. -/
 theorem PhiU_T_zero (T : ℕ) :
     PhiU T T 0 = 2 * log (exp 2 + (√(T : ℝ) + 1) * (3 * T + 2 * exp (-1 / 2)) / √(2 * π)) := by
   have h1 : (√(T : ℝ) + 1) ≠ 0 := by positivity

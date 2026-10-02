@@ -4,13 +4,13 @@ import RegretKappa.LowerSharp.Statement
 /-!
 # Sharp lower bound: the side conditions and the simplified forms
 
-The paper, Lemma 4.3 and the end of the proof of Theorem 4.1, for every integer `T ≥ T₀`:
+The side conditions and the simplified forms of the lower bound, for every integer `T ≥ T₀`:
 
-* (C1) `L ≥ 14.5` (`level_ge`), with the actual `j₀` rather than the paper's `L_low`: `j₀ = 4` on
+* `L ≥ 14.5` (`level_ge`), with the actual `j₀` rather than the paper's `L_low`: `j₀ = 4` on
   `T₀ ≤ T < e^{e⁴/3}`, where `L ≥ 2 log(T₀ / (80 e)) ≥ 14.8`, and where `j₀ = J ≥ 5`,
   `L > 2 e^{J-1}/3 - 2 log(20 e J) ≥ 25`;
-* (C2) `j₀ (8.8 e e^{L/2} + 1) ≤ T₁ - 1` (`C2`), since `8.8 e e^{L/2} j₀ = 0.44 T`;
-* (C3) `π² e² (a₊ + 2)² ≤ k₀` (`C3`);
+* `j₀ (8.8 e e^{L/2} + 1) ≤ T₁ - 1` (`C2`), since `8.8 e e^{L/2} j₀ = 0.44 T`;
+* `π² e² (a₊ + 2)² ≤ k₀` (`C3`);
 * `B₀ ≥ 3 log T - log log T - 2 log(log log T + 2.1) - 13.6` (`B0_ge`), `b(T) ≥ B₀ - 1`
   (`bT_ge`) and `3 log T - 2 log log T - 15.2 ≤ 3 log T - log log T - 2 log(log log T + 2.1) - 14.6`
   (`simplified_two`).
@@ -169,7 +169,7 @@ theorem five_case {J : ℕ} (hJ : 5 ≤ J) :
   -- Combine
   linarith
 
-/-- (C1). -/
+/-- The first side condition, `L ≥ 14.5`. -/
 theorem level_ge {T : ℕ} (hT : T0 ≤ T) : 29 / 2 ≤ level T := by
   set J := j0 T with hJ
   have hT0pos : 0 < T0 := by
@@ -289,7 +289,7 @@ theorem j0_le {T : ℕ} (hT : T0 ≤ T) : (j0 T : ℝ) ≤ log (log T) + 2.1 := 
     linarith
   linarith
 
-/-- (C2). -/
+/-- The second side condition, `j₀ (8.8 e e^{L/2} + 1) ≤ T₁ - 1`. -/
 theorem C2 {T : ℕ} (hT : T0 ≤ T) :
     (j0 T : ℝ) * (88 / 10 * exp 1 * exp (level T / 2) + 1) ≤ (T1 T : ℝ) - 1 := by
   have hj0_pos : 1 ≤ j0 T := j0_pos hT
@@ -381,7 +381,7 @@ theorem C2 {T : ℕ} (hT : T0 ≤ T) :
     linarith
   linarith
 
-/-- (C3). -/
+/-- The third side condition, `π² e² (a₊ + 2)² ≤ k₀`. -/
 theorem C3 {T : ℕ} (hT : T0 ≤ T) : π ^ 2 * exp 2 * (aP (level T) + 2) ^ 2 ≤ k0 T := by
   -- We work in ℝ throughout
   have hTpos : 0 < (T : ℝ) := by

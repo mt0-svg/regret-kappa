@@ -5,7 +5,7 @@ import RegretKappa.Lower.Phase2
 /-!
 # Sharp lower bound: the excess of phase 2
 
-The paper, Lemma 4.6, steps (i) to (iii), in normalized coordinates, for the prior of
+The phase-2 bound, steps (i) to (iii), in normalized coordinates, for the prior of
 `LowerSharp/Prior.lean` (`g²`, information `J = π²/4`, second moment `4/3 - 8/π²`). Phase 2 has `k`
 rounds and radius `r` with `|ρ| + 2 ≤ r`; given the prior variable `z ∈ [-2, 2]`
 (`θ* √V = ρ + z`), the outcome of round `i` is a sign with mean `(ρ + z) ε_i`, `ε_i = eps k r i`.
@@ -14,7 +14,7 @@ rounds and radius `r` with `|ρ| + 2 ≤ r`; given the prior variable `z ∈ [-2
   inequality on the model cut at `i` (as `Lower.round_vanTrees`);
 * `comparator_vanTreesP` (step (iii)): for every estimator `ψ` from all `k` signs,
   `E[c (ψ - z)²] ≥ c / W_k`;
-* `phase2S`: the bracket of Lemma 4.6,
+* `phase2S`: the bracket of the phase-2 bound,
   `-z² + ∑_i ((ŷ_i - y_i)² - ((ρ + z) ε_i - y_i)²) + (1 + X) (ψ - z)²` with `X = ∑ ε_i²` and
   `ψ = (ρ + ∑ ε_i y_i)/(1 + X) - ρ` (the term `V_T (θ* - θ̂_T)²`), averages to at least
   `β = -(4/3 - 8/π²) + ∑_i ε_i² / W_i + (1 + X)/W_k`.
@@ -42,7 +42,7 @@ theorem wInfoJ_full (J : ℝ) (k : ℕ) (r : ℝ) :
 theorem sqrt_nu2_lt_one {k : ℕ} (l : Fin k) : √(nu2 k l) < 1 :=
   (Real.sqrt_lt' one_pos).2 (by linarith [nu2_le_half l.isLt])
 
-/-- One round of phase 2: the van Trees bound `ε_i² / W_i` (Lemma 4.6 (ii)). -/
+/-- One round of phase 2: the van Trees bound `ε_i² / W_i` (step (ii)). -/
 theorem round_vanTreesP {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) (i : Fin k)
     (yh : (Fin k → Bool) → ℝ)
     (hyh : ∀ η η' : Fin k → Bool, (∀ l : Fin k, l.val < i.val → η l = η' l) → yh η = yh η') :
@@ -98,7 +98,7 @@ theorem round_vanTreesP {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) (i : Fin k)
   rw [intervalIntegral.integral_const_mul, div_eq_mul_one_div]
   exact mul_le_mul_of_nonneg_left hvt (sq_nonneg _)
 
-/-- The comparator term (Lemma 4.6 (iii)): `E[c (ψ - z)²] ≥ c / W_k` for every estimator `ψ`
+/-- The comparator term (step (iii)): `E[c (ψ - z)²] ≥ c / W_k` for every estimator `ψ`
 from all `k` signs. -/
 theorem comparator_vanTreesP {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) {c : ℝ} (hc : 0 ≤ c)
     (ψ : (Fin k → Bool) → ℝ) :
@@ -122,7 +122,7 @@ theorem comparator_vanTreesP {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) {c : �
   rw [intervalIntegral.integral_const_mul, div_eq_mul_one_div]
   exact mul_le_mul_of_nonneg_left hvt hc
 
-/-- **Excess of phase 2** (the paper, Lemma 4.6, first claim). -/
+/-- **Excess of phase 2** (the first claim of the phase-2 bound). -/
 theorem phase2S {k : ℕ} {r ρ : ℝ} (hr : |ρ| + 2 ≤ r) (yh : Fin k → (Fin k → Bool) → ℝ)
     (hyh : ∀ (i : Fin k) (η η' : Fin k → Bool), (∀ l : Fin k, l.val < i.val → η l = η' l) →
       yh i η = yh i η') :

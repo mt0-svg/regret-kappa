@@ -6,9 +6,8 @@ license = "Apache-2.0"
 licenseFiles = ["LICENSE", "NOTICE"]
 preferReleaseBuild = true
 releaseRepo = "https://github.com/mt0-svg/regret-kappa"
-defaultTargets = ["Statement", "IndepStatement", "StatementCheck", "Upper", "Lower", "UpperSharp",
-  "UpperSharpCheck", "Corollaries", "CorollariesIndep", "CorollariesCheck", "LowerSharp", "Main", "LowerSharpCheck",
-  "Challenge", "Solution"]
+defaultTargets = ["Statement", "Upper", "Lower", "UpperSharp", "Corollaries", "CorollariesIndep", "CorollariesCheck",
+  "LowerSharp", "Main", "Challenge", "Solution"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -25,18 +24,6 @@ rev = "v4.34.1"
 name = "Statement"
 roots = ["RegretKappa.Statement"]
 
-# Two formalizations of the limit written separately (Appendix C.1), under Lean's default options, which they were
-# written with.
-[[lean_lib]]
-name = "IndepStatement"
-roots = ["RegretKappa.StatementCheck.Indep", "RegretKappa.StatementCheck.Indep2"]
-leanOptions = { autoImplicit = true, relaxedAutoImplicit = true }
-
-# Their comparison with RegretKappa.Statement.
-[[lean_lib]]
-name = "StatementCheck"
-roots = ["RegretKappa.StatementCheck.Equiv", "RegretKappa.StatementCheck.Equiv2"]
-
 # Definitions and lemmas of the upper bound that UpperSharp builds on.
 [[lean_lib]]
 name = "Upper"
@@ -52,32 +39,22 @@ globs = ["RegretKappa.Lower.+"]
 name = "UpperSharp"
 globs = ["RegretKappa.UpperSharp.+"]
 
-# A formal statement of Theorem 3.1 written separately, and its equivalence with RegretKappa/UpperSharp/Statement.lean.
-[[lean_lib]]
-name = "UpperSharpCheck"
-globs = ["RegretKappa.UpperSharpCheck.+"]
-
 # Randomized learners and bounded features: Corollary 5.1 and Remark 5.2, and the scaling of Lemma 2.1.
 [[lean_lib]]
 name = "Corollaries"
 globs = ["RegretKappa.Corollaries.+"]
 
-# Formalizations of Corollary 5.1 and Remark 5.2 written separately (Appendix C.1), under Lean's default options.
+# Remark 5.2 read with the Bochner integral and no measurability, with Lean's default options on implicit variables,
+# which the module uses.
 [[lean_lib]]
 name = "CorollariesIndep"
-roots = ["RegretKappa.CorollariesCheck.Indep42a", "RegretKappa.CorollariesCheck.Indep42b",
-  "RegretKappa.CorollariesCheck.Indep42c", "RegretKappa.CorollariesCheck.Indep51a",
-  "RegretKappa.CorollariesCheck.Indep51b", "RegretKappa.CorollariesCheck.Indep51c",
-  "RegretKappa.CorollariesCheck.Indep51u"]
+roots = ["RegretKappa.CorollariesCheck.Indep42b"]
 leanOptions = { autoImplicit = true, relaxedAutoImplicit = true }
 
-# Their comparison with RegretKappa/Corollaries/Statement.lean: equivalences, implications and refutations.
+# Its refutation (Remark 5.2): the Bochner integral is 0 for a regret that is not integrable.
 [[lean_lib]]
 name = "CorollariesCheck"
-roots = ["RegretKappa.CorollariesCheck.Junk", "RegretKappa.CorollariesCheck.Equiv42a",
-  "RegretKappa.CorollariesCheck.Equiv42b", "RegretKappa.CorollariesCheck.Equiv51a",
-  "RegretKappa.CorollariesCheck.Equiv51b", "RegretKappa.CorollariesCheck.Equiv42c",
-  "RegretKappa.CorollariesCheck.Equiv51c", "RegretKappa.CorollariesCheck.Equiv51u"]
+roots = ["RegretKappa.CorollariesCheck.Junk", "RegretKappa.CorollariesCheck.Equiv42b"]
 
 # Theorem 4.1 with its adversary and constants (Section 4), the drift certificate of Computation B.2 included.
 [[lean_lib]]
@@ -88,12 +65,6 @@ globs = ["RegretKappa.LowerSharp.+"]
 [[lean_lib]]
 name = "Main"
 roots = ["RegretKappa.MainStatement", "RegretKappa.Main"]
-
-# A formal statement of Theorem 4.1, Theorem 1.1 and Corollary 5.1 written separately, and its comparison with
-# RegretKappa/LowerSharp/Statement.lean and RegretKappa/MainStatement.lean.
-[[lean_lib]]
-name = "LowerSharpCheck"
-globs = ["RegretKappa.LowerSharpCheck.+"]
 
 # The statements with `sorry`, which nothing imports, and the module that proves them: the pair Comparator checks
 # (config.json).

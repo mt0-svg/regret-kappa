@@ -15,7 +15,7 @@ mixture of plays with nonnegative features.
 
 `regret_rescale_inv`: the learner `rescale L B⁻¹`, which multiplies the predictions of `L` on the
 outcomes divided by `B` by `B`, has on `(x, y)` the regret `B ^ 2` times the regret of `L` on
-`(x, y / B)` (the paper, Lemma 2.1). So an upper bound for outcomes in `[-1, 1]` gives `B ^ 2`
+`(x, y / B)`. So an upper bound for outcomes in `[-1, 1]` gives `B ^ 2`
 times it for outcomes in `[-B, B]`.
 -/
 

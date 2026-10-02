@@ -10,14 +10,14 @@ nonnegative features and outcomes in `{-1, 0, 1}`, with weights `w ≥ 0` of sum
 every `B > 0` (`boundedFeatures_of_mixture`):
 * the adversary that plays the scaled plays with the same weights, with features in `[0, 1]` and
   outcomes in `{-B, 0, B}`, forces expected regret at least `B ^ 2 b` on every randomized learner
-  (the paper, Corollary 5.1, the adversary);
+  (the adversary for bounded features);
 * every randomized learner has expected regret at least `B ^ 2 b` on one such play, every
   deterministic learner has regret at least `B ^ 2 b` on one such play, and so `B ^ 2 b` is at
-  most `minimaxRegretBF T B` and `minimaxRegretBFI T B` (the paper, Remark 5.2 and the chain of
-  inequalities of Corollary 5.1).
+  most `minimaxRegretBF T B` and `minimaxRegretBFI T B` (the randomized lower bound and the chain of
+  inequalities for bounded features).
 
 The scaling is `transfer`; the expectations are `le_advRegret`, `advRegret_eq_sum` and
-`exists_le_of_le_sum`. An explicit bound `b(T)` of the paper, Theorem 4.1, stated as a bound on
+`exists_le_of_le_sum`. An explicit lower bound `b(T)`, stated as a bound on
 the weighted regret of every deterministic learner against the finitely many plays of its
 adversary, transfers in this form.
 -/
@@ -28,7 +28,7 @@ open MeasureTheory
 
 universe u
 
-/-- **The paper, Corollary 5.1, for a given finite family of plays.** A lower bound `b` on the
+/-- **Bounded features, for a given finite family of plays.** A lower bound `b` on the
 weighted regret of every deterministic learner against plays with nonnegative features and
 outcomes in `{-1, 0, 1}`, with weights `w ≥ 0` of sum `1`, gives `B ^ 2 b` over features in
 `[0, 1]` and outcomes in `{-B, 0, B}`: against the scaled adversary for randomized learners, on

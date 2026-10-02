@@ -4,20 +4,20 @@ import RegretKappa.Lower.Basic
 # Lower bound: the move rule of phase 1 and its drift
 
 Phase 1 moves the self-normalized statistic `ρ = S / √V` as the chain of the paper,
-Lemma 4.2: from `ρ` to `ρ √(1 - s) ± √s` with probability `1/2` each, `s = s(ρ)` the share of the
+moving from `ρ` to `ρ √(1 - s) ± √s` with probability `1/2` each, `s = s(ρ)` the share of the
 next feature in the new `V`.
 
 Departure from the paper (simpler, constants only): the move rule is `s(ρ) = e^{-ρ²/2} / 4` for every
 `ρ` (the paper uses a table of 28 rational values below `2.8` and `(5/8) e^{-ρ²/2}` above) and the
 Lyapunov function is `g(ρ) = 16 e^{ρ²/2}` (the paper's is `8 e^{ρ²/2}`). With these the drift
 inequality `g(ρ) + 1 ≤ (g(ρ₊) + g(ρ₋)) / 2` holds for every `ρ` by the argument of part (a) of
-Lemma B.1 of the paper alone, with no rational certificate:
+the drift lemma alone, with no rational certificate:
 `e^{-z} cosh x ≥ (1 - z)(1 + x²/2) ≥ 1 + s/2 - s² (ρ²/2 + ρ⁴/4)` (`drift_core`), and
 `e^{-ρ²/2} (ρ²/2 + ρ⁴/4) ≤ 1` (`add_sq_le_exp`), so the drift is at least `2 - 1`. The constant `16`
 costs a constant in the level reached, which the asymptotic target does not see.
 
 Also `step_sq_le`: one step raises `ρ²` by at most `1` (Cauchy-Schwarz), which bounds the
-overshoot at the hitting time (the paper's Lemma B.3 is sharper).
+overshoot at the hitting time (the overshoot bound of `LowerSharp` is sharper).
 -/
 
 namespace RegretKappa.Lower
@@ -265,7 +265,7 @@ theorem drift_core (ρ s : ℝ) (hs0 : 0 ≤ s) (hs1 : s ≤ 1) :
 
 -- TARGET
 
-/-- **Drift** (the paper, Lemma B.1, with the move rule and `g` of this file). -/
+/-- **Drift** (with the move rule and `g` of this file). -/
 theorem drift (ρ : ℝ) : lyap ρ + 1 ≤ (lyap (step ρ true) + lyap (step ρ false)) / 2 := by
   set s := mv ρ with hs
   have hs_pos : 0 ≤ s := (mv_pos ρ).le

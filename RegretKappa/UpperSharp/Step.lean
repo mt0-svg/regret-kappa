@@ -4,14 +4,14 @@ import RegretKappa.UpperSharp.LargeSteps
 import RegretKappa.Upper.Mixability
 
 /-!
-# Theorem 3.1 with the paper's constants: one round of the game
+# The upper bound with the paper's constants: one round of the game
 
-Proposition 3.2 of the paper with `β = 3` (`3/2` in the units of `G`): the learner's loss plus the
+The one-round inequality of the paper with `β = 3` (`3/2` in the units of `G`): the learner's loss plus the
 potential after the round is at most the potential before it. In the variables `ρ`, `b`
-(`step_abstract_sharp`): for `b² ≤ 2/3` mixability (`Upper.mix_small`) and Lemma A.7
+(`step_abstract_sharp`): for `b² ≤ 2/3` mixability (`Upper.mix_small`) and the small-step bound
 (`small_step_sharp`, `2.8857/2 ≤ 3/2`); for `b² ≥ 2/3` the prediction `0` (`Upper.mix_large`) and
-Lemma A.8 (`large_step_sharp`, `2.7053/2 ≤ 3/2`). `step_sharp` restates it on the state `(S, V)`
-and the current feature `x` (Lemma 2.3 of the paper), and `step_paper` in the units of the
+the large-step bound (`large_step_sharp`, `2.7053/2 ≤ 3/2`). `step_sharp` restates it on the state `(S, V)`
+and the current feature `x` (the update of the state), and `step_paper` in the units of the
 statement, for the prediction `predU` and the potential `Γ`.
 -/
 
@@ -76,7 +76,7 @@ theorem step_sharp {lam S V x y : ℝ} (hlam : 0 < lam) (hV : 0 ≤ V) (hSV : V 
   rw [hρ', ha]
   exact step_abstract_sharp hlam hb1 hy
 
-/-- **Proposition 3.2** (`β = 3`) in the units of the statement: for the prediction `predU` of
+/-- **The one-round inequality** (`β = 3`) in the units of the statement: for the prediction `predU` of
 round `t` and the potential `Γ`. -/
 theorem step_paper {T t : ℕ} {S V x y : ℝ} (hlam : 0 < lamU T t) (hV : 0 ≤ V)
     (hSV : V = 0 → S = 0) (hy : |y| ≤ 1) :

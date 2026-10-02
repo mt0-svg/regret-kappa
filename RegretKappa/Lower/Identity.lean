@@ -3,9 +3,7 @@ import RegretKappa.Statement
 /-!
 # Lower bound: the regret identity, rescaling, causality
 
-The paper, Lemma 2.2. The closed form of the loss of the best linear predictor is the
-one of `RegretKappa.StatementCheck.bestLinearLoss_eq` (StatementCheck/Equiv2.lean), proved again
-here (same proof) so that the lower bound imports only the target statement. With Lean's
+The regret identity. With Lean's
 `a / 0 = 0` the closed form reads `∑ y² - S² / V` in both cases, and the regret is
 `∑ (ŷ² - 2 ŷ y) + S² / V`.
 
@@ -24,7 +22,7 @@ theorem linearLoss_expand {T : ℕ} (θ : ℝ) (x y : Fin T → ℝ) :
   rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
   exact Finset.sum_congr rfl fun t _ => by ring
 
-/-- The paper, Lemma 2.2: the infimum over `θ` in closed form. -/
+/-- The regret identity: the infimum over `θ` in closed form. -/
 theorem bestLinearLoss_closed {T : ℕ} (x y : Fin T → ℝ) :
     bestLinearLoss x y =
       if ∑ t, x t ^ 2 = 0 then ∑ t, y t ^ 2
@@ -64,7 +62,7 @@ theorem bestLinearLoss_eq_sub {T : ℕ} (x y : Fin T → ℝ) :
 
 -- TARGET
 
-/-- The paper, Lemma 2.2: `Regret = ∑ (ŷ² - 2 ŷ y) + S² / V`. -/
+/-- The regret identity: `Regret = ∑ (ŷ² - 2 ŷ y) + S² / V`. -/
 theorem regret_eq {T : ℕ} (L : Learner T) (x y : Fin T → ℝ) :
     regret L x y = ∑ t, (L.prediction x y t ^ 2 - 2 * L.prediction x y t * y t) +
       (∑ t, x t * y t) ^ 2 / ∑ t, x t ^ 2 := by

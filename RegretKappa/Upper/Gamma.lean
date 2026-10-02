@@ -4,7 +4,7 @@ import RegretKappa.Upper.Defs
 # Upper bound: the potential `G`
 
 Integrability of the mixtures, and the elementary properties of `G`: nonnegative, even,
-nondecreasing in `|r|` (the paper, Lemma A.1), an upper bound at `r = 2` and a lower
+nondecreasing in `|r|`, an upper bound at `r = 2` and a lower
 bound for `r ≥ 1` (the two inputs of the terminal condition and of the large steps).
 -/
 

@@ -17,3 +17,4 @@ import RegretKappa.Solution
 #print axioms RegretKappa.UnknownBT.optimality
 #print axioms RegretKappa.UnknownBT.UB.scaleFreeBound_twelve
 #print axioms RegretKappa.UnknownBT.UB.answer
+#print axioms RegretKappa.Corollaries.isRandLearner_nonempty

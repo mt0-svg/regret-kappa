@@ -1,5 +1,14 @@
-import RegretKappa.CorollariesCheck.Junk
-import RegretKappa.CorollariesCheck.Indep42b
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.CorollariesCheck.Junk
+public import RegretKappa.CorollariesCheck.Indep42b
+
+@[expose] public section
 
 /-!
 # The randomized lower bound with the Bochner integral and no measurability: false

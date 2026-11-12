@@ -1,4 +1,13 @@
-import RegretKappa.LowerSharp.Chain
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.LowerSharp.Chain
+
+@[expose] public section
 
 /-!
 # Sharp lower bound: the hitting time of phase 1

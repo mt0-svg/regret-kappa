@@ -1,4 +1,13 @@
-import RegretKappa.Lower.Model
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Lower.Model
+
+@[expose] public section
 
 /-!
 # Lower bound: the van Trees inequality for the phase-2 model

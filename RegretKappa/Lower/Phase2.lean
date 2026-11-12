@@ -1,5 +1,14 @@
-import RegretKappa.Lower.VanTrees
-import RegretKappa.Lower.ClosedForm
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Lower.VanTrees
+public import RegretKappa.Lower.ClosedForm
+
+@[expose] public section
 
 /-!
 # Lower bound: the excess of phase 2

@@ -1,6 +1,15 @@
-import RegretKappa.UpperSharp.Main
-import RegretKappa.Corollaries.Transfer
-import RegretKappa.Corollaries.Statement
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UpperSharp.Main
+public import RegretKappa.Corollaries.Transfer
+public import RegretKappa.Corollaries.Statement
+
+@[expose] public section
 
 /-!
 # The explicit upper half over bounded features

@@ -1,5 +1,14 @@
-import RegretKappa.LowerSharp.Statement
-import RegretKappa.Corollaries.Statement
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.LowerSharp.Statement
+public import RegretKappa.Corollaries.Statement
+
+@[expose] public section
 
 /-!
 # The statement of the main theorem

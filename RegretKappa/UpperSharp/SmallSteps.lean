@@ -1,5 +1,14 @@
-import RegretKappa.UpperSharp.Weights
-import RegretKappa.Upper.SmallSteps
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UpperSharp.Weights
+public import RegretKappa.Upper.SmallSteps
+
+@[expose] public section
 
 /-!
 # The upper bound with the paper's constants: small steps

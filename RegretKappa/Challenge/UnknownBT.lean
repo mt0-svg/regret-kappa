@@ -1,8 +1,18 @@
-import RegretKappa.Challenge.Statement
-import RegretKappa.Challenge.UpperSharp
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
 
-/-! Challenge module for Comparator (config.json): the definitions of `RegretKappa/UnknownBT/Statement.lean`, copied in order
-with their docstrings and the theorems left out, and the targets with `sorry`. Nothing outside the challenge imports it. -/
+public import RegretKappa.Challenge.Statement
+public import RegretKappa.Challenge.UpperSharp
+
+@[expose] public section
+
+/-! Challenge module for Comparator (config.json): the definitions of `RegretKappa/UnknownBT/Statement.lean`, copied by a
+program in their order, without their docstrings, comments and theorems, and the targets with `sorry`, whose
+"declaration uses sorry" warnings are expected. Nothing outside the challenge imports it. -/
 
 namespace RegretKappa.UnknownBT
 

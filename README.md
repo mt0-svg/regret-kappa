@@ -5,6 +5,7 @@
   <a href="https://doi.org/10.5281/zenodo.23095139"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.23095139.svg"></a>
   <a href="https://mt0-svg.github.io/regret-kappa/run.html"><img alt="Lean Proved" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmt0-svg%2Fregret-kappa%2Fbadges%2Flean.json"></a>
   <a href="https://mt0-svg.github.io/regret-kappa/run.html"><img alt="Lean Comparator" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmt0-svg%2Fregret-kappa%2Fbadges%2Fcomparator.json"></a>
+  <a href="https://mt0-svg.github.io/regret-kappa/run.html"><img alt="Computation Certificates" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmt0-svg%2Fregret-kappa%2Fbadges%2Fcertificates.json"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue"></a>
 </p>
 
@@ -39,13 +40,13 @@ theorem RegretKappa.UnknownBT.UB.answer :
 
 ## What is checked
 
-- **Lean 4.** `RegretKappa.main` is Theorem 1.1 with its constants: for every $`B>0`$ and every integer $`T\ge355713`$, $`B^2(3\log T-2\log\log T-15.2)\le\mathrm{Reg}^*_T(B)\le B^2(3\log T+0.37)`$, where $`\mathrm{Reg}^*_T(B)`$ is the minimax regret of deterministic learners, taken in the extended real numbers, and $`\mathrm{Reg}^*_T(B)/(B^2\log T)\to3`$. It follows from `RegretKappa.mainChain`, the same with the bounds $`B^2b(T)`$ of Theorem 4.1 and $`B^2u(T)`$ of Theorem 3.1 in between, and from `RegretKappa.boundU_le`, $`u(T)\le3\log T+0.37`$ for $`T\ge355713`$. Its proof goes through Theorem 3.1, the learner (`RegretKappa.UpperSharp.theoremU` and `theoremULog`), and Theorem 4.1, the adversary (`RegretKappa.LowerSharp.lowerSharpAdv`, `lowerSharpSimplified` and `lowerSharpBound`); it derives the limit from the two bounds of Theorem 1.1 (`RegretKappa.kappaEqThree_squeeze`). `RegretKappa.mainBoundedFeatures` is Corollary 5.1 (features in $`[0,1]`$, outcomes in $`\{-B,0,B\}`$, randomized learners) and `RegretKappa.mainBoundedFeaturesChain` the same with the bounds $`B^2b(T)`$ and $`B^2u(T)`$ of Theorems 4.1 and 3.1. `RegretKappa.randLowerBound` is Remark 5.2, proved from Corollary 5.1. `RegretKappa.UnknownBT.UB.scaleFreeBound_twelve` is Theorem 6.1, the bound of the learner `learnerBT`, which knows neither $`B`$ nor $`T`$, for every $`T\ge1`$ and every play; `RegretKappa.UnknownBT.theoremB` is the first bound of Proposition 6.4, with $`B=1`$ known; `RegretKappa.UnknownBT.UB.answer` is Corollary 6.2, and `RegretKappa.UnknownBT.optimality` its part (b). The theorems have no hypothesis and use only the axioms `propext`, `Classical.choice` and `Quot.sound`; no `sorry`, no `native_decide`. Every numerical step is an inequality between rational numbers checked in Lean, and Lean's kernel evaluates the drift certificate of Computation B.2. Without its measurability hypothesis, with the Bochner integral of the regret as the expected regret, Remark 5.2 is false (`RegretKappa.CorollariesCheck.V42b.not_randLowerBound`). Comparator checks the fourteen theorems of `config.json` against `RegretKappa/Challenge.lean` and `RegretKappa/Challenge/`, copies of the definitions with `sorry` proofs, and replays their proofs in the type checker nanoda.
-- **Data.** The subdivisions of the drift certificate of Computation B.2 were written into `RegretKappa/LowerSharp/DriftCells.lean` by a PARI/GP program (`code/drift-cells/`), which the proof does not trust: the kernel checks what it writes.
+- **Lean 4.** `RegretKappa.main` is Theorem 1.1 with its constants: for every $`B>0`$ and every integer $`T\ge355713`$, $`B^2(3\log T-2\log\log T-15.2)\le\mathrm{Reg}^*_T(B)\le B^2(3\log T+0.37)`$, where $`\mathrm{Reg}^*_T(B)`$ is the minimax regret of deterministic learners, taken in the extended real numbers, and $`\mathrm{Reg}^*_T(B)/(B^2\log T)\to3`$. Its proof derives the two bounds (`RegretKappa.closedBounds`) from $`B^2b(T)\le\mathrm{Reg}^*_T(B)\le B^2u(T)`$ (`RegretKappa.chainBounds`), with Theorem 4.1(b) for $`b(T)`$ and `RegretKappa.boundU_le`, $`u(T)\le3\log T+0.37`$ for $`T\ge355713`$, and the limit from the two bounds (`RegretKappa.kappaEqThree_squeeze`). The bound $`B^2u(T)`$ is Theorem 3.1, the learner (`RegretKappa.UpperSharp.theoremU`), and $`B^2b(T)`$ is Theorem 4.1, the adversary (`RegretKappa.LowerSharp.lowerSharpAdv`, `lowerSharpSimplified` and `lowerSharpBound`). `RegretKappa.mainChain` states Theorem 1.1 with $`B^2b(T)`$ and $`B^2u(T)`$ in place of the two closed bounds, and `RegretKappa.UpperSharp.theoremULog` is the second form of $`u(T)`$ in Theorem 3.1. `RegretKappa.mainBoundedFeatures` is Corollary 5.1 (features in $`[0,1]`$, outcomes in $`\{-B,0,B\}`$, randomized learners) and `RegretKappa.mainBoundedFeaturesChain` the same with the bounds $`B^2b(T)`$ and $`B^2u(T)`$ of Theorems 4.1 and 3.1. `RegretKappa.randLowerBound` is Remark 5.2, proved from Corollary 5.1. `RegretKappa.UnknownBT.UB.scaleFreeBound_twelve` is Theorem 6.1, the bound of the learner `learnerBT`, which knows neither $`B`$ nor $`T`$, for every $`T\ge1`$ and every play; `RegretKappa.UnknownBT.theoremB` is the first bound of Proposition 6.4, with $`B=1`$ known; `RegretKappa.UnknownBT.UB.answer` is Corollary 6.2, parts (a) and (c), and `RegretKappa.UnknownBT.optimality` is its part (b). The theorems have no hypothesis and use only the axioms `propext`, `Classical.choice` and `Quot.sound`; no `sorry`, no `native_decide`. The numerical steps are inequalities between explicit numbers, or inequalities in one real or integer variable proved by monotonicity or by a polynomial bound, all derived from rational bounds proved in Lean on the constants involved; Lean's kernel evaluates the drift certificate of Computation B.2. Corollary 5.1 and Remark 5.2 ask the randomized learner to be measurable (`RegretKappa.Corollaries.IsRandLearner`); `RegretKappa.Corollaries.isRandLearner_nonempty` gives such a learner in every universe and for every horizon, so the condition can be met. Without the measurability, with the Bochner integral of the regret as the expected regret, Remark 5.2 is false (`RegretKappa.CorollariesCheck.V42b.not_randLowerBound`). Comparator checks the fifteen theorems of `config.json` against `RegretKappa/Challenge.lean` and `RegretKappa/Challenge/`, which a program writes from the statement files: their definitions, copied, and the fifteen theorems with `sorry` proofs. It replays the proofs in the type checker nanoda.
+- **Computations outside Lean.** The subdivisions of the drift certificate of Computation B.2 were written into `RegretKappa/LowerSharp/DriftCells.lean` by a PARI/GP program (`code/drift-cells/`), which the proof does not trust: the kernel checks what it writes. A second PARI/GP program (`code/instance/`) evaluates the instance printed after Theorem 1.1, at $`T=10^6`$, in floating point with 100 significant digits, rounding the lower bounds down and the upper bounds up; no proof uses these numbers.
 - **Cited.** The constant $`1`$ for features known in advance is Theorems 4 and 7 of Gaillard et al.; it is not checked here.
 
-[`STATEMENTS.md`](STATEMENTS.md) maps each numbered statement of the paper to its Lean declarations, and Computation B.2 to the program that wrote its data.
+[`STATEMENTS.md`](STATEMENTS.md) maps each numbered statement of the paper to its Lean declarations, Computation B.2 to the program that wrote its data, and Theorem 1.1 to the program of its instance. [`formalization.yaml`](formalization.yaml) gives the same map in the format of [formalization.yaml](https://github.com/mathlib-initiative/formalization.yaml).
 
-`ci.yml` builds the package, fails on any axiom other than these three, scans the sources for `sorry`, `admit` and `native_decide`, and runs Comparator. `release.yml` attaches the PDF, the logs of the checks and the build Comparator checked to each release, from the green CI run, without compiling again.
+`ci.yml` builds the package, fails on any axiom other than these three, scans the sources for `sorry`, `admit` and `native_decide`, runs Comparator, and runs the two PARI/GP programs against their recorded outputs. `release.yml` attaches the PDF, the logs of the checks and the build Comparator checked to each release, from the green CI run, without compiling again.
 
 ## Layout
 
@@ -60,7 +61,7 @@ theorem RegretKappa.UnknownBT.UB.answer :
 | `RegretKappa/CorollariesCheck/`                                                                    | Remark 5.2 read with the Bochner integral and no measurability, and the proof that it is false                                                                                    |
 | `RegretKappa/Challenge.lean`, `RegretKappa/Challenge/`, `RegretKappa/Solution.lean`, `config.json` | the statements with `sorry`, their proofs, and the Comparator configuration                                                                                                       |
 | `paper/`                                                                                           | the TeX source and `statement_map.sh`, which writes `STATEMENTS.md`                                                                                                               |
-| `code/`                                                                                            | the program that wrote the subdivisions of the drift certificate, and the records of the checks of the formal proof; [`code/README.md`](code/README.md) gives the command of each |
+| `code/`                                                                                            | the program that wrote the subdivisions of the drift certificate, the program of the instance after Theorem 1.1, and the records of the checks of the formal proof; [`code/README.md`](code/README.md) gives the command of each |
 
 ## Check and reuse
 
@@ -75,7 +76,7 @@ rm -rf .lake/build/lib/lean/RegretKappa/Challenge .lake/build/lib/lean/RegretKap
 # then Comparator, as .github/workflows/ci.yml runs it
 ```
 
-Full check, from source (about 11 minutes for the 74 modules of the package on three cores of an AMD Ryzen 9 5900X (12 cores, 24 threads), 64 GB of memory, once Mathlib is built; `code/formal-proof/clean_build.out`):
+Full check, from source (about 12 minutes for the 74 modules of the package on an AMD Ryzen 9 5900X (12 cores, 24 threads), 64 GB of memory, once Mathlib is built; `code/formal-proof/clean_build.out`; Comparator about 4 minutes, `code/formal-proof/comparator.out`):
 
 ```sh
 lake exe cache get && lake build
@@ -87,18 +88,18 @@ As a dependency (Lean and Mathlib `v4.34.1`):
 [[require]]
 name = "regret-kappa"
 git = "https://github.com/mt0-svg/regret-kappa"
-rev = "v1.2.0"
+rev = "v1.3.0"
 ```
 
 then `lake update regret-kappa`, `lake exe cache get` and `lake build`, which downloads the build archive of the release.
 
-The program that wrote the subdivisions of the drift certificate: [`code/README.md`](code/README.md) gives its command, which writes `RegretKappa/LowerSharp/DriftCells.lean` again, identical to the shipped file, in under a second (`code/drift-cells/out/drift_cells.txt`).
+The two PARI/GP programs: [`code/README.md`](code/README.md) gives their commands. The first writes `RegretKappa/LowerSharp/DriftCells.lean` again, identical to the shipped file (`code/drift-cells/out/drift_cells.txt`), the second prints the instance after Theorem 1.1 (`code/instance/out/bounds.txt`), each in under a second.
 
 ## Built on
 
 - [Lean 4](https://github.com/leanprover/lean4) and [Mathlib](https://github.com/leanprover-community/mathlib4) (Apache 2.0): the formalization.
 - [Comparator](https://github.com/leanprover/comparator), [lean4export](https://github.com/leanprover/lean4export), [nanoda](https://github.com/ammkrn/nanoda_lib) and [landrun](https://github.com/zouuup/landrun): the check of the statements in CI.
-- [PARI/GP](https://pari.math.u-bordeaux.fr/): the program that wrote the subdivisions of the drift certificate.
+- [PARI/GP](https://pari.math.u-bordeaux.fr/): the program that wrote the subdivisions of the drift certificate, and that of the instance after Theorem 1.1.
 
 ## Citation
 

@@ -1,6 +1,15 @@
-import RegretKappa.UnknownBT.Statement
-import RegretKappa.UnknownBT.Asymptotics
-import RegretKappa.Corollaries.Transfer
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UnknownBT.Statement
+public import RegretKappa.UnknownBT.Asymptotics
+public import RegretKappa.Corollaries.Transfer
+
+@[expose] public section
 
 /-!
 # The bridges between the targets of the statement

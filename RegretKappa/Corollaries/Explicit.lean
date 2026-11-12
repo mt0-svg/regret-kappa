@@ -1,5 +1,14 @@
-import RegretKappa.Corollaries.Transfer
-import RegretKappa.Corollaries.Expectation
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Corollaries.Transfer
+public import RegretKappa.Corollaries.Expectation
+
+@[expose] public section
 
 /-!
 # Explicit lower bounds over bounded features

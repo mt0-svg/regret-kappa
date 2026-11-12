@@ -1,5 +1,14 @@
-import RegretKappa.UnknownBT.UnknownB.Learner
-import RegretKappa.UnknownBT.Anytime.ScheduleB
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UnknownBT.UnknownB.Learner
+public import RegretKappa.UnknownBT.Anytime.ScheduleB
+
+@[expose] public section
 
 /-!
 # The scale-free bound (B and T unknown)

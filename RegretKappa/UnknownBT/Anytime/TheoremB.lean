@@ -1,5 +1,14 @@
-import RegretKappa.UnknownBT.Anytime.Potential
-import RegretKappa.UnknownBT.Anytime.Weights
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UnknownBT.Anytime.Potential
+public import RegretKappa.UnknownBT.Anytime.Weights
+
+@[expose] public section
 
 /-!
 # The anytime potential bound and `TheoremB`

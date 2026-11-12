@@ -1,5 +1,14 @@
-import RegretKappa.Statement
-import RegretKappa.UpperSharp.Statement
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Statement
+public import RegretKappa.UpperSharp.Statement
+
+@[expose] public section
 
 /-!
 # Target statement: regret with the outcome bound `B` and the horizon `T` both unknown

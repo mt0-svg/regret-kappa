@@ -1,7 +1,16 @@
-import RegretKappa.MainStatement
-import RegretKappa.LowerSharp.Assembly
-import RegretKappa.Corollaries.UpperU
-import RegretKappa.Corollaries.Explicit
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.MainStatement
+public import RegretKappa.LowerSharp.Assembly
+public import RegretKappa.Corollaries.UpperU
+public import RegretKappa.Corollaries.Explicit
+
+@[expose] public section
 
 /-!
 # The main theorem
@@ -178,5 +187,15 @@ theorem randLowerBound : Corollaries.RandLowerBound.{u} := by
   refine ⟨x i, y i, fun t => Corollaries.abs_le_of_mem hB (hy i t), le_trans ?_ hi⟩
   have hB2 : 0 < B ^ 2 := by positivity
   exact EReal.coe_le_coe_iff.2 (by nlinarith)
+
+/-- **The hypothesis on randomized learners is satisfiable**: in every universe and for every
+horizon, a deterministic learner on a one-point probability space is a randomized learner
+(`Corollaries.IsRandLearner`), so `mainBoundedFeatures`, `mainBoundedFeaturesChain` and `randLowerBound`
+are not vacuous. -/
+theorem Corollaries.isRandLearner_nonempty (T : ℕ) :
+    ∃ (Ω : Type u) (_ : MeasurableSpace Ω) (μ : MeasureTheory.Measure Ω) (L : Ω → Learner T),
+      Corollaries.IsRandLearner μ L :=
+  ⟨PUnit, inferInstance, MeasureTheory.Measure.dirac PUnit.unit, fun _ => ⟨fun _ _ _ => 0⟩,
+    Corollaries.isRandLearner_const _ _⟩
 
 end RegretKappa

@@ -14,7 +14,7 @@ open Lean Meta in
       ``RegretKappa.LowerSharp.lowerSharpAdv, ``RegretKappa.LowerSharp.lowerSharpBound,
       ``RegretKappa.LowerSharp.lowerSharpSimplified, ``RegretKappa.UnknownBT.theoremB,
       ``RegretKappa.UnknownBT.optimality, ``RegretKappa.UnknownBT.UB.scaleFreeBound_twelve,
-      ``RegretKappa.UnknownBT.UB.answer] do
+      ``RegretKappa.UnknownBT.UB.answer, ``RegretKappa.Corollaries.isRandLearner_nonempty] do
     let c ← getConstInfo n
     hyps := hyps + (← forallTelescope c.type fun xs _ =>
       xs.foldlM (fun k x => do return if ← isProp (← inferType x) then k + 1 else k) 0)

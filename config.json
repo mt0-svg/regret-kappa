@@ -7,7 +7,8 @@
     "RegretKappa.LowerSharp.lowerSharpAdv", "RegretKappa.LowerSharp.lowerSharpBound",
     "RegretKappa.LowerSharp.lowerSharpSimplified",
     "RegretKappa.UnknownBT.theoremB", "RegretKappa.UnknownBT.optimality",
-    "RegretKappa.UnknownBT.UB.scaleFreeBound_twelve", "RegretKappa.UnknownBT.UB.answer"],
+    "RegretKappa.UnknownBT.UB.scaleFreeBound_twelve", "RegretKappa.UnknownBT.UB.answer",
+    "RegretKappa.Corollaries.isRandLearner_nonempty"],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true,
   "lean_kernel": false

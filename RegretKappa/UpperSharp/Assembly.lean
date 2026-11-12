@@ -1,6 +1,15 @@
-import RegretKappa.UpperSharp.Step
-import RegretKappa.UpperSharp.Terminal
-import RegretKappa.Upper.Sums
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UpperSharp.Step
+public import RegretKappa.UpperSharp.Terminal
+public import RegretKappa.Upper.Sums
+
+@[expose] public section
 
 /-!
 # The upper bound with the paper's constants: the potential along the play

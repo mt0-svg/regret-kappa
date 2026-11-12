@@ -1,7 +1,16 @@
-import Mathlib
-import RegretKappa.UnknownBT.Statement
-import RegretKappa.UpperSharp.Weights
-import RegretKappa.Upper.Sums
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import Mathlib
+public import RegretKappa.UnknownBT.Statement
+public import RegretKappa.UpperSharp.Weights
+public import RegretKappa.Upper.Sums
+
+@[expose] public section
 
 /-!
 # Unknown `B`: elementary lemmas

@@ -4,34 +4,36 @@ name: CI
 # code/formal-proof/clean_build.sh in dependency order, the heavy modules a few at a time (its header lists its
 # settings). The package's .lake/build is restored first, from the actions cache (the last build on this toolchain and
 # manifest), else from the Lake build archive of the latest release, so only the modules that changed and those that
-# import them are compiled; Comparator replays the whole environment in the kernel config.json names (nanoda alone with
-# lean_kernel false, the Lean kernel with enable_nanoda false) whatever was restored. Then the checks: every target up
-# to date, the axioms of the theorems of config.json, a scan of the sources, Comparator and its negative controls
+# import them are compiled; Comparator replays the theorems of config.json and every declaration they depend on, in
+# the kernel config.json names (nanoda alone with lean_kernel false, the Lean kernel with enable_nanoda false),
+# whatever was restored. Then the checks: every target up to date, the axioms of the theorems of config.json, a scan
+# of the sources, Comparator and its negative controls
 # (.github/comparator-controls.tsv, when present).
 # The build runs as a chain of up to five jobs. Each one continues the build of the previous one (handed over
 # as the artifact lake-build) for at most 300 minutes, under the 6 hour limit of a job, and the chain stops at
 # the first job that ends it. The last job fails if the build is still not complete.
 #
-# The finite computations of the proof are checked by the Lean kernel in the build.
+# The computations: the job gp runs the two PARI/GP programs of code/ and compares their outputs with the recorded ones
+# (drift_cells.gp writes the data of the drift certificate, bounds.gp the instance printed after Theorem 1.1).
 # Every job uploads the complete output of each check and one result line per check as an artifact verify-*, which
 # release.yml collects into the verification archive of a release. A run started by hand on the default branch ends
-# with the job badges, which writes the two badges of the README to the branch badges, with the page run.html that
+# with the job badges, which writes the three badges of the README to the branch badges, with the page run.html that
 # their links open, which forwards to this run.
-# Only commits that touch the build run it; a newer push cancels the older run on the same branch. On a push to an
-# existing branch the job changes reads the files of the pushed commits, and the Lean jobs run when they touch the Lean
-# sources, the Lake files, config.json, code/formal-proof/ or the Comparator files of .github/. A change of this file,
-# a run by hand, a pull request and a new branch run everything. A release takes a run started by hand on its tagged
-# commit (release.yml).
+# Only commits that touch the build or the computations run it; a newer push cancels the older run on the same branch.
+# On a push to an existing branch the job changes reads the files of the pushed commits, and only the jobs of the parts
+# they touch run: the computation jobs for code/ outside code/formal-proof/, the Lean jobs for the Lean sources, the
+# Lake files, config.json and code/formal-proof/. A change of this file, a run by hand, a pull request and a new
+# branch run everything. A release takes a run started by hand on its tagged commit (release.yml).
 on:
   push:
-    branches: ["**"]
+    branches-ignore: [main]
     paths: &build-paths
       - "**.lean"
       - lakefile.toml
       - lake-manifest.json
       - lean-toolchain
       - config.json
-      - code/formal-proof/**
+      - code/**
       - .github/comparator-controls.tsv
       - .github/comparator-lean-kernel.patch
       - .github/workflows/ci.yml
@@ -55,6 +57,7 @@ jobs:
     name: Changed parts
     runs-on: ubuntu-latest
     outputs:
+      compute: ${{ steps.diff.outputs.compute }}
       lean: ${{ steps.diff.outputs.lean }}
     steps:
       - uses: actions/checkout@v5
@@ -73,16 +76,18 @@ jobs:
           if [ "$EVENT" != push ] || [ -z "$BEFORE" ] || [ "$BEFORE" = "$zero" ] ||
             ! files=$(git diff --name-only --no-renames "$BEFORE" "$SHA"); then
             echo "$EVENT${BEFORE:+ from $BEFORE}: every job runs"
-            echo lean=true >> "$GITHUB_OUTPUT"
+            { echo compute=true; echo lean=true; } >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          lean=false
+          compute=false lean=false
           while IFS= read -r f; do
-            case "$f" in .github/workflows/ci.yml | *.lean | lakefile.toml | lake-manifest.json | lean-toolchain | config.json | code/formal-proof/* | .github/comparator-*) lean=true ;; esac
+            case "$f" in .github/workflows/ci.yml) compute=true lean=true ;; esac
+            case "$f" in code/formal-proof/*) ;; code/*) compute=true ;; esac
+            case "$f" in *.lean | lakefile.toml | lake-manifest.json | lean-toolchain | config.json | code/formal-proof/* | .github/comparator-*) lean=true ;; esac
           done <<< "$files"
           printf '%s\n' "$files"
-          echo "lean=$lean"
-          echo "lean=$lean" >> "$GITHUB_OUTPUT"
+          echo "compute=$compute lean=$lean"
+          { echo "compute=$compute"; echo "lean=$lean"; } >> "$GITHUB_OUTPUT"
 
   scan:
     name: Source scan
@@ -331,7 +336,7 @@ jobs:
           lake build --no-build > up-to-date.txt 2>&1 || rc=$?
           cat up-to-date.txt
           cp up-to-date.txt verify/lean/up-to-date.txt
-          n=$(grep "declaration uses 'sorry'" up-to-date.txt | grep -vc "$ROOT/Challenge" || true)
+          n=$(grep -E "declaration uses [\`']sorry[\`']" up-to-date.txt | grep -vc "$ROOT/Challenge" || true)
           if [ "$rc" -eq 0 ] && [ "$n" -eq 0 ]; then r=PASS; else r=FAIL; fi
           printf 'up-to-date\tlake build --no-build (every default target)\t%s sorry warnings outside the challenge\t%s\tlean/up-to-date.txt\n' "$n" "$r" > verify/results/up-to-date.tsv
           [ "$rc" -ne 0 ] || echo "built=true" >> "$GITHUB_OUTPUT"
@@ -344,13 +349,15 @@ jobs:
           lake env lean code/formal-proof/main_axioms.lean > axioms.txt 2>&1 || rc=$?
           cat axioms.txt
           cp axioms.txt verify/lean/axioms.txt
+          # Lean wraps a long list of axioms onto lines that start with a space: one line per theorem.
+          sed -e :a -e N -e '$!ba' -e 's/\n / /g' axioms.txt > axioms-joined.txt
           lean --version > verify/versions/lean.txt
           r=PASS
           [ "$rc" -eq 0 ] || r=FAIL
           for t in $(jq -r '.theorem_names[]' config.json); do
             grep -q "^'$t' depends on axioms: \[" axioms.txt || { echo "no axioms line for $t"; r=FAIL; }
           done
-          other=$(sed -n "s/^'[^']*' depends on axioms: \[\(.*\)\]$/\1/p" axioms.txt | tr ',' '\n' | tr -d ' ' \
+          other=$(sed -n "s/^'[^']*' depends on axioms: \[\(.*\)\]$/\1/p" axioms-joined.txt | tr ',' '\n' | tr -d ' ' \
             | grep -vxE 'propext|Classical\.choice|Quot\.sound' | sort -u | tr '\n' ' ' || true)
           [ -z "$other" ] || { echo "axioms outside propext, Classical.choice, Quot.sound: $other"; r=FAIL; }
           printf 'axioms\tlake env lean code/formal-proof/main_axioms.lean\t%s theorems\t%s\tlean/axioms.txt\n' \
@@ -564,20 +571,69 @@ jobs:
           name: verify-comparator
           path: verify/
 
-  # The two badges of the README, from a run started by hand on the default branch: shields.io endpoint files on the
+  # The PARI/GP programs of code/: drift_cells.gp writes RegretKappa/LowerSharp/DriftCells.lean again, which must not
+  # change, and bounds.gp prints the instance after Theorem 1.1 of the paper, compared with code/instance/out/bounds.txt.
+  gp:
+    name: PARI/GP
+    needs: changes
+    if: needs.changes.outputs.compute == 'true'
+    runs-on: ubuntu-latest
+    container: debian@sha256:15a71cc87173e191d5046f9c4288db4e8954b67f92e48d9587087826b0afe562
+    steps:
+      - name: PARI/GP 2.17.2 and git
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pari-gp=2.17.2-1 git ca-certificates
+      - uses: actions/checkout@v5
+      - name: Programs against their recorded outputs
+        shell: bash
+        run: |
+          set -u
+          mkdir -p verify/gp verify/results verify/versions
+          gp --version-short > verify/versions/pari-gp.txt
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          fail=0
+          # name, directory, program, recorded standard output (none: empty), the file the program writes again
+          check() {
+            local name=$1 dir=$2 script=$3 out=$4 extra=$5 s0 r rc=0
+            s0=$(date +%s)
+            (cd "$dir" && gp -q "$script.gp" < /dev/null > "$GITHUB_WORKSPACE/verify/gp/$script.out" 2>&1) || rc=$?
+            if [ "$out" = none ]; then : > "verify/gp/$script.expected"; else cp "$out" "verify/gp/$script.expected"; fi
+            if [ "$rc" = 0 ] && diff "verify/gp/$script.expected" "verify/gp/$script.out" > "verify/gp/$script.diff" \
+              && { [ "$extra" = none ] || git diff --exit-code -- "$extra" >> "verify/gp/$script.diff"; }; then r=PASS; else r=FAIL; fail=1; fi
+            cat "verify/gp/$script.diff"
+            desc="gp -q $dir/$script.gp, standard output compared with ${out/#none/nothing}"
+            [ "$extra" = none ] || desc="$desc, and $extra unchanged"
+            printf '%s\t%s\t%s s\t%s\tgp/%s.out\n' "$name" "$desc" "$(($(date +%s) - s0))" "$r" "$script" >> verify/results/gp.tsv
+            echo "$name: $r"
+          }
+          check gp-drift-cells code/drift-cells drift_cells none RegretKappa/LowerSharp/DriftCells.lean
+          check gp-instance code/instance bounds code/instance/out/bounds.txt none
+          exit "$fail"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verify-gp
+          path: verify/
+
+  # The three badges of the README, from a run started by hand on the default branch: shields.io endpoint files on the
   # branch badges, and run.html, which sends the links of the README to this run (GitHub Pages serves the branch).
   badges:
     name: Badges
-    needs: [changes, scan, build-1, build-2, build-3, build-4, build-5, lean, comparator]
+    needs: [changes, scan, build-1, build-2, build-3, build-4, build-5, lean, comparator, gp]
     if: ${{ always() && github.event_name == 'workflow_dispatch' && github.ref_name == github.event.repository.default_branch }}
     runs-on: ubuntu-latest
     permissions:
+      actions: read
       contents: write
     steps:
       - uses: actions/checkout@v5
       - name: Badge files
         env:
+          GH_TOKEN: ${{ github.token }}
           NEEDS: ${{ toJSON(needs) }}
+          # Every job of the run whose name this does not match is a computation job (one per matrix entry).
+          NOT_COMPUTATION: '^(Changed parts|Source scan|Lean .*|Paper .*|Comparator|Badges)$'
         shell: bash
         run: |
           set -eu
@@ -607,6 +663,12 @@ jobs:
           else
             badge comparator "Lean Comparator" failed red
           fi
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/jobs?per_page=100" \
+            | jq -s --arg re "$NOT_COMPUTATION" '[.[].jobs[] | select((.name | test($re)) | not)]' > jobs.json
+          n=$(jq length jobs.json) k=$(jq 'map(select(.conclusion == "success")) | length' jobs.json)
+          jq -r '.[] | "\(.name): \(.conclusion)"' jobs.json
+          if [ "$n" -gt 0 ] && [ "$k" -eq "$n" ]; then c=brightgreen; else c=red; fi
+          badge certificates "Computation Certificates" "$k/$n reproduced" "$c"
           run="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           printf '<!doctype html>\n<meta charset="utf-8">\n<title>Run %s</title>\n<meta http-equiv="refresh" content="0; url=%s">\n<a href="%s">%s</a>\n' \
             "$GITHUB_RUN_ID" "$run" "$run" "$run" > out/run.html

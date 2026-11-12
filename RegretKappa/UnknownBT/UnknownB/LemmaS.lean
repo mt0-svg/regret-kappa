@@ -1,5 +1,14 @@
-import RegretKappa.UnknownBT.UnknownB.Kappa
-import RegretKappa.UpperSharp.Step
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UnknownBT.UnknownB.Kappa
+public import RegretKappa.UpperSharp.Step
+
+@[expose] public section
 
 /-!
 # Unknown `B`: the surprise round

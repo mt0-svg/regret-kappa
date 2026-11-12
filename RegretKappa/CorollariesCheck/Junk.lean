@@ -1,4 +1,13 @@
-import RegretKappa.Statement
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Statement
+
+@[expose] public section
 
 /-!
 # Junk values of an expectation over the randomness of a learner

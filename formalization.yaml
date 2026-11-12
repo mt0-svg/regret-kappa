@@ -1,0 +1,280 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "regret-kappa"
+  description: >-
+    Online linear regression in dimension one, with the features revealed one at a time and no bound on them, and the
+    regret measured against every linear predictor: for outcomes bounded by B and a horizon T >= 355713, both known
+    to the learner, the minimax regret lies between B^2 (3 log T - 2 log log T - 15.2) and B^2 (3 log T + 0.37), so
+    its leading constant is 3; the lower bound holds for randomized learners, with features in [0, 1]. A learner that
+    knows neither B nor T has regret at most M^2 (3 log T + 4 log log (T + 2) + 12 + 2/sqrt T + 4/T) on every play of
+    length T, with M the largest absolute outcome.
+  authors: [mt0-svg]
+  license: "Apache-2.0"
+
+sources:
+  - title: "Uniform regret bounds over R^d for the sequential linear regression problem with the square loss"
+    authors: ["Pierre Gaillard et al."]
+    id: "https://proceedings.mlr.press/v98/gaillard19a.html"
+    type: article
+    location: "Section 4.1: the open question on doubly uniform regret with features revealed on the fly (ALT 2019, PMLR 98; arXiv:1805.11386)"
+    relationship: other
+    note: "the question that the main theorem answers in dimension one; its constant 1 for features known in advance (their Theorems 4 and 7) is cited, not formalized"
+    author_endorsement: not-contacted
+  - title: "Self-Normalized Martingales and Uniform Regret Bounds for Linear Regression"
+    authors: ["Fan Chen", "Jian Qian", "Alexander Rakhlin", "Nikita Zhivotovskiy"]
+    id: "https://proceedings.mlr.press/v336/chen26f.html"
+    type: article
+    location: "Theorem 5 and Proposition 6: the doubly uniform regret is of order log T in dimension one (COLT 2026, PMLR 336; arXiv:2605.01628)"
+    relationship: background
+    author_endorsement: not-contacted
+  - title: "The constant of doubly uniform regret in one-dimensional online linear regression is three"
+    authors: [mt0-svg]
+    id: "https://github.com/mt0-svg/regret-kappa"
+    type: original-proof
+    location: "paper/main.tex, Theorem 1.1, Theorems 3.1 and 4.1, Corollary 5.1, Remark 5.2 and Section 6"
+    relationship: formalizes
+    author_endorsement: n/a
+
+related_formalizations: []
+
+classification:
+  arxiv: ["cs.LG", "stat.ML"]
+  msc2020: ["68Q32", "62J05", "62C20", "60G42", "91A05", "03B35"]
+
+status:
+  scope: "Theorem 1.1 and every other numbered statement of the paper, Question 1.2 aside, which is quoted from Gaillard et al."
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: [propext, Classical.choice, Quot.sound]
+  main_results:
+    - declaration: "RegretKappa.main"
+      file: "RegretKappa/Main.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "config.json"
+      literature_dependencies: []
+    - declaration: "RegretKappa.mainBoundedFeatures"
+      file: "RegretKappa/Main.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "config.json"
+      literature_dependencies: []
+    - declaration: "RegretKappa.randLowerBound"
+      file: "RegretKappa/Main.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "config.json"
+      literature_dependencies: []
+    - declaration: "RegretKappa.UnknownBT.UB.scaleFreeBound_twelve"
+      file: "RegretKappa/UnknownBT/UnknownB/Main.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "config.json"
+      literature_dependencies: []
+    - declaration: "RegretKappa.UnknownBT.UB.answer"
+      file: "RegretKappa/UnknownBT/UnknownB/Answer.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "config.json"
+      literature_dependencies: []
+    - declaration: "RegretKappa.UnknownBT.optimality"
+      file: "RegretKappa/UnknownBT/Main.lean"
+      sorry_count: 0
+      axioms: [propext, Classical.choice, Quot.sound]
+      comparator_config: "config.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: agent
+
+fidelity:
+  divergences: >-
+    The minimax regret is an infimum over deterministic learners of suprema over plays, taken in the extended real
+    numbers, and the expected regret of a randomized learner is the integral of the nonnegative regret plus the sum
+    of the squared outcomes, minus that sum, in the extended real numbers (Section 5 of the paper). The upper bound
+    and Section 6 work with Gamma/2 in place of Gamma, so with the increment 3/2, and with lambda/2 and A/2 in place
+    of lambda and A; Proposition 6.4 is proved with the potential Psi_t + 2 log h; Lemma A.7 is proved from
+    polynomial bounds on cosh with a remainder; in part (iv) of the proof of Lemma 4.6 the sum of log(i/k_0) is
+    bounded through k_0^k_0/k_0! <= e^k_0 (Section 8 of the paper).
+
+review:
+  status: agent-reviewed
+  notes: "The proof was refereed by agents with fresh context; Comparator checks the fifteen theorems of config.json against statement files that a program writes from the statement files of the package, which import only Mathlib and one another, and nanoda replays every declaration they depend on."
+alignment:
+  namespace: "RegretKappa"
+  statements:
+    - source: "Theorem 1.1"
+      lean: "RegretKappa.main"
+      module: "RegretKappa/Main.lean"
+      status: proved
+    - source: "Lemma 2.1"
+      lean: "RegretKappa.Corollaries.regret_rescale_inv"
+      module: "RegretKappa/Corollaries/Transfer.lean"
+      status: proved
+    - source: "Lemma 2.2"
+      lean: "RegretKappa.Lower.regret_eq"
+      module: "RegretKappa/Lower/Identity.lean"
+      status: proved
+    - source: "Lemma 2.3"
+      lean: "RegretKappa.Upper.rho_sq_le"
+      module: "RegretKappa/Upper/Sums.lean"
+      status: proved
+    - source: "Theorem 3.1"
+      lean: "RegretKappa.UpperSharp.theoremU"
+      module: "RegretKappa/UpperSharp/Main.lean"
+      status: proved
+    - source: "Proposition 3.2"
+      lean: "RegretKappa.UpperSharp.step_paper"
+      module: "RegretKappa/UpperSharp/Step.lean"
+      status: proved
+    - source: "Lemma 3.3"
+      lean: "RegretKappa.UpperSharp.potential_leU"
+      module: "RegretKappa/UpperSharp/Assembly.lean"
+      status: proved
+    - source: "Lemma 3.4"
+      lean: "RegretKappa.UpperSharp.terminal_sharp"
+      module: "RegretKappa/UpperSharp/Terminal.lean"
+      status: proved
+    - source: "Theorem 4.1"
+      lean: ["RegretKappa.LowerSharp.lowerSharpBound", "RegretKappa.LowerSharp.lowerSharpSimplified"]
+      module: ["RegretKappa/LowerSharp/Assembly.lean", "RegretKappa/LowerSharp/Side.lean"]
+      status: proved
+    - source: "Lemma 4.2"
+      lean: "RegretKappa.LowerSharp.rhoS_eq_chainOf"
+      module: "RegretKappa/LowerSharp/Chain.lean"
+      status: proved
+    - source: "Lemma 4.3"
+      lean: "RegretKappa.LowerSharp.level_ge"
+      module: "RegretKappa/LowerSharp/Side.lean"
+      status: proved
+    - source: "Lemma 4.4"
+      lean: "RegretKappa.LowerSharp.prob_fail_le"
+      module: "RegretKappa/LowerSharp/Assembly.lean"
+      status: proved
+    - source: "Lemma 4.5"
+      lean: "RegretKappa.LowerSharp.regret_succ"
+      module: "RegretKappa/LowerSharp/Adversary.lean"
+      status: proved
+    - source: "Lemma 4.6"
+      lean: "RegretKappa.LowerSharp.phase2S"
+      module: "RegretKappa/LowerSharp/Phase2.lean"
+      status: proved
+    - source: "Corollary 5.1"
+      lean: "RegretKappa.mainBoundedFeatures"
+      module: "RegretKappa/Main.lean"
+      status: proved
+    - source: "Remark 5.2"
+      lean: "RegretKappa.randLowerBound"
+      module: "RegretKappa/Main.lean"
+      status: proved
+    - source: "Theorem 6.1"
+      lean: "RegretKappa.UnknownBT.UB.scaleFreeBound_twelve"
+      module: "RegretKappa/UnknownBT/UnknownB/Main.lean"
+      status: proved
+    - source: "Corollary 6.2"
+      lean: ["RegretKappa.UnknownBT.UB.answer", "RegretKappa.UnknownBT.optimality"]
+      module: ["RegretKappa/UnknownBT/UnknownB/Answer.lean", "RegretKappa/UnknownBT/Main.lean"]
+      status: proved
+    - source: "Lemma 6.3"
+      lean: "RegretKappa.UnknownBT.LT_le_num"
+      module: "RegretKappa/UnknownBT/Anytime/ScheduleB.lean"
+      status: proved
+    - source: "Proposition 6.4"
+      lean: "RegretKappa.UnknownBT.theoremB"
+      module: "RegretKappa/UnknownBT/Anytime/TheoremB.lean"
+      status: proved
+    - source: "Lemma 6.5"
+      lean: "RegretKappa.UnknownBT.UB.scale_lemma"
+      module: "RegretKappa/UnknownBT/UnknownB/Kappa.lean"
+      status: proved
+    - source: "Lemma 6.6"
+      lean: "RegretKappa.UnknownBT.UB.lemmaS_abstract"
+      module: "RegretKappa/UnknownBT/UnknownB/LemmaS.lean"
+      status: proved
+    - source: "Lemma A.1"
+      lean: "RegretKappa.UpperSharp.G_sqrt_sub_le"
+      module: "RegretKappa/UpperSharp/Weights.lean"
+      status: proved
+    - source: "Lemma A.2"
+      lean: "RegretKappa.Upper.G_convex"
+      module: "RegretKappa/Upper/Mixability.lean"
+      status: proved
+    - source: "Lemma A.3"
+      lean: "RegretKappa.Upper.two_point"
+      module: "RegretKappa/Upper/Mixability.lean"
+      status: proved
+    - source: "Lemma A.4"
+      lean: "RegretKappa.Upper.mix_alg"
+      module: "RegretKappa/Upper/Mixability.lean"
+      status: proved
+    - source: "Corollary A.5"
+      lean: "RegretKappa.Upper.mix_small"
+      module: "RegretKappa/Upper/Mixability.lean"
+      status: proved
+    - source: "Lemma A.6"
+      lean: "RegretKappa.Upper.Ghat_subst"
+      module: "RegretKappa/Upper/SmallSteps.lean"
+      status: proved
+    - source: "Lemma A.7"
+      lean: ["RegretKappa.UpperSharp.small_step_sharp", "RegretKappa.UpperSharp.quartic_le"]
+      module: ["RegretKappa/UpperSharp/SmallSteps.lean", "RegretKappa/UpperSharp/SmallSteps.lean"]
+      status: proved
+    - source: "Lemma A.8"
+      lean: "RegretKappa.UpperSharp.large_step_sharp"
+      module: "RegretKappa/UpperSharp/LargeSteps.lean"
+      status: proved
+    - source: "Computation A.9"
+      lean: "RegretKappa.UpperSharp.quartic_le"
+      module: "RegretKappa/UpperSharp/SmallSteps.lean"
+      status: proved
+    - source: "Lemma B.1"
+      lean: ["RegretKappa.LowerSharp.drift", "RegretKappa.LowerSharp.drift_table"]
+      module: ["RegretKappa/LowerSharp/Move.lean", "RegretKappa/LowerSharp/DriftCells.lean"]
+      status: proved
+    - source: "Computation B.2"
+      lean: "RegretKappa.LowerSharp.drift_table"
+      module: "RegretKappa/LowerSharp/DriftCells.lean"
+      status: proved
+    - source: "Lemma B.3"
+      lean: "RegretKappa.LowerSharp.abs_sst_le"
+      module: "RegretKappa/LowerSharp/Hitting.lean"
+      status: proved
+    - source: "Lemma B.4"
+      lean: "RegretKappa.LowerSharp.ex_below_pow"
+      module: "RegretKappa/LowerSharp/Hitting.lean"
+      status: proved
+    - source: "Lemma B.5"
+      lean: "RegretKappa.LowerSharp.vanTreesG"
+      module: "RegretKappa/LowerSharp/VanTrees.lean"
+      status: proved
+    - source: "Lemma B.6"
+      lean: "RegretKappa.LowerSharp.integral_gP_deriv_sq"
+      module: "RegretKappa/LowerSharp/Prior.lean"
+      status: proved
+    - source: "Lemma C.1"
+      lean: "RegretKappa.UnknownBT.UB.convexOn_log_G"
+      module: "RegretKappa/UnknownBT/UnknownB/Gamma.lean"
+      status: proved
+    - source: "Lemma C.2"
+      lean: "RegretKappa.UnknownBT.UB.eta_mono"
+      module: "RegretKappa/UnknownBT/UnknownB/Gamma.lean"
+      status: proved
+    - source: "Lemma C.3"
+      lean: "RegretKappa.UnknownBT.UB.bco_beta"
+      module: "RegretKappa/UnknownBT/UnknownB/Kappa.lean"
+      status: proved
+    - source: "Lemma C.4"
+      lean: "RegretKappa.UnknownBT.UB.G0_le"
+      module: "RegretKappa/UnknownBT/UnknownB/Kappa.lean"
+      status: proved
+    - source: "Lemma C.5"
+      lean: "RegretKappa.UnknownBT.UB.lam_reduction"
+      module: "RegretKappa/UnknownBT/UnknownB/Basic.lean"
+      status: proved
+    - source: "Computation C.6"
+      lean: "RegretKappa.UnknownBT.UB.KB_le"
+      module: "RegretKappa/UnknownBT/UnknownB/Main.lean"
+      status: proved

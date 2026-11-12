@@ -1,6 +1,15 @@
-import RegretKappa.UnknownBT.UnknownB.LemmaS
-import RegretKappa.UnknownBT.Anytime.Learner
-import RegretKappa.UnknownBT.Anytime.Schedule
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UnknownBT.UnknownB.LemmaS
+public import RegretKappa.UnknownBT.Anytime.Learner
+public import RegretKappa.UnknownBT.Anytime.Schedule
+
+@[expose] public section
 
 /-!
 # The running-maximum learner

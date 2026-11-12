@@ -1,7 +1,17 @@
-import Mathlib
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
 
-/-! Challenge module for Comparator (config.json): the definitions of `RegretKappa/Statement.lean`, copied in order
-with their docstrings and the theorems left out, and the targets with `sorry`. Nothing outside the challenge imports it. -/
+public import Mathlib
+
+@[expose] public section
+
+/-! Challenge module for Comparator (config.json): the definitions of `RegretKappa/Statement.lean`, copied by a
+program in their order, without their docstrings, comments and theorems, and the targets with `sorry`, whose
+"declaration uses sorry" warnings are expected. Nothing outside the challenge imports it. -/
 
 namespace RegretKappa
 

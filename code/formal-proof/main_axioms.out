@@ -12,3 +12,4 @@
 'RegretKappa.UnknownBT.optimality' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RegretKappa.UnknownBT.UB.scaleFreeBound_twelve' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RegretKappa.UnknownBT.UB.answer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RegretKappa.Corollaries.isRandLearner_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]

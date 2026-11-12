@@ -1,5 +1,14 @@
-import RegretKappa.Lower.ClosedForm
-import RegretKappa.LowerSharp.Statement
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Lower.ClosedForm
+public import RegretKappa.LowerSharp.Statement
+
+@[expose] public section
 
 /-!
 # Sharp lower bound: the closed form of the phase-2 sum

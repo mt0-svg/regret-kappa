@@ -1,6 +1,15 @@
-import RegretKappa.LowerSharp.Adversary
-import RegretKappa.LowerSharp.Phase2
-import RegretKappa.LowerSharp.Side
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.LowerSharp.Adversary
+public import RegretKappa.LowerSharp.Phase2
+public import RegretKappa.LowerSharp.Side
+
+@[expose] public section
 
 /-!
 # Sharp lower bound: assembly

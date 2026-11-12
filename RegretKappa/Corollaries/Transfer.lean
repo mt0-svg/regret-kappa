@@ -1,5 +1,14 @@
-import RegretKappa.Lower.Identity
-import RegretKappa.Corollaries.Scaling
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Lower.Identity
+public import RegretKappa.Corollaries.Scaling
+
+@[expose] public section
 
 /-!
 # Transfer of a lower bound to bounded features, and the outcome scale

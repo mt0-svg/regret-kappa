@@ -2,9 +2,9 @@ name: Release
 
 # On a tag v* (or by hand for a given tag): the GitHub release of the tagged commit, from the green CI run of
 # that commit. Nothing is compiled again: the Lake build that CI built and checked (build, source scan, axioms,
-# Comparator and its controls) is packed as it is, with the PDF and the outputs of every check of that run. It takes
-# the green CI run started by hand on the tagged commit; with none, the release stops: run ci.yml on it first, then
-# start this workflow by hand with the tag.
+# Comparator and its controls, the computation jobs) is packed as it is, with the PDF and the outputs of every check
+# of that run. It takes the green CI run started by hand on the tagged commit; with none, the release stops: run
+# ci.yml on it first, then start this workflow by hand with the tag.
 on:
   push:
     tags: ["v*"]
@@ -47,6 +47,25 @@ jobs:
             --jq '.workflow_runs[0].id // empty')
           [ -n "$run" ] || { echo "no successful CI run started by hand on $TAG ($sha): run ci.yml on it (gh workflow run ci.yml --ref $TAG), then this workflow by hand"; exit 1; }
           echo "CI run $run on $TAG ($sha)"
+          # Every job of that run but Badges must have run and passed: a job skipped by its if, or a step skipped
+          # inside a job, would leave results missing, and counts of result files kept here drift from ci.yml. The
+          # one exception: the continuation parts of a chained Lean build (part 2 on) are skipped by design once an
+          # earlier part ends the build, so they may be skipped, provided part 1 and the job after the chain, which
+          # needs every part and fails on an unfinished build, passed.
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$run/jobs?per_page=100" \
+            | jq -r '.jobs[] | select(.name != "Badges") | "\(.conclusion)\t\(.name)"' > jobs.tsv
+          cat jobs.tsv
+          [ -s jobs.tsv ] || { echo "CI run $run lists no job"; exit 1; }
+          cont='^skipped'$'\t''(Lean build|Build), part ([2-9]|[1-9][0-9]+)$'
+          if grep -vE "^success"$'\t' jobs.tsv | grep -vE "$cont"; then
+            echo "CI run $run has jobs that did not pass (above)"; exit 1
+          fi
+          if grep -qE "$cont" jobs.tsv; then
+            if ! grep -qE '^success'$'\t''(Lean build|Build), part 1$' jobs.tsv \
+              || ! grep -qE '^success'$'\t''(Lean checks|Axioms)$' jobs.tsv; then
+              echo "CI run $run: build parts skipped, but part 1 or the job after the chain did not pass"; exit 1
+            fi
+          fi
           echo "run=$run" >> "$GITHUB_OUTPUT"
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
 
@@ -66,6 +85,7 @@ jobs:
         with:
           ref: ${{ env.TAG }}
       - uses: actions/download-artifact@v4
+        timeout-minutes: 20
         with:
           run-id: ${{ needs.ci-run.outputs.run }}
           github-token: ${{ github.token }}
@@ -73,10 +93,12 @@ jobs:
           merge-multiple: true
           path: verify
       - uses: actions/download-artifact@v4
+        timeout-minutes: 20
         with:
           name: paper
           path: .
       - uses: actions/download-artifact@v4
+        timeout-minutes: 20
         with:
           run-id: ${{ needs.ci-run.outputs.run }}
           github-token: ${{ github.token }}
@@ -103,8 +125,8 @@ jobs:
           fi
           cat archive.md
 
-      # Expected runs: the source scan, the build, the up-to-date check, the axioms, Comparator; add the result files
-      # of the computation jobs of ci.yml (their count) when there are any.
+      # Expected runs: the files that steps of ci.yml write unconditionally; the computation jobs are covered by the
+      # job check of ci-run (every job of the run passed), so no count of result files is kept here.
       - name: Verification archive
         shell: bash
         run: |
@@ -150,7 +172,7 @@ jobs:
           files="regret-kappa.pdf verification-$TAG.tar.gz $ASSETS"
           if gh release view "$TAG" > /dev/null 2>&1; then
             gh release upload "$TAG" $files --clobber
-            gh release edit "$TAG" --notes-file notes.md
+            gh release edit "$TAG" --notes-file notes.md --draft=false
           else
             gh release create "$TAG" $files --title "$TAG" --verify-tag --notes-file notes.md
           fi

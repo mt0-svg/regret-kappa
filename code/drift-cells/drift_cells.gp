@@ -8,7 +8,16 @@ NN = 14;
 {
 my(F = "../../RegretKappa/LowerSharp/DriftCells.lean");
 system(Str("rm -f ", F));
-write(F, "import RegretKappa.LowerSharp.DriftCheck\n");
+write(F, "/-");
+write(F, "Copyright (c) 2026 mt0-svg. All rights reserved.");
+write(F, "Released under Apache 2.0 license as described in the file LICENSE.");
+write(F, "Authors: mt0-svg");
+write(F, "-/");
+write(F, "module");
+write(F, "");
+write(F, "public import RegretKappa.LowerSharp.DriftCheck\n");
+write(F, "@[expose] public section");
+write(F, "");
 write(F, "/-!\n# The drift certificate\n");
 write(F, "The drift on `[0, 2.8)` and its certificate: one kernel check per cell `[j/10, (j+1)/10)`,");
 write(F, "with the order N = ", NN, " of the partial sums, and `drift_table`, the inequality on `[0, 2.8)`.");

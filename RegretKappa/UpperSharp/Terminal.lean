@@ -1,6 +1,15 @@
-import RegretKappa.UpperSharp.Moments
-import RegretKappa.UpperSharp.Statement
-import RegretKappa.Upper.Gamma
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UpperSharp.Moments
+public import RegretKappa.UpperSharp.Statement
+public import RegretKappa.Upper.Gamma
+
+@[expose] public section
 
 /-!
 # The upper bound with the paper's constants: the terminal condition

@@ -1,13 +1,24 @@
-import RegretKappa.Main
-import RegretKappa.UpperSharp.Main
-import RegretKappa.UnknownBT.UnknownB.Answer
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Main
+public import RegretKappa.UpperSharp.Main
+public import RegretKappa.UnknownBT.UnknownB.Answer
+
+@[expose] public section
 
 /-!
 # Solution
 
 The theorems of `RegretKappa.Challenge`, proved from the definitions of the statement files:
 `RegretKappa.main`, `RegretKappa.mainChain`, `RegretKappa.mainBoundedFeatures`, `RegretKappa.mainBoundedFeaturesChain`
-and `RegretKappa.randLowerBound` (the main theorem, bounded features and randomized learners) in `RegretKappa/Main.lean`;
+and `RegretKappa.randLowerBound` (the main theorem, bounded features and randomized learners), and
+`RegretKappa.Corollaries.isRandLearner_nonempty` (randomized learners exist, so the hypothesis of the last three is
+satisfiable) in `RegretKappa/Main.lean`;
 `RegretKappa.UpperSharp.theoremU` and `RegretKappa.UpperSharp.theoremULog`
 (the upper bound) in `RegretKappa/UpperSharp/Main.lean`; `RegretKappa.LowerSharp.lowerSharpAdv`,
 `RegretKappa.LowerSharp.lowerSharpBound` (the lower bound) in `RegretKappa/LowerSharp/Assembly.lean` and

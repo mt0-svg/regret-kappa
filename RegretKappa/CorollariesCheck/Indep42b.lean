@@ -1,10 +1,19 @@
-import RegretKappa.Statement
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.Statement
+
+@[expose] public section
 
 open Filter Topology
 open MeasureTheory
 open RegretKappa
 
-namespace Indep42b
+namespace RegretKappa.CorollariesCheck.Indep42b
 
 /-!
 # The randomized lower bound with the Bochner integral and no measurability
@@ -52,4 +61,4 @@ def RandLowerBound : Prop :=
 lemma expectedRegret_eq_integral {T : ℕ} (L : RandLearner T) (x y : Fin T → ℝ) :
     L.expectedRegret x y = ∫ ω, regret (L.learner ω) x y ∂(L.μ) := rfl
 
-end Indep42b
+end RegretKappa.CorollariesCheck.Indep42b

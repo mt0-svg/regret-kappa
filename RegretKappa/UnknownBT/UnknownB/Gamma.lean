@@ -1,5 +1,14 @@
-import RegretKappa.UnknownBT.UnknownB.Basic
-import RegretKappa.UpperSharp.Assembly
+/-
+Copyright (c) 2026 mt0-svg. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: mt0-svg
+-/
+module
+
+public import RegretKappa.UnknownBT.UnknownB.Basic
+public import RegretKappa.UpperSharp.Assembly
+
+@[expose] public section
 
 /-!
 # Unknown `B`: the facts about the potential
